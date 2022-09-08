@@ -1,5 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# devcontainer's docker-compose.yml (it's different for each user)
+.devcontainer/docker-compose.yml
+
 # dependencies
 /node_modules
 /.pnp
