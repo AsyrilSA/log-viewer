@@ -1,5 +1,5 @@
-FROM asyril-registry:5557/ubuntu:22.04
-ENV REFRESHED_AT 2022-07-09
+FROM asyril-registry:5556/ubuntu:22.04
+ENV REFRESHED_AT 2022-09-09
 
 # Prevent tzdata requesting timezone
 ENV TZ=Europe/Zurich
