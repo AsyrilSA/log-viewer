@@ -4,11 +4,6 @@ import Button from '@mui/material/Button';
 import Title from './Title';
 import Box from '@mui/material/Box';
 
-function preventDefault(event)
-{
-  event.preventDefault();
-}
-
 export default function Deposits()
 {
   return (
@@ -19,7 +14,6 @@ export default function Deposits()
           display: 'flex',
           justifyContent: 'center',
           alignItems: "center",
-          height: 200
         }}
       >
         <Box sx={{ height: 56 }}>

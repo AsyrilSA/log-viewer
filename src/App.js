@@ -71,9 +71,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
-        width: theme.spacing(20),
+        width: theme.spacing(0),
         [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(20),
+          width: theme.spacing(0),
         },
       }),
     },
@@ -159,52 +159,52 @@ function DashboardContent()
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
           }}
         >
           <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4, height:'85%' }}>
+            <Grid container spacing={3} sx={{height:'90%' }}>
               {/* Settings */}
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={12} md={8} lg={9} sx={{ mt: 0, mb: 0, minHeight:'30%' }}>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 160,
+                    height:'100%' 
+
                   }}
                 >
                   <Settings />
                 </Paper>
               </Grid>
-              { }
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={4} lg={3} sx={{ mt: 0, mb: 0, minHeight:'30%' }}>
                 <Paper
                   sx={{
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 160,
+                    height:'100%'
                   }}
                 >
                   <Import />
                 </Paper>
               </Grid>
+            
               {/* Recent Orders */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' , height:500}}>
+              <Grid item xs={12} sx={{ mt: 0, mb: 4, minHeight:'79%' }}>
+                <Paper sx={{ pt: 2, display: 'flex', flexDirection: 'column',minHeight:'100%'}}>
                   <LogDisplay />
                 </Paper>
-              </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4, height: 100 }} />
+              </Grid>     
+              <Grid item xs={12} sx={{ mt: 0, mb: 0, height:'2%' }}>
+                <Copyright sx={{ pt: 0, height: 20 }} />
+              </Grid>     
+            </Grid>  
+            
           </Container>
         </Box>
       </Box>
