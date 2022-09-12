@@ -1,4 +1,5 @@
 import * as React from "react";
+import PropTypes from 'prop-types'
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 
@@ -9,6 +10,10 @@ function MenuItem(props) {
     </ListItemButton>
   );
 }
+
+MenuItem.prototype = {
+  value: PropTypes.string,
+};
 
 export const mainListItems = (
   <React.Fragment>
