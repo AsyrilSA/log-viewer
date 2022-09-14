@@ -6,7 +6,6 @@ import AppDrawer from "components/layout/AppDrawer";
 import BaseInformations from "pages/BaseInformations";
 import WelcomePage from "pages/WelcomePage";
 import AdvancedPage from "pages/AdvancedPage";
-import Expenses from "components/expenses/NewExpense";
 
 export default function Layout() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -18,8 +17,7 @@ export default function Layout() {
     <div>
       <AppDrawer isDrawerOpen={isDrawerOpen} />
       <AppTopBar onClickMenuIcon={onClickMenuIconHandler} />
-      <Expenses />
-      <div style={{ marginLeft: "250px" }}>
+      <div style={{ marginLeft: "250px", marginTop: "80px" }}>
         <Routes>
           <Route path="/home" element={<WelcomePage />} />
           <Route path="/baseinformations" element={<BaseInformations />} />

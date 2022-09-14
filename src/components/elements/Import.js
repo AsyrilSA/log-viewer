@@ -1,14 +1,12 @@
 
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import Title from './elements/Title';
 import Box from '@mui/material/Box';
 
 export default function Deposits()
 {
   return (
     <React.Fragment>
-      <Title>Import Logs</Title>
       <Box
         sx={{
           display: 'flex',
@@ -17,7 +15,8 @@ export default function Deposits()
         }}
       >
         <Box sx={{ height: 56 }}>
-          <Button variant="contained">Open Import Dialog</Button>
+          <Button variant="contained"
+          color="primary">Import Logs</Button>
         </Box>
       </Box>
 
