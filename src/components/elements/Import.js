@@ -14,9 +14,9 @@ export default function Deposits()
           alignItems: "center",
         }}
       >
-        <Box sx={{ height: 56 }}>
+        <Box>
           <Button variant="contained"
-          color="primary">Import Logs</Button>
+          color="secondary">Import Logs</Button>
         </Box>
       </Box>
 

@@ -19,6 +19,7 @@ export default function Layout() {
       <AppTopBar onClickMenuIcon={onClickMenuIconHandler} />
       <div style={{ marginLeft: "250px", marginTop: "80px" }}>
         <Routes>
+          <Route path="/" element={<WelcomePage />} />
           <Route path="/home" element={<WelcomePage />} />
           <Route path="/baseinformations" element={<BaseInformations />} />
           <Route path="/advancedpage" element={<AdvancedPage />} />

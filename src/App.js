@@ -5,7 +5,7 @@ function App() {
   const mdTheme = createTheme({
     palette: {
       primary: {
-        light: "#52717f",
+        light: "#2A9D8F",
         main: "#264653",
         dark: "#001f2a",
         contrastText: "#ffffff",
