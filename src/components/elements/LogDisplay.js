@@ -1,17 +1,13 @@
 import * as React from "react";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
-import Title from "./Title";
 
 import "./LogDisplay.css";
 
 export default function Orders() {
   return (
     <React.Fragment>
-      <Grid container spacing={3} sx={{ px: 2, minHeight: "100%" }}>
-        <Grid item xs={12}>
-          <Title>Display</Title>
-        </Grid>
+      <Grid container spacing={3} sx={{ px: 2, mt: 1, minHeight: "100%" }}>
         <Grid
           className="logger"
           item
