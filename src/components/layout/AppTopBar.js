@@ -10,8 +10,8 @@ const AppTopBar = (props) => {
       <AppBar
         position="fixed"
         sx={{
-          width: "calc(100% - 240px)",
-          ml: "240px",
+          width: "calc(100% - 200px)",
+          ml: "200px",
           backgroundColor: "#203b46",
         }}
       >

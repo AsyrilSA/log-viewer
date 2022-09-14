@@ -1,8 +1,23 @@
 .link__style{
   text-decoration:none;
-  color:black;
+  color: white;
 }
 
-.Drawer__style{
-  
+.Drawer__style > .MuiDrawer-paper {
+  border-right: none;
+}
+
+.MuiBox-root {
+  width: "200px";
+  height: "100%";
+  background-color: "#264653";
+}
+
+.ListItemIcon__style > svg{
+  color: white;
+  height: 28px;
+  width: 28px;
+  background-color: #2A9D8F;
+  border-radius: 10000px;
+  padding: 10px;
 }
