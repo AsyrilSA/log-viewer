@@ -1,12 +1,13 @@
 import LogDisplay from "components/elements/LogDisplay";
+import Title from "components/elements/Title";
 
-const Advanced = () => {
+const Raw = () => {
   return (
     <div>
-      <h1>Advanced page</h1>
+      <Title>Raw page</Title>
       <LogDisplay></LogDisplay>
     </div>
   );
 };
 
-export default Advanced;
+export default Raw;
