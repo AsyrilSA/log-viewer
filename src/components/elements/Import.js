@@ -1,25 +1,56 @@
+import * as React from "react";
+import { useRef, useState } from "react";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import untar from "js-untar";
 
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+export default function Import() {
+  const buttonRef = useRef(null);
 
-export default function Deposits()
-{
+  const onButtonClick = () => {
+    // `current` points to the mounted file input element
+    buttonRef.current.click();
+  };
+  const logsChangeHandler = (event) => {
+    let reader = new FileReader();
+    reader.onload = () => {
+      untar(reader.result).then(function (extractedFiles) {
+        console.log(extractedFiles);
+        localStorage.setItem("logsFiles", JSON.stringify(extractedFiles));
+      });
+    };
+    reader.readAsArrayBuffer(event.target.files[0]);
+  };
+
   return (
     <React.Fragment>
       <Box
         sx={{
-          display: 'flex',
-          justifyContent: 'center',
+          display: "flex",
+          justifyContent: "center",
           alignItems: "center",
         }}
       >
         <Box>
-          <Button variant="contained"
-          color="secondary">Import Logs</Button>
+          <Button
+            ref={buttonRef}
+            variant="contained"
+            color="secondary"
+            onClick={onButtonClick}
+          >
+            Import Logs
+          </Button>
+          <form onChange={logsChangeHandler} style={{ display: "none" }}>
+            <input
+              type="file"
+              id="file"
+              ref={buttonRef}
+              accept={".logs"}
+              style={{ display: "none" }}
+            />
+          </form>
         </Box>
       </Box>
-
     </React.Fragment>
   );
 }
