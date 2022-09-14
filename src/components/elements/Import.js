@@ -1,7 +1,7 @@
 
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import Title from './Title';
+import Title from './elements/Title';
 import Box from '@mui/material/Box';
 
 export default function Deposits()

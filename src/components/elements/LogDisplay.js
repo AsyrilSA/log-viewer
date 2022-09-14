@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import TextField from "@mui/material/TextField";
-import Title from './Title';
 
 import './LogDisplay.css'
 
@@ -12,9 +11,6 @@ export default function Orders()
     <React.Fragment>
 
         <Grid container spacing={3} sx={{px:2, minHeight:'100%' }}>
-          <Grid item xs={12}>
-            <Title>Display</Title>
-          </Grid>
           <Grid className="logger" item xs={12} sx={{ ml:4, mt: 0, mb: 0, height:390 }}>
           </Grid>
           <Grid item xs={12} md={4} lg={3} sx={{ mt: 0, mb: 0, minHeight:'10%' }}>

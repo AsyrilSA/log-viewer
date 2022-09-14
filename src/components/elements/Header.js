@@ -4,7 +4,7 @@ function Header(props)
 {
   return (
     <div>
-      <div className="date-log">{props.title}</div>
+      <div>{props.title}</div>
       <h2>Log Viewer</h2>
     </div>
   );
