@@ -1,0 +1,7 @@
+.logger {
+    padding:20px;
+    min-height: 80%;
+    background: #000;
+    color: #fff;
+    font-family: monospace;
+}
