@@ -36,8 +36,8 @@ export default function AppDrawer() {
                     <ContentPasteSearchIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <Link to="/home" className="link__style">
-                      Home
+                    <Link to="/base" className="link__style">
+                      Base
                     </Link>
                   </ListItemText>
                 </ListItemButton>

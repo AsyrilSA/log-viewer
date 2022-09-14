@@ -1,0 +1,16 @@
+.arrow-image {
+  position: absolute;
+  top: 100px;
+  right: 10px;
+  width: 200px;
+  height: 200px;
+  animation-name: arrow;
+  animation-duration: 1s;
+  animation-iteration-count: infinite
+}
+
+@keyframes arrow {
+  0%   {top:100px;}
+  50%  {top:120px;}
+  100% {top:100px;}
+}
