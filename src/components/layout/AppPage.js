@@ -20,7 +20,7 @@ export default function Layout() {
     <div>
       <AppDrawer isDrawerOpen={isDrawerOpen} />
       <AppTopBar onClickMenuIcon={onClickMenuIconHandler} />
-      <div style={{ marginLeft: "250px", marginTop: "80px" }}>
+      <div style={{ marginLeft: "210px", marginTop: "80px" }}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/home" element={<HomePage />} />

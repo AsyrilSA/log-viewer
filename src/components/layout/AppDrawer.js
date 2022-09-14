@@ -21,12 +21,18 @@ export default function AppDrawer() {
   return (
     <div>
       <React.Fragment>
-        <Drawer variant="permanent">
-          <Box sx={{ width: 240 }}>
+        <Drawer className="Drawer__style" variant="permanent">
+          <Box
+            sx={{
+              width: 200,
+              height: "100%",
+              backgroundColor: "#264653",
+            }}
+          >
             <List>
               <ListItem disablePadding>
                 <ListItemButton>
-                  <ListItemIcon>
+                  <ListItemIcon className="ListItemIcon__style">
                     <ContentPasteSearchIcon />
                   </ListItemIcon>
                   <ListItemText>
@@ -37,7 +43,7 @@ export default function AppDrawer() {
                 </ListItemButton>
               </ListItem>
               <ListItemButton>
-                <ListItemIcon>
+                <ListItemIcon className="ListItemIcon__style">
                   <LanIcon />
                 </ListItemIcon>
                 <ListItemText>
@@ -47,7 +53,7 @@ export default function AppDrawer() {
                 </ListItemText>
               </ListItemButton>
               <ListItemButton>
-                <ListItemIcon>
+                <ListItemIcon className="ListItemIcon__style">
                   <SpeedIcon />
                 </ListItemIcon>
                 <ListItemText>
@@ -57,7 +63,7 @@ export default function AppDrawer() {
                 </ListItemText>
               </ListItemButton>
               <ListItemButton>
-                <ListItemIcon>
+                <ListItemIcon className="ListItemIcon__style">
                   <RawOnIcon />
                 </ListItemIcon>
                 <ListItemText>
@@ -67,7 +73,7 @@ export default function AppDrawer() {
                 </ListItemText>
               </ListItemButton>
               <ListItemButton>
-                <ListItemIcon>
+                <ListItemIcon className="ListItemIcon__style">
                   <SettingsIcon />
                 </ListItemIcon>
                 <ListItemText>
