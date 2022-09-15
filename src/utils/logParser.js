@@ -1,4 +1,4 @@
-function parseLogFile(logFile) {
+const parseLogFile = (logFile) => {
   // Parse you log file here in order to have an array with the followign elements
   debugger;
   return [
@@ -10,6 +10,12 @@ function parseLogFile(logFile) {
       message: "message",
     },
   ];
-}
+};
+
+const getCommunicationLog = (logObject) => {
+  // Parse you log file here in order to have an array with the followign elements
+  debugger;
+  return logObject;
+};
 
 export default parseLogFile;
