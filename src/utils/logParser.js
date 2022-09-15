@@ -57,17 +57,38 @@ function parseLogFile(logLines) {
   return entries;
 }
 
+/**
+ * Filter log entries.
+ *
+ * include and exclude can be used to filter out log entries. A log entry will be included/excluded if it matches one
+ * (or several) test.
+ *
+ * @param {Array} logObject an array of log entries
+ * @param {Array} include an array of functions with a log entry as single parameter.
+ * @param {Array} exclude an array of functions with a log entry as single parameter.
+ * @returns a filtered array of log entries
+ */
+function filterLogs(logObject, include, exclude = []) {
+  return logObject
+    .filter((logLine) =>
+      include.reduce((previous, current) => previous || current(logLine), false)
+    )
+    .filter(
+      (logLine) =>
+        !exclude.reduce(
+          (previous, current) => previous || current(logLine),
+          false
+        )
+    );
+}
+
 function getCommunicationLog(logObject) {
-  if (logObject) {
-    // TODO: filter
-    return logObject;
-  }
-  return [];
+  // Only consider log entries from the robot service
+  return filterLogs(logObject, [(x) => x.service.startsWith("backend.robot")]);
 }
 
 function getApplicationLog(logObject) {
-  // Parse you log file here in order to have an array with the followign elements
-  debugger;
+  // Consider all current log entries (the parser removes entries that do not belong to the application)
   return logObject;
 }
 
