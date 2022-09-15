@@ -32,9 +32,8 @@ export default function RawPageTabs() {
   // });
 
   return (
-    <Grid container spacing={0}>
+    <Grid spacing={0}>
       <Grid
-        item
         xs={10}
         sx={{
           width: "100%",
