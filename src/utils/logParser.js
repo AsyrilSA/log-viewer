@@ -1,6 +1,6 @@
 function parseLogFile(logFile) {
   // Parse you log file here in order to have an array with the followign elements
-
+  debugger;
   return [
     {
       id: 1, // id is needed for the table we set here the line number
@@ -12,4 +12,10 @@ function parseLogFile(logFile) {
   ];
 }
 
-export default parseLogFile;
+function getCommunicationLog(logObject) {
+  // Parse you log file here in order to have an array with the followign elements
+  debugger;
+  return logObject;
+}
+
+export { parseLogFile, getCommunicationLog };
