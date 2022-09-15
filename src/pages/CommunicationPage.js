@@ -2,6 +2,8 @@ import Title from "components/elements/Title";
 import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { getCommunicationLog } from "utils/logParser";
+import { useContext } from "react";
+import { LogContext } from "App";
 
 const columns = [
   { field: "id", headerName: "Line", width: 70 },
@@ -12,8 +14,11 @@ const columns = [
 ];
 
 const Communication = () => {
+  let [contextLogFile] = useContext(LogContext);
   const [communicationLogs] = useState(() => {
-    return getCommunicationLog(JSON.parse(localStorage.getItem("fullLog")));
+    return contextLogFile != null
+      ? getCommunicationLog(contextLogFile.rows)
+      : [];
   });
 
   return (

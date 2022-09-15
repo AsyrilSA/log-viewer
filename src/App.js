@@ -1,5 +1,8 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AppPage from "components/layout/AppPage";
+import React, { useState } from "react";
+
+export const LogContext = React.createContext({});
 
 function App() {
   const mdTheme = createTheme({
@@ -19,11 +22,15 @@ function App() {
     },
   });
 
+  const [logFile, setLogFile] = useState(null);
+
   return (
     <div className="App">
-      <ThemeProvider theme={mdTheme}>
-        <AppPage />
-      </ThemeProvider>
+      <LogContext.Provider value={[logFile, setLogFile]}>
+        <ThemeProvider theme={mdTheme}>
+          <AppPage />
+        </ThemeProvider>
+      </LogContext.Provider>
     </div>
   );
 }
