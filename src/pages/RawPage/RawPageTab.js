@@ -5,13 +5,31 @@ import Tab from "@mui/material/Tab";
 import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
+import { useState } from "react";
+import { getCommunicationLog } from "utils/logParser";
+import { getApplicationLog } from "utils/logParser";
+import { useContext } from "react";
+import { LogContext } from "App";
 
 export default function RawPageTabs() {
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState("1");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
+  let [contextLogFile] = useContext(LogContext);
+  const [fullLogs] = useState(() => {
+    return contextLogFile != null ? contextLogFile.raw : [];
+  });
+  const [applicationLogs] = useState(() => {
+    return contextLogFile != null ? getApplicationLog(contextLogFile.raw) : [];
+  });
+  // const [communicationLogs] = useState(() => {
+  //   return contextLogFile != null
+  //     ? getCommunicationLog(contextLogFile.raw)
+  //     : [];
+  // });
 
   return (
     <Grid container spacing={0}>
@@ -38,14 +56,23 @@ export default function RawPageTabs() {
               <Tab label="Metadata" value="4" />
             </TabList>
           </Box>
-          <TabPanel value="1" style={{ background: "black", height: "60vh" }}>
-            Logs
+          <TabPanel
+            value="1"
+            style={{ background: "black", height: "60vh", overflow: "auto" }}
+          >
+            {fullLogs}
           </TabPanel>
-          <TabPanel value="2" style={{ background: "black", height: "60vh" }}>
-            Logs
+          <TabPanel
+            value="2"
+            style={{ background: "black", height: "60vh", overflow: "auto" }}
+          >
+            {applicationLogs}
           </TabPanel>
-          <TabPanel value="3" style={{ background: "black", height: "60vh" }}>
-            Item Three
+          <TabPanel
+            value="3"
+            style={{ background: "black", height: "60vh", overflow: "auto" }}
+          >
+            communicationLogs
           </TabPanel>
           <TabPanel value="4" style={{ background: "black", height: "60vh" }}>
             Item Four
