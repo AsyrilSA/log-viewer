@@ -1,8 +1,11 @@
 import * as React from "react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import untar from "js-untar";
+import parseLogFile from "utils/logParser";
+
+const pako = require("pako");
 
 export default function Import() {
   const buttonRef = useRef(null);
@@ -15,31 +18,18 @@ export default function Import() {
     let reader = new FileReader();
     reader.readAsArrayBuffer(event.target.files[0]);
     reader.onload = () => {
-      untar(reader.result).then(function (extractedFiles) {
-        console.log(extractedFiles);
+      untar(reader.result).then((extractedFiles) => {
         extractedFiles.forEach((log) => {
-          console.log(log.name.slice(0, 4));
-          log.name.slice(0, 4) === "full"
-            ? unTarLogs(log)
-            : localStorage.setItem(log.name, JSON.stringify(log));
+          const logName = log.name.slice(0, -7);
+          if (logName === "full") unTarLogs(log);
         });
-        localStorage.setItem("logsFiles", JSON.stringify(extractedFiles));
       });
     };
-    console.log(event.target.files[0]);
   };
   const unTarLogs = (tarLog) => {
-    let reader = new FileReader();
-    console.log("full");
-    console.log(tarLog);
-    reader.readAsArrayBuffer(tarLog);
-    reader.onload = () => {
-      // console.log(reader.result);
-      // untar(reader.result).then(function (extractedFiles) {
-      //   console.log(extractedFiles);
-      //   // localStorage.setItem(tarLog.name, JSON.stringify(extractedFiles));
-      // });
-    };
+    const result = pako.inflate(tarLog.buffer, { to: "string" });
+    const parsedLog = parseLogFile(result);
+    localStorage.setItem("fullLog", JSON.stringify(parsedLog));
   };
 
   return (
