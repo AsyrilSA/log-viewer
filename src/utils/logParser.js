@@ -35,9 +35,11 @@ function parseLogFile(logLines) {
 }
 
 function getCommunicationLog(logObject) {
-  // Parse you log file here in order to have an array with the followign elements
-  debugger;
-  return logObject;
+  if (logObject) {
+    // TODO: filter
+    return logObject;
+  }
+  return [];
 }
 
 export { parseLogFile, getCommunicationLog };
