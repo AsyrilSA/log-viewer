@@ -4,18 +4,20 @@ import { DataGrid } from "@mui/x-data-grid";
 import { getCommunicationLog } from "utils/logParser";
 import { useContext } from "react";
 import { LogContext } from "App";
+import Box from "@mui/material/Box";
 
 const columns = [
-  { field: "id", headerName: "Line", width: 70 },
+  { field: "id", headerName: "Line", flex: 1, resizable: true },
   {
     field: "timestamp",
     headerName: "Timestamp",
-    width: 200,
     valueFormatter: ({ value }) => value.toLocaleString("fr-CH"),
+    flex: 2,
+    resizable: true,
   },
-  { field: "type", headerName: "Type", width: 130 },
-  { field: "service", headerName: "Service", width: 130 },
-  { field: "message", headerName: "Message", width: 1100 },
+  { field: "type", headerName: "Type", flex: 1 },
+  { field: "service", headerName: "Service", flex: 3, resizable: true },
+  { field: "message", headerName: "Message", flex: 10, resizable: true },
 ];
 
 const Communication = () => {
@@ -29,7 +31,7 @@ const Communication = () => {
   return (
     <div>
       <Title>Communication page</Title>
-      <div style={{ height: "680px", marginTop: "10px" }}>
+      <Box style={{ height: "680px", marginTop: "10px" }}>
         <DataGrid
           rows={communicationLogs}
           columns={columns}
@@ -37,7 +39,7 @@ const Communication = () => {
           rowsPerPageOptions={[5]}
           checkboxSelection
         />
-      </div>
+      </Box>
     </div>
   );
 };
