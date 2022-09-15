@@ -8,7 +8,7 @@ const RE_CPP = new RegExp(
 
 function parseLine(index, line) {
   var match = line.match(RE_PYTHON);
-  if (match) {
+  if (match != null) {
     const { date, time, service, level, message } = match.groups;
     return {
       id: index,
@@ -20,7 +20,7 @@ function parseLine(index, line) {
   }
 
   match = line.match(RE_CPP);
-  if (match) {
+  if (match != null) {
     const { date, time, service, level, message } = match.groups;
     var fixedDate = new Date(Date.parse(date + " " + time));
     // Time from the C++ service is not in the same timezone as the Python service. We do a fixed -2 hours
@@ -49,7 +49,7 @@ function parseLogFile(logLines) {
   const lines = logLines.split("\n");
   for (var line = 0; line < lines.length; line++) {
     const item = parseLine(line, lines[line]);
-    if (item) {
+    if (item != null) {
       entries.push(item);
     }
   }
