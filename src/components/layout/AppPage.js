@@ -1,10 +1,9 @@
-import { useState } from "react";
-
 import { Routes, Route } from "react-router-dom";
 import AppTopBar from "components/layout/AppTopBar";
 import AppDrawer from "components/layout/AppDrawer";
 import HomePage from "pages/HomePage";
 import BasePage from "pages/BasePage";
+import ApplicationPage from "pages/ApplicationPage";
 import CommunicationPage from "pages/CommunicationPage";
 import PerformancePage from "pages/PerformancePage";
 import RawPage from "pages/RawPage";
@@ -19,6 +18,7 @@ export default function Layout() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/base" element={<BasePage />} />
+          <Route path="/application" element={<ApplicationPage />} />
           <Route path="/communication" element={<CommunicationPage />} />
           <Route path="/performance" element={<PerformancePage />} />
           <Route path="/rawlogs" element={<RawPage />} />

@@ -7,6 +7,7 @@ import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
 
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
+import AbsSharpIcon from "@mui/icons-material/AbcSharp";
 import LanIcon from "@mui/icons-material/Lan";
 import SpeedIcon from "@mui/icons-material/Speed";
 import RawOnIcon from "@mui/icons-material/RawOn";
@@ -38,6 +39,16 @@ export default function AppDrawer() {
                 <ListItemText>
                   <Link to="/base" className="link__style">
                     Base
+                  </Link>
+                </ListItemText>
+              </ListItemButton>
+              <ListItemButton className={logFile ? "" : "disabled-link"}>
+                <ListItemIcon className="ListItemIcon__style">
+                  <AbsSharpIcon />
+                </ListItemIcon>
+                <ListItemText>
+                  <Link to="/application" className="link__style">
+                    Application
                   </Link>
                 </ListItemText>
               </ListItemButton>
