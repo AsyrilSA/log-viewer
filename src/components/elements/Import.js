@@ -1,10 +1,12 @@
 import * as React from "react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import untar from "js-untar";
+import { useNavigate } from "react-router-dom";
 
 export default function Import() {
+  const navigate = useNavigate();
   const buttonRef = useRef(null);
 
   const onButtonClick = () => {
@@ -15,8 +17,8 @@ export default function Import() {
     let reader = new FileReader();
     reader.onload = () => {
       untar(reader.result).then(function (extractedFiles) {
-        console.log(extractedFiles);
         localStorage.setItem("logsFiles", JSON.stringify(extractedFiles));
+        navigate("/base");
       });
     };
     reader.readAsArrayBuffer(event.target.files[0]);
