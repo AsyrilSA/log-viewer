@@ -1,21 +1,44 @@
 const RE_PYTHON = new RegExp(
-  /^(?<date>\S+) (?<time>\S+) (?<service>\S+) \[(?<level>\w+\s*)\] (?<message>.*)/
+  /^(?<date>\d+-\d+-\d+) (?<time>\S+) (?<service>\S+) \[(?<level>\w+\s*)\] (?<message>.*)/
+);
+
+const RE_CPP = new RegExp(
+  /^\[(?<date>\d+-\d+-\d+) (?<time>\S+)\] \[(?<service>\S+)\] \[(?<level>\w+)\] (?<message>.*)/
 );
 
 function parseLine(index, line) {
-  const match = line.match(RE_PYTHON);
+  var match = line.match(RE_PYTHON);
   if (match) {
     const { date, time, service, level, message } = match.groups;
     return {
       id: index,
       type: level,
-      timestamp: date + " " + time,
+      timestamp: new Date(Date.parse(date + " " + time.replace(",", "."))), // Python use ',' to separate milliseconds
       service: service,
       message: message,
     };
-  } else {
-    console.log("Match failed for: " + line);
   }
+
+  match = line.match(RE_CPP);
+  if (match) {
+    const { date, time, service, level, message } = match.groups;
+    var fixedDate = new Date(Date.parse(date + " " + time));
+    // Time from the C++ service is not in the same timezone as the Python service. We do a fixed -2 hours
+    // here for now but this is not 100% correct (e.g. in winter).
+    // TODO: find a way to correct the time properly
+    fixedDate.setHours(fixedDate.getHours() - 2);
+    return {
+      id: index,
+      type: level.toUpperCase(),
+      timestamp: fixedDate,
+      service: service,
+      message: message,
+    };
+  }
+
+  // TODO: what do we do with the "other" log lines? Do we drop them or keep them in a special "category"?
+  console.log("Match failed for: " + line);
+
   return null;
 }
 
