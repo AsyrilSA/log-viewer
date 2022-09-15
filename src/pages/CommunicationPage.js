@@ -23,7 +23,7 @@ const Communication = () => {
         <DataGrid
           rows={communicationLogs}
           columns={columns}
-          pageSize={5}
+          pageSize={100}
           rowsPerPageOptions={[5]}
           checkboxSelection
         />
