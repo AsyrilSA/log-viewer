@@ -7,7 +7,12 @@ import { LogContext } from "App";
 
 const columns = [
   { field: "id", headerName: "Line", width: 70 },
-  { field: "timestamp", headerName: "Timestamp", width: 200 },
+  {
+    field: "timestamp",
+    headerName: "Timestamp",
+    width: 200,
+    valueFormatter: ({ value }) => value.toLocaleString("fr-CH"),
+  },
   { field: "type", headerName: "Type", width: 130 },
   { field: "service", headerName: "Service", width: 130 },
   { field: "message", headerName: "Message", width: 1100 },
