@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import untar from "js-untar";
 import { useNavigate } from "react-router-dom";
-import parseLogFile from "utils/logParser";
+import { parseLogFile } from "utils/logParser";
 
 export default function Import() {
   const navigate = useNavigate();
