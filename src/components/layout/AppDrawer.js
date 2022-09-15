@@ -2,7 +2,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -12,12 +11,14 @@ import LanIcon from "@mui/icons-material/Lan";
 import SpeedIcon from "@mui/icons-material/Speed";
 import RawOnIcon from "@mui/icons-material/RawOn";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { useContext } from "react";
+import { LogContext } from "App";
+import { Link } from "react-router-dom";
 
 import "./AppDrawer.css";
 
-import { Link } from "react-router-dom";
-
 export default function AppDrawer() {
+  const [logFile] = useContext(LogContext);
   return (
     <div>
       <React.Fragment>
@@ -30,19 +31,17 @@ export default function AppDrawer() {
             }}
           >
             <List>
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon className="ListItemIcon__style">
-                    <ContentPasteSearchIcon />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Link to="/base" className="link__style">
-                      Base
-                    </Link>
-                  </ListItemText>
-                </ListItemButton>
-              </ListItem>
-              <ListItemButton>
+              <ListItemButton className={logFile ? "" : "disabled-link"}>
+                <ListItemIcon className="ListItemIcon__style">
+                  <ContentPasteSearchIcon />
+                </ListItemIcon>
+                <ListItemText>
+                  <Link to="/base" className="link__style">
+                    Base
+                  </Link>
+                </ListItemText>
+              </ListItemButton>
+              <ListItemButton className={logFile ? "" : "disabled-link"}>
                 <ListItemIcon className="ListItemIcon__style">
                   <LanIcon />
                 </ListItemIcon>
@@ -52,7 +51,7 @@ export default function AppDrawer() {
                   </Link>
                 </ListItemText>
               </ListItemButton>
-              <ListItemButton>
+              <ListItemButton className={logFile ? "" : "disabled-link"}>
                 <ListItemIcon className="ListItemIcon__style">
                   <SpeedIcon />
                 </ListItemIcon>
@@ -62,7 +61,7 @@ export default function AppDrawer() {
                   </Link>
                 </ListItemText>
               </ListItemButton>
-              <ListItemButton>
+              <ListItemButton className={logFile ? "" : "disabled-link"}>
                 <ListItemIcon className="ListItemIcon__style">
                   <RawOnIcon />
                 </ListItemIcon>

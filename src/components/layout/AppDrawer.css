@@ -3,6 +3,16 @@
   color: white;
 }
 
+.disabled-link {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.disabled-link .ListItemIcon__style > svg{
+  background-color: #AAAAAA;
+  color: white
+}
+
 .Drawer__style > .MuiDrawer-paper {
   border-right: none;
 }

@@ -28,7 +28,7 @@ export default function Import() {
           if (logName === "full") {
             const unzippedLog = pako.inflate(log.buffer, { to: "string" });
             const parsedLog = parseLogFile(unzippedLog);
-            setLogFile({ name: fileName, rows: parsedLog });
+            setLogFile({ name: fileName, rows: parsedLog, raw: unzippedLog });
             navigate("/base");
           }
         });
