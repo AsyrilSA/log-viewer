@@ -13,13 +13,33 @@ export default function Import() {
   };
   const logsChangeHandler = (event) => {
     let reader = new FileReader();
+    reader.readAsArrayBuffer(event.target.files[0]);
     reader.onload = () => {
       untar(reader.result).then(function (extractedFiles) {
         console.log(extractedFiles);
+        extractedFiles.forEach((log) => {
+          console.log(log.name.slice(0, 4));
+          log.name.slice(0, 4) === "full"
+            ? unTarLogs(log)
+            : localStorage.setItem(log.name, JSON.stringify(log));
+        });
         localStorage.setItem("logsFiles", JSON.stringify(extractedFiles));
       });
     };
-    reader.readAsArrayBuffer(event.target.files[0]);
+    console.log(event.target.files[0]);
+  };
+  const unTarLogs = (tarLog) => {
+    let reader = new FileReader();
+    console.log("full");
+    console.log(tarLog);
+    reader.readAsArrayBuffer(tarLog);
+    reader.onload = () => {
+      // console.log(reader.result);
+      // untar(reader.result).then(function (extractedFiles) {
+      //   console.log(extractedFiles);
+      //   // localStorage.setItem(tarLog.name, JSON.stringify(extractedFiles));
+      // });
+    };
   };
 
   return (
