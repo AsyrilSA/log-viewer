@@ -1,3 +1,3 @@
 <template>
-  <h2>Raw logs</h2>
+  <h4>Raw logs</h4>
 </template>

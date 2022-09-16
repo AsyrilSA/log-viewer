@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
-import type { LogEntry } from '../utils/logParser';
+import type { LogEntry } from 'src/utils/logParser';
 
 export const useLogStore = defineStore('log', {
   state: () => ({
     rows:[] as LogEntry[],
-    logFileName:''
+    logFileName :''
   }),
   getters: {
     getRows: (state) => state.rows,

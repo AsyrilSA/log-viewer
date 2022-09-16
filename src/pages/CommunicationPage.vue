@@ -1,3 +1,3 @@
 <template>
-  <h2>Communication Logs</h2>
+  <h4>Communication Logs</h4>
 </template>
