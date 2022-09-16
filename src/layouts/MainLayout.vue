@@ -27,7 +27,6 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-primary q-pt-lg">
       <q-list>
-        <q-item-label header> Menu </q-item-label>
         <MenuLink :disabled="!logStore.getName" v-for="link in menuLinks" :key="link.title" v-bind="link" class="text-white" />
       </q-list>
     </q-drawer>
