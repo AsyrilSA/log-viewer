@@ -2,7 +2,6 @@
   <q-item
     clickable
     tag="a"
-    target="_blank"
     :href="link"
   >
     <q-item-section
@@ -20,13 +19,13 @@
 </template>
 
 <script setup lang="ts">
-export interface EssentialLinkProps {
+export interface MenuLinkProps {
   title: string;
   caption?: string;
   link?: string;
   icon?: string;
 }
-withDefaults(defineProps<EssentialLinkProps>(), {
+withDefaults(defineProps<MenuLinkProps>(), {
   caption: '',
   link: '#',
   icon: '',

@@ -12,10 +12,8 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          Log Viewer 
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -28,11 +26,11 @@
         <q-item-label
           header
         >
-          Essential Links
+          Menu
         </q-item-label>
 
-        <EssentialLink
-          v-for="link in essentialLinks"
+        <MenuLink
+          v-for="link in menuLinks"
           :key="link.title"
           v-bind="link"
         />
@@ -47,14 +45,14 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
+import MenuLink, { MenuLinkProps } from 'components/MenuLink.vue';
 
-const essentialLinks: EssentialLinkProps[] = [
+const menuLinks: MenuLinkProps[] = [
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
+    title: 'Base',
+    caption: 'Basic information',
+    icon: 'content_paste_search',
+    link: '/#/base'
   },
   {
     title: 'Github',
