@@ -54,7 +54,6 @@ const uploadFile = (event: any) => {
               if (route.path === '/') router.push('/base');
             }
           });
-          debugger;
           $q.loading.hide();
         })
         .catch($q.loading.hide());
