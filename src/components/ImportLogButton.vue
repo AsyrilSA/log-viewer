@@ -37,7 +37,7 @@ function importButtonClick() {
 }
 
 const uploadFile = (event: any) => {
-  const fileName = event.target.files[0].name; 
+  const fileName = event.target.files[0].name;
   if (fileName) {
     $q.loading.show();
     logStore.setLogs([], '');
