@@ -32,6 +32,7 @@ const Application = () => {
       <Box style={{ height: "680px", marginTop: "10px" }}>
         <DataGrid
           rows={applicationLogs}
+          rowHeight={25}
           columns={columns}
           pageSize={100}
           rowsPerPageOptions={[5]}

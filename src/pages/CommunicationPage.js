@@ -34,6 +34,7 @@ const Communication = () => {
       <Box style={{ height: "680px", marginTop: "10px" }}>
         <DataGrid
           rows={communicationLogs}
+          rowHeight={25}
           columns={columns}
           pageSize={100}
           rowsPerPageOptions={[5]}
