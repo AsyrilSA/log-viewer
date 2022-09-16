@@ -1,6 +1,6 @@
 <template>
   <q-page class="column fit header-class">
-    <div class="row q-pa-md" style="min-height: 85vh">
+    <div class="row q-pa-md">
       <div class="col-xs-12 col-md-4 medium-heigh q-pa-sm">
         <div class="row" style="min-height: 100%">
           <div class="col-12 q-pb-xs-md q-pb-md-none">
