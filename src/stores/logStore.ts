@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia';
+import type { LogEntry } from './logParser';
 
 export const useLogStore = defineStore('log', {
   state: () => ({
-    rows: [],
+    rows:[] as LogEntry[],
     logFileName:''
   }),
   getters: {
@@ -10,7 +11,7 @@ export const useLogStore = defineStore('log', {
     getName: (state) => state.logFileName,
   },
   actions: {
-    setLogs(newRows :[], fileName:string) {
+    setLogs(newRows:LogEntry[], fileName:string) {
       this.rows= newRows
       this.logFileName = fileName     
     },

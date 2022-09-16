@@ -12,13 +12,7 @@
         />
 
         <q-toolbar-title> Log Viewer </q-toolbar-title>
-
-        <q-btn
-          icon="upload_file"
-          label="Import log"
-          aria-label="Import file"
-          @click="importFile"
-        />
+       <ImportLogButton></ImportLogButton>
       </q-toolbar>
     </q-header>
 
@@ -39,6 +33,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import MenuLink, { MenuLinkProps } from 'components/MenuLink.vue';
+import ImportLogButton from '../components/ImportLogButton.vue';
 
 const menuLinks: MenuLinkProps[] = [
   {
@@ -80,12 +75,7 @@ const menuLinks: MenuLinkProps[] = [
 ];
 
 const leftDrawerOpen = ref(false);
-
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
-}
-
-function importFile() {
-  // TODO (clp)
 }
 </script>
