@@ -1,14 +1,12 @@
 <template>
   <q-item
-    clickable
+    :clickable="!disabled"
     tag="a"
     :href="link"
+    :class="disabled ? 'disabled-menu-item' : ''"
   >
-    <q-item-section
-      v-if="icon"
-      avatar
-    >
-      <q-icon :name="icon" />
+    <q-item-section v-if="icon" avatar>
+      <q-icon class="menu-item-icon" :name="icon" />
     </q-item-section>
 
     <q-item-section>
@@ -19,11 +17,13 @@
 </template>
 
 <script setup lang="ts">
+
 export interface MenuLinkProps {
   title: string;
   caption?: string;
   link?: string;
   icon?: string;
+  disabled?: boolean;
 }
 withDefaults(defineProps<MenuLinkProps>(), {
   caption: '',
@@ -31,3 +31,22 @@ withDefaults(defineProps<MenuLinkProps>(), {
   icon: '',
 });
 </script>
+
+<style lang="scss">
+.disabled-menu-item {
+  pointer-events: none;
+  opacity: 0.5;
+  .menu-item-icon {
+    background-color: #aaaaaa;
+    color: white;
+  }
+}
+.menu-item-icon {
+  color: white;
+  height: 28px;
+  width: 28px;
+  background-color: #2a9d8f;
+  border-radius: 10000px;
+  padding: 10px;
+}
+</style>

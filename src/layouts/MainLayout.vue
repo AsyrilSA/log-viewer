@@ -28,8 +28,7 @@
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
         <q-item-label header> Menu </q-item-label>
-
-        <MenuLink v-for="link in menuLinks" :key="link.title" v-bind="link" />
+        <MenuLink :disabled="!logStore.getName" v-for="link in menuLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
@@ -45,6 +44,8 @@ import MenuLink, { MenuLinkProps } from 'components/MenuLink.vue';
 import ImportLogButton from '../components/ImportLogButton.vue';
 import { useLogStore } from 'stores/logStore';
 
+const logStore = useLogStore();
+
 const menuLinks: MenuLinkProps[] = [
   {
     title: 'Base',
@@ -53,28 +54,28 @@ const menuLinks: MenuLinkProps[] = [
     link: '/#/base',
   },
   {
+    title: 'Raw',
+    caption: 'Raw logs',
+    icon: 'raw_on',
+    link: '/#/rawlogs'
+  },
+  {
     title: 'Application',
     caption: 'Application related logs',
     icon: 'apps',
-    link: '/#/application',
+    link: '/#/application'
   },
   {
     title: 'Communication',
     caption: 'TCP/IP protocol',
     icon: 'lan',
-    link: '/#/communication',
+    link: '/#/communication'
   },
   {
     title: 'Performance',
     caption: 'Performance related logs',
     icon: 'speed',
-    link: '/#/performance',
-  },
-  {
-    title: 'Raw',
-    caption: 'Raw logs',
-    icon: 'raw_on',
-    link: '/#/rawlogs',
+    link: '/#/performance'
   },
   {
     title: 'Settings',
@@ -88,8 +89,6 @@ const leftDrawerOpen = ref(false);
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
-
-const logStore = useLogStore();
 </script>
 
 <style lang="scss">
