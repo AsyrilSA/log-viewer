@@ -1,20 +1,22 @@
 import Title from "components/elements/Title";
 import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { getApplicationLog } from "utils/logParser";
+import { getApplicationLog } from "utils/logParser.ts";
 import { useContext } from "react";
 import { LogContext } from "App";
 import Box from "@mui/material/Box";
 
 const columns = [
-  { field: "id", headerName: "Line", flex: 1},
+  { field: "id", headerName: "Line", flex: 1 },
   {
     field: "timestamp",
     headerName: "Timestamp",
-    valueFormatter: ({ value }) => value.toLocaleString("fr-CH"),
+    valueFormatter: ({ value }) => {
+      if (value) return value.toLocaleString("fr-CH");
+    },
     flex: 2,
   },
-  { field: "type", headerName: "Type", flex: 1 },
+  { field: "level", headerName: "Level", flex: 1 },
   { field: "service", headerName: "Service", flex: 3 },
   { field: "message", headerName: "Message", flex: 10 },
 ];

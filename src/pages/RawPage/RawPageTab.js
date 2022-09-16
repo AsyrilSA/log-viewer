@@ -6,8 +6,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import { useState } from "react";
-import { getCommunicationLog } from "utils/logParser";
-import { getApplicationLog } from "utils/logParser";
+import { getApplicationLog, getCommunicationLog } from "utils/logParser.ts";
 import { useContext } from "react";
 import { LogContext } from "App";
 
