@@ -4,6 +4,7 @@
     label="Import log"
     aria-label="Import file"
     @click="importButtonClick"
+    class="bg-secondary"
   />
   <form :onChange="uploadFile" style="display: none">
     <input

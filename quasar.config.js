@@ -106,8 +106,13 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
+
       plugins: ['Loading'],
       config: {
+        brand: {
+          primary:'#264653',
+          secondary: '#e86f50',
+        },
         loading: {
           delay: 100,
           message: 'Loading, please wait ...',
