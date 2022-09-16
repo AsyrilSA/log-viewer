@@ -136,6 +136,7 @@ function getCommunicationLog(logObject: LogEntry[]): LogEntry[] {
 
 function getApplicationLog(logObject: LogEntry[]): LogEntry[] {
   // Consider all log entries except the system ones
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   return filterLogs(logObject, [(x) => true], [(x) => x.service === 'system']);
 }
 
