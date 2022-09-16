@@ -37,7 +37,7 @@
 </template>
 
 <script lang="ts" setup>
-import { LogEntry } from 'src/utils/logParser';
+import { LogEntry, LogLevel } from 'src/utils/logParser';
 
 const props = defineProps({
   rows: Array<LogEntry>,
@@ -79,8 +79,21 @@ const columns = [
   { name: 'message', label: 'Message', field: 'message', align: 'left' },
 ];
 
-function getClass(level: string): string {
-  return 'error-row';
+function getClass(level: LogLevel): string {
+  switch (level) {
+    case LogLevel.ERROR:
+      return 'error-row';
+    case LogLevel.WARNING:
+      return 'warning-row';
+    case LogLevel.INFO:
+      return 'info-row';
+    case LogLevel.DEBUG:
+      return 'debug-row';
+    case LogLevel.TRACE:
+      return 'trace-row';
+    case LogLevel.UNDEFINED:
+      return 'undefined-row';
+  }
 }
 </script>
 
@@ -109,7 +122,22 @@ function getClass(level: string): string {
   }
 
   .error-row {
-    background-color: lightcoral;
+    background-color: #ffadad;
+  }
+  .warning-row {
+    background-color: #ffd6a5;
+  }
+  .info-row {
+    background-color: #fdffb6;
+  }
+  .debug-row {
+    background-color: #caffbf;
+  }
+  .trace-row {
+    background-color: #9bf6ff;
+  }
+  .undefined-row {
+    background-color: #a0c4ff;
   }
 }
 </style>
