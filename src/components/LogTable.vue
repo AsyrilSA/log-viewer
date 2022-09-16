@@ -8,7 +8,7 @@
     row-key="id"
     :rows-per-page-options="[0]"
     virtual-scroll
-    borderless
+    separator="none"
   >
     <template v-slot:body="props">
       <q-tr :props="props" :class="getClass(props.row.level)">
@@ -106,10 +106,6 @@ function getClass(level: string): string {
   .q-table--loading thead tr:last-child th {
     /* height of all previous header rows */
     top: 48px;
-  }
-
-  tbody tr:not(:last-child) td {
-    border-bottom: none;
   }
 
   .error-row {
