@@ -31,3 +31,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+
+.devcontainer/docker-compose.yml
