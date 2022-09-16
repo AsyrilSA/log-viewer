@@ -12,6 +12,7 @@
       ref="inputFileRef"
       accept=".logs"
       style="display: none"
+      @click="$event.target.value = ''"
     />
   </form>
 </template>
@@ -22,7 +23,7 @@ import untar from 'js-untar';
 import pako from 'pako';
 import { useRouter, useRoute } from 'vue-router';
 import { useLogStore } from 'stores/logStore';
-import { parseLogFile } from '../utils/logParser';
+import { parseLogFile } from 'src/utils/logParser';
 
 const router = useRouter();
 const route = useRoute();
@@ -35,6 +36,7 @@ function importButtonClick() {
 
 const uploadFile = (event: any) => {
   const fileName = event.target.files[0].name;
+  logStore.setLogs([], '');
   let reader = new FileReader();
   reader.onload = () => {
     untar(reader.result).then((extractedFiles: any) => {

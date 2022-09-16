@@ -129,16 +129,5 @@ function filterLogs(
     );
 }
 
-function getCommunicationLog(logObject: LogEntry[]): LogEntry[] {
-  // Only consider log entries from the robot service
-  return filterLogs(logObject, [(x) => x.service.startsWith('backend.robot')]);
-}
-
-function getApplicationLog(logObject: LogEntry[]): LogEntry[] {
-  // Consider all log entries except the system ones
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  return filterLogs(logObject, [(x) => true], [(x) => x.service === 'system']);
-}
-
-export { parseLogFile, getCommunicationLog, getApplicationLog, LogLevel };
+export { parseLogFile, filterLogs, LogLevel };
 export type { LogEntry };
