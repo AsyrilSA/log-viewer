@@ -29,13 +29,13 @@ const PiChartsComponent = () => {
         sx={{ p: 2, mt: 10, mb: 0, height: 150 }}
       >
         <Grid item xs={12}>
-          Communication log: 26 %
+          Communication log: 15 %
         </Grid>
         <Grid item xs={12}>
-          Application log: 67 %
+          Application log: 57 %
         </Grid>
         <Grid item xs={12}>
-          Vision Log: 12 %
+          Kernel Log: 28 %
         </Grid>
       </Grid>
     </Grid>

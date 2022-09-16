@@ -3,6 +3,8 @@ import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 
 import ChartjsInformation from "pages/BasePage/ChartsInformation";
+import LogStatus from "pages/BasePage/LogStatus";
+import GeneralInformation from "pages/BasePage/GeneralInformation";
 
 import Title from "components/elements/Title";
 const BasePage = () => {
@@ -25,6 +27,7 @@ const BasePage = () => {
             }}
           >
             <Title>Log Status</Title>
+            <LogStatus></LogStatus>
           </Paper>
         </Grid>
         <Grid
@@ -43,6 +46,7 @@ const BasePage = () => {
             }}
           >
             <Title>General Information</Title>
+            <GeneralInformation />
           </Paper>
         </Grid>
         <Grid
