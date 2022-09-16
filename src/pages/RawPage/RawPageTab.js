@@ -23,13 +23,13 @@ export default function RawPageTabs() {
     return contextLogFile != null ? contextLogFile.raw : [];
   });
   const [applicationLogs] = useState(() => {
-    return contextLogFile != null ? getApplicationLog(contextLogFile.raw) : [];
+    return contextLogFile != null ? getApplicationLog(contextLogFile.rows) : [];
   });
-  // const [communicationLogs] = useState(() => {
-  //   return contextLogFile != null
-  //     ? getCommunicationLog(contextLogFile.raw)
-  //     : [];
-  // });
+  const [communicationLogs] = useState(() => {
+    return contextLogFile != null
+      ? getCommunicationLog(contextLogFile.rows)
+      : [];
+  });
 
   return (
     <Grid spacing={0}>
@@ -65,13 +65,25 @@ export default function RawPageTabs() {
             value="2"
             style={{ background: "black", height: "60vh", overflow: "auto" }}
           >
-            {applicationLogs}
+            {applicationLogs.map((row) => (
+              <span>
+                {row.id} {row.timestamp.toISOString()} {row.type} {row.service}
+                {row.message}
+                <br />
+              </span>
+            ))}
           </TabPanel>
           <TabPanel
             value="3"
             style={{ background: "black", height: "60vh", overflow: "auto" }}
           >
-            communicationLogs
+            {communicationLogs.map((row) => (
+              <span>
+                {row.id} {row.timestamp.toISOString()} {row.type} {row.service}
+                {row.message}
+                <br />
+              </span>
+            ))}
           </TabPanel>
           <TabPanel value="4" style={{ background: "black", height: "60vh" }}>
             Item Four

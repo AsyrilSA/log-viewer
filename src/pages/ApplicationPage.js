@@ -7,17 +7,16 @@ import { LogContext } from "App";
 import Box from "@mui/material/Box";
 
 const columns = [
-  { field: "id", headerName: "Line", flex: 1, resizable: true },
+  { field: "id", headerName: "Line", flex: 1},
   {
     field: "timestamp",
     headerName: "Timestamp",
     valueFormatter: ({ value }) => value.toLocaleString("fr-CH"),
     flex: 2,
-    resizable: true,
   },
   { field: "type", headerName: "Type", flex: 1 },
-  { field: "service", headerName: "Service", flex: 3, resizable: true },
-  { field: "message", headerName: "Message", flex: 10, resizable: true },
+  { field: "service", headerName: "Service", flex: 3 },
+  { field: "message", headerName: "Message", flex: 10 },
 ];
 
 const Application = () => {

@@ -1,4 +1,3 @@
-import LogDisplay from "components/elements/LogDisplay";
 import Box from "@mui/material/Box";
 import Title from "components/elements/Title";
 import RawPageTab from "pages/RawPage/RawPageTab";
