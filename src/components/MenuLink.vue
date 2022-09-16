@@ -6,7 +6,7 @@
     :class="disabled ? 'disabled-menu-item' : ''"
   >
     <q-item-section v-if="icon" avatar>
-      <q-icon class="menu-item-icon bg-secondary" :name="icon"/>
+      <q-icon class="menu-item-icon" :name="icon"/>
     </q-item-section>
 
     <q-item-section>
@@ -42,8 +42,10 @@ withDefaults(defineProps<MenuLinkProps>(), {
   }
 }
 .menu-item-icon {
+  color: white;
   height: 28px;
   width: 28px;
+  background-color: #2A9D8F;
   border-radius: 10000px;
   padding: 10px;
 }

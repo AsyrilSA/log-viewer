@@ -11,7 +11,16 @@
           @click="toggleLeftDrawer"         
         />
 
-        <q-toolbar-title> Log Viewer </q-toolbar-title>
+        <q-toolbar-title>
+          <a class="main-title-link" href="/">
+              <!-- <img
+                class="main-title-logo"
+                alt="Up down arrow"
+                src="src/assets/logo_white.svg"
+              /> -->
+            <div class="main-title-text">Log Viewer</div>
+          </a></q-toolbar-title
+        >
         <q-input
           class="file-name-input"
           bg-color="grey"
@@ -27,7 +36,14 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-primary q-pt-lg">
       <q-list>
-        <MenuLink :disabled="!logStore.getName" v-for="link in menuLinks" :key="link.title" v-bind="link" class="text-white" />
+        <q-item-label header> Menu </q-item-label>
+        <MenuLink
+          :disabled="!logStore.getName"
+          v-for="link in menuLinks"
+          :key="link.title"
+          v-bind="link"
+          class="text-white"
+        />
       </q-list>
     </q-drawer>
 
@@ -56,25 +72,25 @@ const menuLinks: MenuLinkProps[] = [
     title: 'Raw',
     caption: 'Raw logs',
     icon: 'raw_on',
-    link: '/#/rawlogs'
+    link: '/#/rawlogs',
   },
   {
     title: 'Application',
     caption: 'Application related logs',
     icon: 'apps',
-    link: '/#/application'
+    link: '/#/application',
   },
   {
     title: 'Communication',
     caption: 'TCP/IP protocol',
     icon: 'lan',
-    link: '/#/communication'
+    link: '/#/communication',
   },
   {
     title: 'Performance',
     caption: 'Performance related logs',
     icon: 'speed',
-    link: '/#/performance'
+    link: '/#/performance',
   },
   {
     title: 'Settings',
@@ -91,6 +107,24 @@ function toggleLeftDrawer() {
 </script>
 
 <style lang="scss">
+.main-title-link {
+  height: 100%;
+  align-items: center;
+  display: block;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+
+  .main-title-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .main-title-text {
+    display: inline
+  }
+}
+
 .file-name-input {
   width: 50%;
 }
