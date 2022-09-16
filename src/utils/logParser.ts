@@ -140,3 +140,4 @@ function getApplicationLog(logObject: LogEntry[]): LogEntry[] {
 }
 
 export { parseLogFile, getCommunicationLog, getApplicationLog, LogLevel };
+export type { LogEntry };

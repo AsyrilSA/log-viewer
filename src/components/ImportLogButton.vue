@@ -22,7 +22,7 @@ import untar from 'js-untar';
 import pako from 'pako';
 import { useRouter, useRoute } from 'vue-router';
 import { useLogStore } from 'stores/logStore';
-import { parseLogFile } from 'stores/logParser';
+import { parseLogFile } from '../utils/logParser';
 
 const router = useRouter();
 const route = useRoute();

@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import type { LogEntry } from './logParser';
+import type { LogEntry } from '../utils/logParser';
 
 export const useLogStore = defineStore('log', {
   state: () => ({
