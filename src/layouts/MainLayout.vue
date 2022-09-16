@@ -12,7 +12,16 @@
         />
 
         <q-toolbar-title> Log Viewer </q-toolbar-title>
-       <ImportLogButton></ImportLogButton>
+        <q-input
+          class="file-name-input"
+          bg-color="grey"
+          disabled
+          outlined
+          dense
+          :model-value="logStore.getName"
+        />
+        <q-space />
+        <ImportLogButton></ImportLogButton>
       </q-toolbar>
     </q-header>
 
@@ -34,6 +43,7 @@
 import { ref } from 'vue';
 import MenuLink, { MenuLinkProps } from 'components/MenuLink.vue';
 import ImportLogButton from '../components/ImportLogButton.vue';
+import { useLogStore } from 'stores/logStore';
 
 const menuLinks: MenuLinkProps[] = [
   {
@@ -78,4 +88,12 @@ const leftDrawerOpen = ref(false);
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+
+const logStore = useLogStore();
 </script>
+
+<style lang="scss">
+.file-name-input {
+  width: 50%;
+}
+</style>
