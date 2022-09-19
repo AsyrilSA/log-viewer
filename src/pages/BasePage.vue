@@ -1,0 +1,75 @@
+<template>
+  <q-page class="column fit header-class">
+    <div class="row q-pa-md">
+      <div class="col-xs-12 col-md-4 medium-heigh q-pa-sm">
+        <div class="row" style="min-height: 100%">
+          <div class="col-12 q-pb-xs-md q-pb-md-none">
+            <q-card
+              class="col q-mr-md-sm q-mr-xs-none q-pb-xs-md q-mb-md-none"
+              style="min-height: 100%"
+            >
+              <h5 class="q-my-none q-ml-md q-pt-sm">Log Status</h5>
+              <log-status></log-status>
+            </q-card>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4 q-pa-sm">
+        <div class="row" style="min-height: 100%">
+          <div class="col-12 q-pb-xs-md q-pb-md-none">
+            <q-card
+              class="col q-mr-md-sm q-mr-xs-none q-pb-xs-md q-mb-md-none"
+              style="min-height: 100%"
+            >
+              <h5 class="q-my-none q-ml-md q-pt-sm">General Log Information</h5>
+              <general-log-information></general-log-information>
+            </q-card>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4 q-pa-sm">
+        <div class="row" style="min-height: 100%">
+          <div class="col-12 q-pb-xs-md q-pb-md-none">
+            <q-card
+              class="col q-mr-md-sm q-mr-xs-none q-pb-xs-md q-mb-md-none"
+              style="min-height: 100%"
+            >
+              <h5 class="q-my-none q-ml-md q-pt-sm">Time Information</h5>
+              <time-information></time-information>
+            </q-card>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6 q-pa-sm">
+        <div class="row" style="min-height: 100%">
+          <div class="col-12 q-pb-xs-md q-pb-md-none">
+            <q-card
+              class="col q-mr-md-sm q-mr-xs-none q-pb-xs-md q-mb-md-none"
+              style="min-height: 100%"
+            >
+              <h5 class="q-my-none q-ml-md q-pt-sm">Log Repartition</h5>
+              <log-repartition></log-repartition>
+            </q-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </q-page>
+</template>
+
+<script lang="ts" setup>
+import LogRepartition from 'src/pages/BasePage/LogRepartition.vue';
+import LogStatus from 'src/pages/BasePage/LogStatus.vue';
+import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
+import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue';
+// import { useLogStore } from 'stores/logStore';
+// import { ref } from 'vue';
+
+</script>
+
+<style lang="scss">
+
+.medium-height{
+  min-height: 350px;
+}
+</style>

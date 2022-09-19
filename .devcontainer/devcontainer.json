@@ -18,40 +18,40 @@
         "eamodio.gitlens", // IDE Git information
         "gitlab.gitlab-workflow",
         "ms-azuretools.vscode-docker", // Docker integration and linting
-        "bierner.markdown-mermaid"
+        "bierner.markdown-mermaid",
+        "xabikos.javascriptsnippets",
+		"sdras.vue-vscode-snippets",
+        "vue.volar"
     ],
     "settings": {
-        "files.eol": "\n",
-        "editor.tabSize": 2,
-        "remote.extensionKind": {
-            "ms-azuretools.vscode-docker": "workspace"
-        },
-        "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": true
-        },
-        "eslint.validate": [
-            "javascript",
-            "javascriptreact",
-            "typescript",
-            "typescriptreact"
-        ],
-        "editor.formatOnSave": true,
-        "[javascript]": {
-            "editor.defaultFormatter": "esbenp.prettier-vscode"
-          },
-          "[javascriptreact]": {
-              "editor.defaultFormatter": "esbenp.prettier-vscode"
-          },
-          "[typescript]": {
-              "editor.defaultFormatter": "esbenp.prettier-vscode"
-          },
-          "[typescriptreact]": {
-              "editor.defaultFormatter": "esbenp.prettier-vscode"
-          },
-          "prettier-eslint.eslintIntegration": true,
-          "files.insertFinalNewline": true,
-          "search.exclude": {
-            "**/package-lock.json": true
-          }
+        "javascript.preferences.quoteStyle": "single",
+		"eslint.validate": [
+			"vue",
+			"html",
+			"javascript",
+			"typescript",
+			"svg",
+			"json"
+		],
+		"[vue]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[json]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"[javascript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+        "[typescript]": {
+			"editor.defaultFormatter": "esbenp.prettier-vscode"
+		},
+		"editor.codeActionsOnSave": {
+			"source.fixAll.eslint": true
+		},
+		"files.insertFinalNewline": true,
+		"search.exclude": {
+			"**/package-lock.json": true,
+			"**/dist": true
+		}
     }
 }

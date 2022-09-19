@@ -11,12 +11,12 @@ const RE_ENVOY = new RegExp(
 );
 
 enum LogLevel {
-  UNDEFINED = "UNDEFINED",
-  TRACE = "TRACE",
-  DEBUG = "DEBUG",
-  INFO = "INFO",
-  WARNING = "WARNING",
-  ERROR = "ERROR",
+  UNDEFINED = 'UNDEFINED',
+  TRACE = 'TRACE',
+  DEBUG = 'DEBUG',
+  INFO = 'INFO',
+  WARNING = 'WARNING',
+  ERROR = 'ERROR',
 }
 
 interface LogEntry {
@@ -33,46 +33,48 @@ interface FilterCallable {
 
 function parseLine(index: number, line: string): LogEntry {
   // Try to parse the line as coming from a Python service
-  var match = line.match(RE_PYTHON);
+  let match = line.match(RE_PYTHON);
   if (match != null) {
-    const { date, time, service, level, message } = match.groups;
+    const g = match.groups;
     return {
       id: index,
-      level: LogLevel[level.toUpperCase()],
-      timestamp: new Date(Date.parse(date + " " + time.replace(",", "."))), // Python use ',' to separate milliseconds
-      service: service,
-      message: message,
+      level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
+      timestamp: new Date(
+        Date.parse(g?.date + ' ' + g?.time.replace(',', '.'))
+      ), // Python use ',' to separate milliseconds
+      service: g?.service || '',
+      message: g?.message || '',
     };
   }
 
   // Try to parse the line as coming from a C++ service
   match = line.match(RE_CPP);
   if (match != null) {
-    const { date, time, service, level, message } = match.groups;
-    var fixedDate = new Date(Date.parse(date + " " + time));
+    const g = match.groups;
+    const fixedDate = new Date(Date.parse(g?.date + ' ' + g?.time));
     // Time from the C++ service is not in the same timezone as the Python service. We do a fixed -2 hours
     // here for now but this is not 100% correct (e.g. in winter).
     // TODO: find a way to correct the time properly
     fixedDate.setHours(fixedDate.getHours() - 2);
     return {
       id: index,
-      level: LogLevel[level.toUpperCase()],
+      level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
       timestamp: fixedDate,
-      service: service,
-      message: message,
+      service: g?.service || '',
+      message: g?.message || '',
     };
   }
 
   // Try to parse the line as coming from an Envoy service
   match = line.match(RE_ENVOY);
   if (match != null) {
-    const { date, time, level, message } = match.groups;
+    const g = match.groups;
     return {
       id: index,
-      level: LogLevel[level.toUpperCase()],
-      timestamp: new Date(Date.parse(date + " " + time)),
-      service: "envoy",
-      message: message,
+      level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
+      timestamp: new Date(Date.parse(g?.date + ' ' + g?.time)),
+      service: 'envoy',
+      message: g?.message || '',
     };
   }
 
@@ -81,17 +83,17 @@ function parseLine(index: number, line: string): LogEntry {
     id: index,
     level: LogLevel.UNDEFINED,
     timestamp: null,
-    service: "system",
+    service: 'system',
     message: line,
   };
 }
 
 function parseLogFile(logLines: string): LogEntry[] {
-  var entries: LogEntry[] = [];
+  const entries: LogEntry[] = [];
 
   // By lines
-  const lines = logLines.split("\n");
-  for (var line = 0; line < lines.length; line++) {
+  const lines = logLines.split('\n');
+  for (let line = 0; line < lines.length; line++) {
     entries.push(parseLine(line, lines[line]));
   }
 
@@ -127,14 +129,5 @@ function filterLogs(
     );
 }
 
-function getCommunicationLog(logObject: LogEntry[]): LogEntry[] {
-  // Only consider log entries from the robot service
-  return filterLogs(logObject, [(x) => x.service.startsWith("backend.robot")]);
-}
-
-function getApplicationLog(logObject: LogEntry[]): LogEntry[] {
-  // Consider all log entries except the system ones
-  return filterLogs(logObject, [(x) => true], [(x) => x.service === "system"]);
-}
-
-export { parseLogFile, getCommunicationLog, getApplicationLog, LogLevel };
+export { parseLogFile, filterLogs, LogLevel };
+export type { LogEntry };

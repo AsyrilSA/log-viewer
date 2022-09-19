@@ -41,6 +41,3 @@ USER $USERNAME
 ENV HOME=/home/$USERNAME
 
 WORKDIR /workspace
-# Create the node_modules directory to make sure $USERNAME has the rights on it
-# Otherwise, it's "only" mounted as a volume, it's owned root and $USERNAME cant write in it !
-RUN mkdir -p node_modules
