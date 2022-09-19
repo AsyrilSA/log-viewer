@@ -1,8 +1,13 @@
 <template>
+  <div class="row">
+    <div class="col-6 q-mb-md q-ml-md">
+      <LogLevelFilter v-model="logLevelFilters"></LogLevelFilter>
+    </div>
+  </div>
   <q-table
     class="my-sticky-header-table"
     dense
-    :rows="props.rows"
+    :rows="filteredRows"
     :columns="columns"
     hide-bottom
     row-key="id"
@@ -38,9 +43,25 @@
 
 <script lang="ts" setup>
 import { LogEntry, LogLevel } from 'src/utils/logParser';
+import LogLevelFilter from 'src/components/LogLevelFilter.vue';
+import { ref } from 'vue';
+import { computed } from 'vue';
 
 const props = defineProps({
-  rows: Array<LogEntry>,
+  rows: {
+    type: Array<LogEntry>,
+    required: true,
+  },
+});
+
+const logLevelFilters = ref(['All']);
+
+let filteredRows = computed(() => {
+  if (logLevelFilters.value.includes('All')) {
+    return props.rows;
+  } else {
+    return props.rows.filter((r) => logLevelFilters.value.includes(r.level));
+  }
 });
 
 const columns = [
@@ -122,22 +143,22 @@ function getClass(level: LogLevel): string {
   }
 
   .error-row {
-    background-color: #ffadad;
+    background-color: $log-level-error-color;
   }
   .warning-row {
-    background-color: #ffd6a5;
+    background-color: $log-level-warning-color;
   }
   .info-row {
-    background-color: #fdffb6;
+    background-color: $log-level-info-color;
   }
   .debug-row {
-    background-color: #caffbf;
+    background-color: $log-level-debug-color;
   }
   .trace-row {
-    background-color: #9bf6ff;
+    background-color: $log-level-trace-color;
   }
   .undefined-row {
-    background-color: #a0c4ff;
+    background-color: $log-level-undefined-color;
   }
 }
 </style>
