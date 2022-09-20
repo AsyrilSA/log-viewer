@@ -13,14 +13,10 @@
 
         <q-toolbar-title>
           <a class="main-title-link" href="/">
-            <!-- <img
-                class="main-title-logo"
-                alt="Up down arrow"
-                src="src/assets/logo_white.svg"
-              /> -->
-            <div class="main-title-text">Log Viewer</div>
-          </a></q-toolbar-title
-        >
+            <span class="main-title-text">Log Viewer</span>
+          </a>
+          <span class="main-title-version">{{ version }}</span>
+        </q-toolbar-title>
         <q-input
           class="file-name-input"
           bg-color="grey"
@@ -34,12 +30,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-      class="bg-primary q-pt-lg"
-    >
+    <q-drawer show-if-above bordered class="bg-primary" :mini="miniState">
       <q-list>
         <q-item-label header class="menu-title"> Menu </q-item-label>
         <MenuLink
@@ -50,6 +41,7 @@
           class="text-white"
         />
       </q-list>
+      <q-space></q-space>
     </q-drawer>
 
     <q-page-container>
@@ -63,6 +55,7 @@ import { ref } from 'vue';
 import MenuLink, { MenuLinkProps } from 'components/MenuLink.vue';
 import ImportLogButton from '../components/ImportLogButton.vue';
 import { useLogStore } from 'stores/logStore';
+import { version } from '../../package.json';
 
 const logStore = useLogStore();
 
@@ -105,9 +98,9 @@ const menuLinks: MenuLinkProps[] = [
   },
 ];
 
-const leftDrawerOpen = ref(false);
+const miniState = ref(false);
 function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
+  miniState.value = !miniState.value;
 }
 </script>
 
@@ -115,19 +108,20 @@ function toggleLeftDrawer() {
 .main-title-link {
   height: 100%;
   align-items: center;
-  display: block;
+  display: inline;
   text-decoration: none;
   color: white;
   font-weight: bold;
 
-  .main-title-logo {
-    width: 36px;
-    height: 36px;
-  }
-
   .main-title-text {
     display: inline;
   }
+}
+
+.main-title-version {
+  font-style: italic;
+  font-size: 10px;
+  margin-left: 10px;
 }
 
 .file-name-input {

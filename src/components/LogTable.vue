@@ -13,6 +13,11 @@
       <MessageSearch v-model="messageFilter"></MessageSearch>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <TimestampFilter v-model="dateFilter"></TimestampFilter>
+    </div>
+  </div>
   <q-table
     class="my-sticky-header-table"
     dense
@@ -51,11 +56,12 @@
 
 <script lang="ts" setup>
 import { LogEntry, LogLevel } from 'src/utils/logParser';
-import LogLevelFilter from 'src/components/LogLevelFilter.vue';
 import { Ref, ref } from 'vue';
 import { computed } from 'vue';
-import MessageSearch from './MessageSearch.vue';
-import ServiceFilter from './ServiceFilter.vue';
+import LogLevelFilter from 'src/components/Filters/LogLevelFilter.vue';
+import MessageSearch from 'src/components/Filters/MessageSearch.vue';
+import ServiceFilter from 'src/components/Filters/ServiceFilter.vue';
+import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
 
 const props = defineProps({
   rows: {
@@ -72,6 +78,7 @@ const serviceList = computed(() => {
 const logLevelFilter: Ref<string[]> = ref([]);
 const serviceFilter: Ref<string[]> = ref([]);
 const messageFilter = ref('');
+const dateFilter = ref('');
 
 let filteredRows = computed(() => {
   let remainingRows = props.rows;
@@ -158,7 +165,7 @@ function getClass(level: LogLevel): string {
 <style lang="scss">
 .my-sticky-header-table {
   /* height or max-height is important */
-  max-height: calc(100vh - 170px);
+  max-height: calc(100vh - 200px);
 
   thead tr:first-child th {
     /* bg color is important for th; just specify one */
