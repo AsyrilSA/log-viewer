@@ -1,7 +1,7 @@
 <template>
-  <q-page class="column fit header-class">
+  <q-page>
     <div class="row q-pa-md">
-      <div class="col-xs-12 col-md-4 medium-heigh q-pa-sm">
+      <div class="col-xs-12 col-lg-4 medium-heigh q-pa-sm">
         <div class="row" style="min-height: 100%">
           <div class="col-12 q-pb-xs-md q-pb-md-none">
             <q-card
@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-md-4 q-pa-sm">
+      <div class="col-xs-12 col-lg-4 q-pa-sm">
         <div class="row" style="min-height: 100%">
           <div class="col-12 q-pb-xs-md q-pb-md-none">
             <q-card
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-md-4 q-pa-sm">
+      <div class="col-xs-12 col-lg-4 q-pa-sm">
         <div class="row" style="min-height: 100%">
           <div class="col-12 q-pb-xs-md q-pb-md-none">
             <q-card
@@ -44,7 +44,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-md-6 q-pa-sm">
+      <div class="col-xs-12 col-lg-6 q-pa-sm">
         <div class="row" style="min-height: 100%">
           <div class="col-12 q-pb-xs-md q-pb-md-none">
             <q-card
