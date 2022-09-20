@@ -67,7 +67,6 @@ import MessageSearch from 'src/components/Filters/MessageSearch.vue';
 import ServiceFilter from 'src/components/Filters/ServiceFilter.vue';
 import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
 import { getLogInformation } from 'src/utils/logExtractor';
-import { truncate } from 'fs';
 
 const props = defineProps({
   rows: {
