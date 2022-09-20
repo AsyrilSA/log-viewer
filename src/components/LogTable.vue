@@ -23,11 +23,12 @@
     dense
     :rows="filteredRows"
     :columns="columns"
-    hide-bottom
+    hide-pagination
     row-key="id"
     :rows-per-page-options="[0]"
     virtual-scroll
     separator="none"
+    no-data-label="There is nothing to display for this type for the loaded log."
   >
     <template v-slot:body="props">
       <q-tr :props="props" :class="getClass(props.row.level)">
@@ -203,6 +204,11 @@ function getClass(level: LogLevel): string {
   }
   .undefined-row {
     background-color: $log-level-undefined-color;
+  }
+  .q-table__bottom{
+    min-height:300px;
+    display: flex;
+    justify-content:center;
   }
 }
 </style>
