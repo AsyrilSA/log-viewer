@@ -8,12 +8,12 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="toggleLeftDrawer"         
+          @click="toggleLeftDrawer"
         />
 
         <q-toolbar-title>
           <a class="main-title-link" href="/">
-              <!-- <img
+            <!-- <img
                 class="main-title-logo"
                 alt="Up down arrow"
                 src="src/assets/logo_white.svg"
@@ -34,7 +34,12 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-primary q-pt-lg">
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      class="bg-primary q-pt-lg"
+    >
       <q-list>
         <q-item-label header> Menu </q-item-label>
         <MenuLink
@@ -48,7 +53,7 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+        <router-view />
     </q-page-container>
   </q-layout>
 </template>
@@ -121,7 +126,7 @@ function toggleLeftDrawer() {
   }
 
   .main-title-text {
-    display: inline
+    display: inline;
   }
 }
 

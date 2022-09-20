@@ -1,44 +1,48 @@
 <template>
-  <div class="row">
-    <div class="col-6 q-mb-md q-ml-md">
-      <LogLevelFilter v-model="logLevelFilters"></LogLevelFilter>
+    <div class="row">
+      <div class="col-4 q-pb-sm q-pl-sm">
+        <LogLevelFilter v-model="logLevelFilters"></LogLevelFilter>
+      </div>
+      <div class="col-4 q-pb-sm"></div>
+      <div class="col-4 q-pb-sm q-pr-sm">
+        <MessageSearch v-model="messageFilter"></MessageSearch>
+      </div>
     </div>
-  </div>
-  <q-table
-    class="my-sticky-header-table"
-    dense
-    :rows="filteredRows"
-    :columns="columns"
-    hide-bottom
-    row-key="id"
-    :rows-per-page-options="[0]"
-    virtual-scroll
-    separator="none"
-  >
-    <template v-slot:body="props">
-      <q-tr :props="props" :class="getClass(props.row.level)">
-        <q-td key="id" :props="props">
-          {{ props.row.id }}
-        </q-td>
-        <q-td key="timestamp" :props="props">
-          {{
-            props.row.timestamp
-              ? props.row.timestamp.toLocaleString('fr-CH')
-              : ''
-          }}
-        </q-td>
-        <q-td key="level" :props="props">
-          {{ props.row.level }}
-        </q-td>
-        <q-td key="service" :props="props">
-          {{ props.row.service }}
-        </q-td>
-        <q-td key="message" :props="props">
-          {{ props.row.message }}
-        </q-td>
-      </q-tr>
-    </template>
-  </q-table>
+    <q-table
+      class="my-sticky-header-table"
+      dense
+      :rows="filteredRows"
+      :columns="columns"
+      hide-bottom
+      row-key="id"
+      :rows-per-page-options="[0]"
+      virtual-scroll
+      separator="none"
+    >
+      <template v-slot:body="props">
+        <q-tr :props="props" :class="getClass(props.row.level)">
+          <q-td key="id" :props="props">
+            {{ props.row.id }}
+          </q-td>
+          <q-td key="timestamp" :props="props">
+            {{
+              props.row.timestamp
+                ? props.row.timestamp.toLocaleString('fr-CH')
+                : ''
+            }}
+          </q-td>
+          <q-td key="level" :props="props">
+            {{ props.row.level }}
+          </q-td>
+          <q-td key="service" :props="props">
+            {{ props.row.service }}
+          </q-td>
+          <q-td key="message" :props="props">
+            {{ props.row.message }}
+          </q-td>
+        </q-tr>
+      </template>
+    </q-table>
 </template>
 
 <script lang="ts" setup>
@@ -46,6 +50,7 @@ import { LogEntry, LogLevel } from 'src/utils/logParser';
 import LogLevelFilter from 'src/components/LogLevelFilter.vue';
 import { ref } from 'vue';
 import { computed } from 'vue';
+import MessageSearch from './MessageSearch.vue';
 
 const props = defineProps({
   rows: {
@@ -55,13 +60,22 @@ const props = defineProps({
 });
 
 const logLevelFilters = ref(['All']);
+const messageFilter = ref('');
 
 let filteredRows = computed(() => {
-  if (logLevelFilters.value.includes('All')) {
-    return props.rows;
-  } else {
-    return props.rows.filter((r) => logLevelFilters.value.includes(r.level));
+  let remainingRows = props.rows;
+  if (!logLevelFilters.value.includes('All')) {
+    remainingRows = remainingRows.filter((r) =>
+      logLevelFilters.value.includes(r.level)
+    );
   }
+  if (messageFilter.value !== '') {
+    remainingRows = remainingRows.filter((r) =>
+      r.message.toLowerCase().includes(messageFilter.value.toLowerCase())
+    );
+  }
+
+  return remainingRows;
 });
 
 const columns = [
@@ -121,7 +135,7 @@ function getClass(level: LogLevel): string {
 <style lang="scss">
 .my-sticky-header-table {
   /* height or max-height is important */
-  height: calc(87vh);
+  max-height: calc(100vh - 170px);
 
   thead tr:first-child th {
     /* bg color is important for th; just specify one */
