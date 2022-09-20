@@ -12,6 +12,6 @@ const logStore = useLogStore();
 
 const rows = computed(() =>
   // Only consider log entries from the robot service
-  filterLogs(logStore.getRows, [(x) => x.service.startsWith('backend.robot')])
+  filterLogs(logStore.getRows, [(x) => x.logger.startsWith('backend.robot')])
 );
 </script>

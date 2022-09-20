@@ -42,6 +42,9 @@
         <q-td key="service" :props="props">
           {{ props.row.service }}
         </q-td>
+        <q-td key="logger" :props="props">
+          {{ props.row.logger }}
+        </q-td>
         <q-td key="message" :props="props">
           {{ props.row.message }}
         </q-td>
@@ -125,6 +128,13 @@ const columns = [
     name: 'service',
     label: 'Service',
     field: 'service',
+    align: 'left',
+    sortable: true,
+  },
+  {
+    name: 'logger',
+    label: 'Logger',
+    field: 'logger',
     align: 'left',
     sortable: true,
   },

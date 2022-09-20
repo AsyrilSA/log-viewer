@@ -24,6 +24,7 @@ interface LogEntry {
   level: LogLevel;
   timestamp: Date | null;
   service: string;
+  logger: string;
   message: string;
 }
 
@@ -36,13 +37,17 @@ function parseLine(index: number, line: string): LogEntry {
   let match = line.match(RE_PYTHON);
   if (match != null) {
     const g = match.groups;
+    const service =
+      g?.service.indexOf('.') != -1 ? g?.service.split('.')[1] : 'undefined';
+
     return {
       id: index,
       level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
       timestamp: new Date(
         Date.parse(g?.date + ' ' + g?.time.replace(',', '.'))
       ), // Python use ',' to separate milliseconds
-      service: g?.service || '',
+      service: service || 'undefined',
+      logger: g?.service || '',
       message: g?.message || '',
     };
   }
@@ -60,7 +65,8 @@ function parseLine(index: number, line: string): LogEntry {
       id: index,
       level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
       timestamp: fixedDate,
-      service: g?.service || '',
+      service: 'vision',
+      logger: g?.service || '',
       message: g?.message || '',
     };
   }
@@ -74,6 +80,7 @@ function parseLine(index: number, line: string): LogEntry {
       level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
       timestamp: new Date(Date.parse(g?.date + ' ' + g?.time)),
       service: 'envoy',
+      logger: 'envoy',
       message: g?.message || '',
     };
   }
@@ -84,6 +91,7 @@ function parseLine(index: number, line: string): LogEntry {
     level: LogLevel.UNDEFINED,
     timestamp: null,
     service: 'system',
+    logger: 'system',
     message: line,
   };
 }
