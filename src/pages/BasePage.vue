@@ -68,7 +68,7 @@ import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
 import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue';
 
 import { useLogStore } from 'stores/logStore';
-import { getLogInformation } from '../utils/logExtractor';
+import { getLogInformation } from 'src/utils/logExtractor';
 import { computed } from 'vue';
 
 const logStore = useLogStore();
@@ -78,6 +78,6 @@ const logInformation = computed(() => getLogInformation(logStore.getRows));
 
 <style lang="scss">
 .medium-height {
-  min-height: 350px;
+  min-height: 300px;
 }
 </style>

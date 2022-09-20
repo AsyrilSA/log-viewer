@@ -10,6 +10,9 @@ import StackedBarChart from 'src/components/Charts/StackedBarChart';
 import type { LogInformation } from 'src/utils/logExtractor';
 import { LogLevel } from 'src/utils/logParser';
 import { computed, PropType, ref } from 'vue';
+import colorsMixin from 'src/mixins/colorsMixin';
+
+const logColors = colorsMixin.data().logLevelColors;
 
 const props = defineProps({
   logInformation: {
@@ -38,32 +41,32 @@ const chartData = ref<ChartData<'bar'>>({
   datasets: [
     {
       label: 'Undefined',
-      backgroundColor: '#a0c4ff',
+      backgroundColor: logColors.undefined,
       data: map.value.get(LogLevel.UNDEFINED),
     },
     {
       label: 'Trace',
-      backgroundColor: '#9bf6ff',
+      backgroundColor: logColors.trace,
       data: map.value.get(LogLevel.TRACE),
     },
     {
       label: 'Debug',
-      backgroundColor: '#caffbf',
+      backgroundColor: logColors.debug,
       data: map.value.get(LogLevel.DEBUG),
     },
     {
       label: 'Info',
-      backgroundColor: '#fdffb6',
+      backgroundColor: logColors.info,
       data: map.value.get(LogLevel.INFO),
     },
     {
       label: 'Warning',
-      backgroundColor: '#ffd6a5',
+      backgroundColor: logColors.warning,
       data: map.value.get(LogLevel.WARNING),
     },
     {
       label: 'Error',
-      backgroundColor: '#ffadad',
+      backgroundColor: logColors.error,
       data: map.value.get(LogLevel.ERROR),
     },
   ],

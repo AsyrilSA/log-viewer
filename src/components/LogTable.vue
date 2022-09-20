@@ -14,8 +14,11 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-12">
-      <TimestampFilter v-model="dateFilter"></TimestampFilter>
+    <div class="col-4 q-pb-sm q-pl-sm">
+      <TimestampFilter label="From" v-model="startDate"></TimestampFilter>
+    </div>
+    <div class="col-4 q-pb-sm q-px-sm">
+      <TimestampFilter label="To" v-model="endDate"></TimestampFilter>
     </div>
   </div>
   <q-table
@@ -63,6 +66,8 @@ import LogLevelFilter from 'src/components/Filters/LogLevelFilter.vue';
 import MessageSearch from 'src/components/Filters/MessageSearch.vue';
 import ServiceFilter from 'src/components/Filters/ServiceFilter.vue';
 import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
+import { getLogInformation } from 'src/utils/logExtractor';
+import { truncate } from 'fs';
 
 const props = defineProps({
   rows: {
@@ -79,7 +84,10 @@ const serviceList = computed(() => {
 const logLevelFilter: Ref<string[]> = ref([]);
 const serviceFilter: Ref<string[]> = ref([]);
 const messageFilter = ref('');
-const dateFilter = ref('');
+
+const logInfo = computed(() => getLogInformation(props.rows));
+const startDate = ref(logInfo.value.firstDate?.toLocaleString('fr-CH'));
+const endDate = ref(logInfo.value.lastDate?.toLocaleString('fr-CH'));
 
 let filteredRows = computed(() => {
   let remainingRows = props.rows;
@@ -98,6 +106,14 @@ let filteredRows = computed(() => {
       r.message.toLowerCase().includes(messageFilter.value.toLowerCase())
     );
   }
+
+  remainingRows = remainingRows.filter((r) => {
+    return true;
+    // TODO (clp) compare date and strings
+    // r.timestamp
+    //   ? r.timestamp >= startDate.value && r.timestamp <= endDate.value
+    //   : true;
+  });
 
   return remainingRows;
 });
@@ -188,27 +204,27 @@ function getClass(level: LogLevel): string {
   }
 
   .error-row {
-    background-color: $log-level-error-color;
+    background-color: v-bind('logLevelColors.error');
   }
   .warning-row {
-    background-color: $log-level-warning-color;
+    background-color: v-bind('logLevelColors.warning');
   }
   .info-row {
-    background-color: $log-level-info-color;
+    background-color: v-bind('logLevelColors.info');
   }
   .debug-row {
-    background-color: $log-level-debug-color;
+    background-color: v-bind('logLevelColors.debug');
   }
   .trace-row {
-    background-color: $log-level-trace-color;
+    background-color: v-bind('logLevelColors.trace');
   }
   .undefined-row {
-    background-color: $log-level-undefined-color;
+    background-color: v-bind('logLevelColors.undefined');
   }
-  .q-table__bottom{
-    min-height:300px;
+  .q-table__bottom {
+    min-height: 300px;
     display: flex;
-    justify-content:center;
+    justify-content: center;
   }
 }
 </style>

@@ -28,7 +28,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: ['i18n'],
+    boot: ['i18n', 'colorsMixin'],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: ['app.scss'],
@@ -110,7 +110,7 @@ module.exports = configure(function (/* ctx */) {
       plugins: ['Loading'],
       config: {
         brand: {
-          primary:'#264653',
+          primary: '#264653',
           secondary: '#e86f50',
         },
         loading: {

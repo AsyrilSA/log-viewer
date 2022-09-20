@@ -95,21 +95,21 @@ function getChipClass(level: string): string {
 
 <style lang="scss">
 .error-chip {
-  background-color: $log-level-error-color;
+  background-color: v-bind('logLevelColors.error');
 }
 .warning-chip {
-  background-color: $log-level-warning-color;
+  background-color: v-bind('logLevelColors.warning');
 }
 .info-chip {
-  background-color: $log-level-info-color;
+  background-color: v-bind('logLevelColors.info');
 }
 .debug-chip {
-  background-color: $log-level-debug-color;
+  background-color: v-bind('logLevelColors.debug');
 }
 .trace-chip {
-  background-color: $log-level-trace-color;
+  background-color: v-bind('logLevelColors.trace');
 }
 .undefined-chip {
-  background-color: $log-level-undefined-color;
+  background-color: v-bind('logLevelColors.undefined');
 }
 </style>
