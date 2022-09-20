@@ -30,11 +30,7 @@
           {{ props.row.id }}
         </q-td>
         <q-td key="timestamp" :props="props">
-          {{
-            props.row.timestamp
-              ? props.row.timestamp.toLocaleString('fr-CH')
-              : ''
-          }}
+          {{ props.row.timestamp?.toLocaleString('fr-CH') || '' }}
         </q-td>
         <q-td key="level" :props="props">
           {{ props.row.level }}
