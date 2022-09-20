@@ -43,14 +43,13 @@ import { QSelect } from 'quasar';
 const props = defineProps({
   modelValue: {
     type: Array<string>,
-    default: ['All'],
+    default: [],
     required: true,
   },
 });
 let emit = defineEmits(['update:modelValue']);
 
 const logLevels = Object.keys(LogLevel);
-logLevels.unshift('All');
 const logLevelOptions = ref(logLevels);
 function filterLogLevel(
   val: string,

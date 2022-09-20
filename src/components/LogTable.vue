@@ -1,56 +1,62 @@
 <template>
-    <div class="row">
-      <div class="col-4 q-pb-sm q-pl-sm">
-        <LogLevelFilter v-model="logLevelFilters"></LogLevelFilter>
-      </div>
-      <div class="col-4 q-pb-sm"></div>
-      <div class="col-4 q-pb-sm q-pr-sm">
-        <MessageSearch v-model="messageFilter"></MessageSearch>
-      </div>
+  <div class="row">
+    <div class="col-4 q-pb-sm q-pl-sm">
+      <LogLevelFilter v-model="logLevelFilter"></LogLevelFilter>
     </div>
-    <q-table
-      class="my-sticky-header-table"
-      dense
-      :rows="filteredRows"
-      :columns="columns"
-      hide-bottom
-      row-key="id"
-      :rows-per-page-options="[0]"
-      virtual-scroll
-      separator="none"
-    >
-      <template v-slot:body="props">
-        <q-tr :props="props" :class="getClass(props.row.level)">
-          <q-td key="id" :props="props">
-            {{ props.row.id }}
-          </q-td>
-          <q-td key="timestamp" :props="props">
-            {{
-              props.row.timestamp
-                ? props.row.timestamp.toLocaleString('fr-CH')
-                : ''
-            }}
-          </q-td>
-          <q-td key="level" :props="props">
-            {{ props.row.level }}
-          </q-td>
-          <q-td key="service" :props="props">
-            {{ props.row.service }}
-          </q-td>
-          <q-td key="message" :props="props">
-            {{ props.row.message }}
-          </q-td>
-        </q-tr>
-      </template>
-    </q-table>
+    <div class="col-4 q-pb-sm q-px-sm">
+      <ServiceFilter
+        v-model="serviceFilter"
+        :options="serviceList"
+      ></ServiceFilter>
+    </div>
+    <div class="col-4 q-pb-sm q-pr-sm">
+      <MessageSearch v-model="messageFilter"></MessageSearch>
+    </div>
+  </div>
+  <q-table
+    class="my-sticky-header-table"
+    dense
+    :rows="filteredRows"
+    :columns="columns"
+    hide-bottom
+    row-key="id"
+    :rows-per-page-options="[0]"
+    virtual-scroll
+    separator="none"
+  >
+    <template v-slot:body="props">
+      <q-tr :props="props" :class="getClass(props.row.level)">
+        <q-td key="id" :props="props">
+          {{ props.row.id }}
+        </q-td>
+        <q-td key="timestamp" :props="props">
+          {{
+            props.row.timestamp
+              ? props.row.timestamp.toLocaleString('fr-CH')
+              : ''
+          }}
+        </q-td>
+        <q-td key="level" :props="props">
+          {{ props.row.level }}
+        </q-td>
+        <q-td key="service" :props="props">
+          {{ props.row.service }}
+        </q-td>
+        <q-td key="message" :props="props">
+          {{ props.row.message }}
+        </q-td>
+      </q-tr>
+    </template>
+  </q-table>
 </template>
 
 <script lang="ts" setup>
 import { LogEntry, LogLevel } from 'src/utils/logParser';
 import LogLevelFilter from 'src/components/LogLevelFilter.vue';
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 import { computed } from 'vue';
 import MessageSearch from './MessageSearch.vue';
+import ServiceFilter from './ServiceFilter.vue';
 
 const props = defineProps({
   rows: {
@@ -59,14 +65,25 @@ const props = defineProps({
   },
 });
 
-const logLevelFilters = ref(['All']);
+const serviceList = computed(() => {
+  // Return unique values of services
+  return [...new Set(props.rows.map((r) => r.service))];
+});
+
+const logLevelFilter: Ref<string[]> = ref([]);
+const serviceFilter: Ref<string[]> = ref([]);
 const messageFilter = ref('');
 
 let filteredRows = computed(() => {
   let remainingRows = props.rows;
-  if (!logLevelFilters.value.includes('All')) {
+  if (logLevelFilter.value.length > 0) {
     remainingRows = remainingRows.filter((r) =>
-      logLevelFilters.value.includes(r.level)
+      logLevelFilter.value.includes(r.level)
+    );
+  }
+  if (serviceFilter.value.length > 0) {
+    remainingRows = remainingRows.filter((r) =>
+      serviceFilter.value.includes(r.service)
     );
   }
   if (messageFilter.value !== '') {

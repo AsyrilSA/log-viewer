@@ -37,6 +37,7 @@ function importButtonClick() {
   inputFileRef.value.click();
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const uploadFile = (event: any) => {
   const fileName = event.target.files[0].name;
   if (fileName) {
@@ -45,8 +46,9 @@ const uploadFile = (event: any) => {
     let reader = new FileReader();
     reader.onload = () => {
       untar(reader.result)
-        .then((extractedFiles: any) => {
-          extractedFiles.forEach((log: any) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .then((extractedFiles: any[]) => {
+          extractedFiles.forEach((log) => {
             const logName = log.name.slice(0, -7);
             if (logName === 'full') {
               const unzippedLog = pako.inflate(log.buffer, { to: 'string' });
