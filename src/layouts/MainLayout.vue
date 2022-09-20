@@ -41,7 +41,7 @@
       class="bg-primary q-pt-lg"
     >
       <q-list>
-        <q-item-label header> Menu </q-item-label>
+        <q-item-label header class="menu-title"> Menu </q-item-label>
         <MenuLink
           :disabled="!logStore.getName"
           v-for="link in menuLinks"
@@ -53,7 +53,7 @@
     </q-drawer>
 
     <q-page-container>
-        <router-view />
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
@@ -132,5 +132,9 @@ function toggleLeftDrawer() {
 
 .file-name-input {
   width: 50%;
+}
+
+.menu-title {
+  color: lightgrey;
 }
 </style>

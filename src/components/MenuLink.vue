@@ -6,18 +6,17 @@
     :class="disabled ? 'disabled-menu-item' : ''"
   >
     <q-item-section v-if="icon" avatar>
-      <q-icon class="menu-item-icon" :name="icon"/>
+      <q-icon class="menu-item-icon" :name="icon" />
     </q-item-section>
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
-      <q-item-label caption>{{ caption }}</q-item-label>
+      <q-item-label caption class="menu-caption">{{ caption }}</q-item-label>
     </q-item-section>
   </q-item>
 </template>
 
 <script setup lang="ts">
-
 export interface MenuLinkProps {
   title: string;
   caption?: string;
@@ -45,8 +44,12 @@ withDefaults(defineProps<MenuLinkProps>(), {
   color: white;
   height: 28px;
   width: 28px;
-  background-color: #2A9D8F;
+  background-color: #2a9d8f;
   border-radius: 10000px;
   padding: 10px;
+}
+
+.menu-caption{
+  color: lightgrey
 }
 </style>
