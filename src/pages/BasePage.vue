@@ -9,7 +9,7 @@
               style="min-height: 100%"
             >
               <h5 class="q-my-none q-ml-md q-pt-sm">Log Status</h5>
-              <log-status></log-status>
+              <log-status :logInformation="logInformation"></log-status>
             </q-card>
           </div>
         </div>

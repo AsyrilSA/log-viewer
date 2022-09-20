@@ -1,6 +1,6 @@
-import { defineComponent, h, PropType } from "vue";
+import { computed, defineComponent, h, PropType } from 'vue';
 
-import { Bar } from "vue-chartjs";
+import { Bar } from 'vue-chartjs';
 
 import {
   Chart as ChartJS,
@@ -10,8 +10,12 @@ import {
   BarElement,
   CategoryScale,
   LinearScale,
-  Plugin
-} from "chart.js";
+  ChartData,
+  Plugin,
+  DefaultDataPoint,
+} from 'chart.js';
+import { LogLevel } from 'src/utils/logParser';
+import { mapActions } from 'pinia';
 
 ChartJS.register(
   Title,
@@ -23,85 +27,67 @@ ChartJS.register(
 );
 
 export default defineComponent({
-  name: "BarChart",
+  name: 'BarChart',
   components: {
-    Bar
+    Bar,
   },
   props: {
     chartId: {
       type: String,
-      default: "bar-chart"
+      default: 'bar-chart',
     },
     width: {
       type: Number,
-      default: 400
+      default: 400,
     },
     height: {
       type: Number,
-      default: 400
+      default: 400,
     },
     cssClasses: {
-      default: "",
-      type: String
+      default: '',
+      type: String,
     },
     styles: {
       type: Object as PropType<Partial<CSSStyleDeclaration>>,
-       default: () => ({}),
+      default: () => ({}),
     },
     plugins: {
       type: Array as PropType<Plugin<'pie'>[]>,
-       default: () => ([]),
-    }
+      default: () => [],
+    },
+    chartData: {
+      type: Object as PropType<
+        ChartData<'bar', DefaultDataPoint<'bar'>, unknown>
+      >,
+      required: true,
+    },
   },
-  setup(props) {
-    const chartData = {
-      labels: [
-        "Communication",
-        "Application",
-        "Kernel",
-      ],
-      datasets: [
-        {
-          label: "Warning",
-          backgroundColor: "#FFBA01",
-          data: [2542, 6532, 1249]
-        },
-        {
-          label: "Info",
-          backgroundColor: "#00D8FF",
-          data: [1021, 10211, 1111]
-        },
-                {
-          label: "error",
-          backgroundColor: "#f87979",
-          data: [765, 1234, 100]
-        }
-      ]
-    };
 
+  setup(props) {
     const chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
         x: {
-          stacked: true
+          stacked: true,
         },
         y: {
-          stacked: true
-        }
-      }
+          stacked: true,
+        },
+      },
     };
 
     return () =>
       h(Bar, {
-        chartData,
+        chartData: props.chartData,
         chartOptions,
         chartId: props.chartId,
         width: props.width,
         height: props.height,
         cssClasses: props.cssClasses,
         styles: props.styles,
-        plugins: props.plugins
+        plugins: props.plugins,
       });
-  }
+  },
 });
