@@ -37,7 +37,9 @@
               style="min-height: 100%"
             >
               <h5 class="q-my-none q-ml-md q-pt-sm">Time Information</h5>
-              <time-information></time-information>
+              <time-information
+                :logInformation="logInformation"
+              ></time-information>
             </q-card>
           </div>
         </div>

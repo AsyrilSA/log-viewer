@@ -1,28 +1,43 @@
 <template>
   <div class="column q-pa-md expand-row justify-around">
-    <div class="row"> 
+    <div class="row">
       <div class="col q-ml-xl">Time of first log:</div>
-      <div class="col">19.09.2022 14:09:02</div>
+      <div class="col">
+        {{ props.logInformation.firstDate?.toLocaleString('fr-CH') || '-' }}
+      </div>
     </div>
-    <div class="row"> 
+    <div class="row">
       <div class="col q-ml-xl">Time of last log:</div>
-      <div class="col">19.09.2022 14:12:57</div>
+      <div class="col">
+        {{ props.logInformation.lastDate?.toLocaleString('fr-CH') || '-' }}
+      </div>
     </div>
-    <div class="row"> 
-      <div class="col q-ml-xl">Production duration:</div>
-      <div class="col">2h 47min 12 sec</div>
-    </div>
-    <div class="row"> 
-      <div class="col q-ml-xl">log total duration:</div>
-      <div class="col">1h 12min 55 sec</div>
+    <div class="row">
+      <div class="col q-ml-xl">Log total duration:</div>
+      <div class="col">{{ totalDuration }} minutes</div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { date } from 'quasar';
+import type { LogInformation } from 'src/utils/logExtractor';
+import { computed, PropType } from 'vue';
 
+const props = defineProps({
+  logInformation: {
+    type: Object as PropType<LogInformation>,
+    required: true,
+  },
+});
+
+const totalDuration = computed(() =>
+  date.getDateDiff(
+    props.logInformation.lastDate || 0,
+    props.logInformation.firstDate || 0,
+    'minutes'
+  )
+);
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>
