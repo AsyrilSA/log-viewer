@@ -35,24 +35,35 @@ export default defineComponent({
       default: '',
       type: String
     },
+    styles: {
+      type: Object as PropType<Partial<CSSStyleDeclaration>>,
+       default: () => ({}),
+    },
+    plugins: {
+      type: Array as PropType<Plugin<'pie'>[]>,
+       default: () => ([]),
+    }
   },
   setup(props) {
     const chartData = {
-      labels: ['Application', 'System', 'Communication'],
+      labels: ['Application', 'Communication', 'Kernel'],
       datasets: [
         {
-          label:"test",
           backgroundColor: ['#41B883', '#E46651', '#00D8FF'],
-          data: [42, 23, 35]
+          data: [36, 21, 43]
         }
       ]
     }
 
     const chartOptions = {
       responsive: true,
-      maintainAspectRatio: false
+      maintainAspectRatio: false,
+      plugins:{
+        legend:{
+          position:"right"
+        },
+      },
     }
-
     return () =>
       h(Pie, {
         chartData,
@@ -61,7 +72,8 @@ export default defineComponent({
         width: props.width,
         height: props.height,
         cssClasses: props.cssClasses,
-
+        styles: props.styles,
+        plugins: props.plugins
       })
   }
 })
