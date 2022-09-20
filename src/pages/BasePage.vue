@@ -22,7 +22,9 @@
               style="min-height: 100%"
             >
               <h5 class="q-my-none q-ml-md q-pt-sm">General Log Information</h5>
-              <general-log-information></general-log-information>
+              <general-log-information
+                :logInformation="logInformation"
+              ></general-log-information>
             </q-card>
           </div>
         </div>
@@ -62,14 +64,18 @@ import LogRepartition from 'src/pages/BasePage/LogRepartition.vue';
 import LogStatus from 'src/pages/BasePage/LogStatus.vue';
 import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
 import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue';
-// import { useLogStore } from 'stores/logStore';
-// import { ref } from 'vue';
 
+import { useLogStore } from 'stores/logStore';
+import { getLogInformation } from '../utils/logExtractor';
+import { computed } from 'vue';
+
+const logStore = useLogStore();
+
+const logInformation = computed(() => getLogInformation(logStore.getRows));
 </script>
 
 <style lang="scss">
-
-.medium-height{
+.medium-height {
   min-height: 350px;
 }
 </style>
