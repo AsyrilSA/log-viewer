@@ -9,7 +9,7 @@ Asyril Log Viewer
 - [ ] add loading element on loading of pages/table/charts
 - [x] replace "undefined" loglevel by "system" ?
 - [ ] improve colors of loglevels : grey and lightgrey for trace and debug in [colorMixin.ts](src/mixins/colorsMixin.ts)
-- [ ] add a button to return to the top of the logs
+- [x] add a button to return to the top of the logs
 - [x] add a button to delete all filters
 - [x] improve logName display in the top bar
 - [ ] add a filter like "go to first error"

@@ -39,6 +39,7 @@
   </div>
   <q-table
     class="my-sticky-header-table"
+    ref="table"
     dense
     :rows="filteredRows"
     :columns="columns"
@@ -46,6 +47,7 @@
     row-key="id"
     :rows-per-page-options="[0]"
     virtual-scroll
+    virtual-scroll-sticky-size-start="48"
     separator="none"
     no-data-label="There is nothing to display for this type for the loaded log."
   >
@@ -72,6 +74,15 @@
       </q-tr>
     </template>
   </q-table>
+  <q-page-sticky position="bottom-right" :offset="[20, 20]">
+    <q-btn
+      round
+      color="grey-6"
+      icon="arrow_back"
+      class="rotate-90"
+      @click="goToTop"
+    ></q-btn>
+  </q-page-sticky>
 </template>
 
 <script lang="ts" setup>
@@ -212,6 +223,14 @@ const resetFilters = () => {
   messageFilter.value = '';
   startDate.value = logInfo.value.firstDate;
   endDate.value = logInfo.value.lastDate;
+};
+
+const table = ref(null);
+
+const goToTop = () => {
+  if (table.value) {
+    table.value.scrollTo(0);
+  }
 };
 </script>
 
