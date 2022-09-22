@@ -84,18 +84,18 @@ const menuLinks: MenuLinkProps[] = [
     icon: 'lan',
     link: '/#/communication',
   },
-  {
-    title: 'Performance',
-    caption: 'Performance related logs',
-    icon: 'speed',
-    link: '/#/performance',
-  },
-  {
-    title: 'Settings',
-    caption: 'Application settings',
-    icon: 'settings',
-    link: '/#/settings',
-  },
+  // {
+  //   title: 'Performance',
+  //   caption: 'Performance related logs',
+  //   icon: 'speed',
+  //   link: '/#/performance',
+  // },
+  // {
+  //   title: 'Settings',
+  //   caption: 'Application settings',
+  //   icon: 'settings',
+  //   link: '/#/settings',
+  // },
 ];
 
 const miniState = ref(false);
