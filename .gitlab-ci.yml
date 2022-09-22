@@ -37,15 +37,16 @@ deploy app:
     - docker-compose version
     - apk add git openssh-client
     # Adding SSH KEY for accessing host docker through ssh
-    - eval $(ssh-agent -s)
-    - echo "$BUILDSERVER_SSH_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$BUILDSERVER_SSH_KEY" | tr -d '\r' | ssh-add -
+    # Adding host key to avoid "Host key verification failed."
+    - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
   variables:
     CONTAINER_IMAGE: $CI_PIPELINE_ID
     DEPLOY_HOST: $BUILDSERVER_HOST
   script:
-    - echo "Host $DEPLOY_HOST\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
     - export DOCKER_HOST=ssh://gitlab@$DEPLOY_HOST
     - $DOCKER_COMPOSE pull
     - $DOCKER_COMPOSE down --remove-orphans
