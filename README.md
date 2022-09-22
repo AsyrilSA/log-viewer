@@ -21,6 +21,7 @@ Asyril Log Viewer
 - [ ] tests (unit and e2e)
 - [ ] push the project on github open source asyril account
 - [ ] translation (i18n)
+- [ ] add support for multiline log entry (currently one line in the file = one log entry)
 
 
 
