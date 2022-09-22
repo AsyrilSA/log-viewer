@@ -60,7 +60,6 @@ const props = defineProps({
     default: 'Date',
     required: true,
   },
-  rules: [],
 });
 
 let emit = defineEmits(['update:modelValue']);

@@ -110,7 +110,7 @@
 
 <script lang="ts" setup>
 import { LogEntry, LogLevel } from 'src/utils/logParser';
-import { Ref, ref } from 'vue';
+import { Ref, ref, watch, onMounted } from 'vue';
 import { computed } from 'vue';
 import LogLevelFilter from 'src/components/Filters/LogLevelFilter.vue';
 import MessageSearch from 'src/components/Filters/MessageSearch.vue';
@@ -119,6 +119,8 @@ import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
 import { getLogInformation } from 'src/utils/logExtractor';
 import dateFormat from 'src/utils/dateUtils';
 import { date } from 'quasar';
+import { useLogStore } from 'stores/logStore';
+const logStore = useLogStore();
 
 const props = defineProps({
   rows: {
@@ -266,6 +268,9 @@ const goToTop = () => {
     table.value.scrollTo(0);
   }
 };
+onMounted(() => {
+  logStore.setLogLoading(false)
+})
 </script>
 
 <style lang="scss">

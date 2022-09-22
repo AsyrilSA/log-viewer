@@ -74,6 +74,7 @@
 </template>
 
 <script lang="ts" setup>
+  import {onMounted} from 'vue';
 import LogRepartition from 'src/pages/BasePage/LogRepartition.vue';
 import LogStatus from 'src/pages/BasePage/LogStatus.vue';
 import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
@@ -84,6 +85,9 @@ import { getLogInformation } from 'src/utils/logExtractor';
 import { computed } from 'vue';
 
 const logStore = useLogStore();
+onMounted(() => {
+logStore.setLogLoading(false);
+})
 
 const logInformation = computed(() => getLogInformation(logStore.getRows));
 </script>

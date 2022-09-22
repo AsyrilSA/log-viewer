@@ -58,6 +58,7 @@ const uploadFile = (event: any) => {
     $q.loading.show();
     logStore.setLogs([], '');
     logStore.setMetaData({});
+    logStore.setLogLoading(true);
     let reader = new FileReader();
     reader.onload = () => {
       untar(reader.result)
@@ -93,7 +94,6 @@ const uploadFile = (event: any) => {
             return;
           }
           if (route.path === '/') router.push('/base');
-          $q.loading.hide();
         })
         .catch(() => {
           alertUnreadableLogFile();

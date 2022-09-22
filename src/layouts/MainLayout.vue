@@ -1,5 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
+
     <q-header elevated>
       <q-toolbar class="bg-primary">
         <q-btn
@@ -17,9 +18,14 @@
           </a>
           <span class="main-title-version">{{ version }}</span>
         </q-toolbar-title>
-        <div>
-          <b>Log name : </b>{{ logStore.getName ? logStore.getName : '-' }}
-        </div>
+        <q-input
+          class="file-name-input"
+          bg-color="grey"
+          disabled
+          outlined
+          dense
+          :model-value="logStore.getName"
+        />
         <q-space />
         <ImportLogButton></ImportLogButton>
       </q-toolbar>
@@ -46,13 +52,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import MenuLink, { MenuLinkProps } from 'components/MenuLink.vue';
 import ImportLogButton from '../components/ImportLogButton.vue';
 import { useLogStore } from 'stores/logStore';
 import { version } from '../../package.json';
+import { useQuasar } from 'quasar'
+import { storeToRefs } from 'pinia'
 
-const logStore = useLogStore();
+const $q = useQuasar()
 
 const menuLinks: MenuLinkProps[] = [
   {
@@ -97,6 +105,17 @@ const miniState = ref(false);
 function toggleLeftDrawer() {
   miniState.value = !miniState.value;
 }
+
+function handleLoadingDisplay(isLoading:boolean) {
+  isLoading ? $q.loading.show() : $q.loading.hide()
+}
+const logStore = useLogStore()
+const { isLogLoading } = storeToRefs(logStore)
+
+watch(isLogLoading, ( ) => {
+  handleLoadingDisplay(isLogLoading.value)
+})
+
 </script>
 
 <style lang="scss">
