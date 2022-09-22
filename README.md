@@ -7,7 +7,7 @@ Asyril Log Viewer
 - [ ] try a html table instead of q-table in [LogTable.vue](/src/components/LogTable.vue) to increase performance
 - [x] the select page is not overlayed on the side menu
 - [ ] add loading element on loading of pages/table/charts
-- [ ] replace "undefined" loglevel by "system" ?
+- [x] replace "undefined" loglevel by "system" ?
 - [ ] improve colors of loglevels : grey and lightgrey for trace and debug in [colorMixin.ts](src/mixins/colorsMixin.ts)
 - [ ] add a button to return to the top of the logs
 - [x] add a button to delete all filters

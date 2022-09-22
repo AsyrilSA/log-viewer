@@ -37,8 +37,19 @@ function parseLine(index: number, line: string): LogEntry {
   let match = line.match(RE_PYTHON);
   if (match != null) {
     const g = match.groups;
-    const service =
-      g?.service.indexOf('.') != -1 ? g?.service.split('.')[1] : 'undefined';
+
+    let service = undefined;
+
+    // We need some special handling for some of the log entries that do not start with "backend."
+    if (g?.service.startsWith('backend.')) {
+      service = g?.service.split('.')[1];
+    } else if (g?.service.startsWith('host_service.')) {
+      service = 'host_service';
+    }
+
+    if (service === undefined) {
+      service = 'system';
+    }
 
     return {
       id: index,
@@ -46,7 +57,7 @@ function parseLine(index: number, line: string): LogEntry {
       timestamp: new Date(
         Date.parse(g?.date + ' ' + g?.time.replace(',', '.'))
       ), // Python use ',' to separate milliseconds
-      service: service || 'undefined',
+      service: service,
       logger: g?.service || '',
       message: g?.message || '',
     };
