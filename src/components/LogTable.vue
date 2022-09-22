@@ -240,22 +240,22 @@ const resetFilters = () => {
   }
 
   .error-row {
-    background-color: v-bind('logLevelColors.error');
+    background-color: v-bind('logLevelColors(LogLevel.ERROR)');
   }
   .warning-row {
-    background-color: v-bind('logLevelColors.warning');
+    background-color: v-bind('logLevelColors(LogLevel.WARNING)');
   }
   .info-row {
-    background-color: v-bind('logLevelColors.info');
+    background-color: v-bind('logLevelColors(LogLevel.INFO)');
   }
   .debug-row {
-    background-color: v-bind('logLevelColors.debug');
+    background-color: v-bind('logLevelColors(LogLevel.DEBUG)');
   }
   .trace-row {
-    background-color: v-bind('logLevelColors.trace');
+    background-color: v-bind('logLevelColors(LogLevel.TRACE)');
   }
   .undefined-row {
-    background-color: v-bind('logLevelColors.undefined');
+    background-color: v-bind('logLevelColors(LogLevel.UNDEFINED)');
   }
   .q-table__bottom {
     min-height: 300px;

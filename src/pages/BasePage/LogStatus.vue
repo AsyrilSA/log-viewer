@@ -41,32 +41,32 @@ const chartData = computed(() => {
     datasets: [
       {
         label: LogLevel.UNDEFINED,
-        backgroundColor: logColors.undefined,
+        backgroundColor: logColors(LogLevel.UNDEFINED),
         data: getStatistics(statistics, services, LogLevel.UNDEFINED),
       },
       {
         label: LogLevel.TRACE,
-        backgroundColor: logColors.trace,
+        backgroundColor: logColors(LogLevel.TRACE),
         data: getStatistics(statistics, services, LogLevel.TRACE),
       },
       {
         label: LogLevel.DEBUG,
-        backgroundColor: logColors.debug,
+        backgroundColor: logColors(LogLevel.DEBUG),
         data: getStatistics(statistics, services, LogLevel.DEBUG),
       },
       {
         label: LogLevel.INFO,
-        backgroundColor: logColors.info,
+        backgroundColor: logColors(LogLevel.INFO),
         data: getStatistics(statistics, services, LogLevel.INFO),
       },
       {
         label: LogLevel.WARNING,
-        backgroundColor: logColors.warning,
+        backgroundColor: logColors(LogLevel.WARNING),
         data: getStatistics(statistics, services, LogLevel.WARNING),
       },
       {
         label: LogLevel.ERROR,
-        backgroundColor: logColors.error,
+        backgroundColor: logColors(LogLevel.ERROR),
         data: getStatistics(statistics, services, LogLevel.ERROR),
       },
     ],

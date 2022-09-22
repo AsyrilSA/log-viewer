@@ -44,14 +44,9 @@ const chartData = computed(() => {
     labels: levels,
     datasets: [
       {
-        backgroundColor: [
-          logColors.undefined,
-          logColors.trace,
-          logColors.debug,
-          logColors.info,
-          logColors.warning,
-          logColors.error,
-        ],
+        backgroundColor: Object.values(LogLevel).map((value) =>
+          logColors(value)
+        ),
         data: getStatistics(statistics, levels),
       },
     ],
