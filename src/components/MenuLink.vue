@@ -50,7 +50,7 @@ const getClass = computed(() => {
   color: white;
   height: 28px;
   width: 28px;
-  background-color: #2a9d8f;
+  background-color: var(--q-secondary);
   border-radius: 10000px;
   padding: 10px;
 }
@@ -60,7 +60,7 @@ const getClass = computed(() => {
 }
 
 .selected-menu-item {
-  background-color: hsl(173, 58%, 39%, 30%);
+  background-color: hsl(12, 77%, 61%, 30%);
   filter: brightness(120%);
   font-weight: 800;
 }

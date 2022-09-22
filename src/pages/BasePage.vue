@@ -40,8 +40,13 @@
               class="col q-mr-md-sm q-mr-xs-none q-pb-xs-md q-mb-md-none"
               style="min-height: 100%"
             >
-              <h5 class="q-my-none q-ml-md q-pt-sm">Log Status</h5>
-              <log-status :logInformation="logInformation"></log-status>
+              <h5 class="q-my-none q-ml-md q-pt-sm">
+                Log distribution per service
+              </h5>
+              <log-status
+                class="q-ma-md"
+                :logInformation="logInformation"
+              ></log-status>
             </q-card>
           </div>
         </div>
@@ -53,8 +58,11 @@
               class="col q-mr-md-sm q-mr-xs-none q-pb-xs-md q-mb-md-none"
               style="min-height: 100%"
             >
-              <h5 class="q-my-none q-ml-md q-pt-sm">Log Repartition</h5>
+              <h5 class="q-my-none q-ml-md q-pt-sm">
+                Log distribution per log level
+              </h5>
               <log-repartition
+                class="q-ma-md"
                 :logInformation="logInformation"
               ></log-repartition>
             </q-card>

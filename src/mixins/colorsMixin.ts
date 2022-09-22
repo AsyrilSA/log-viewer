@@ -6,18 +6,18 @@ export default {
       get logLevelColors() {
         return (level: LogLevel) => {
           switch (level) {
-            case LogLevel.UNDEFINED:
-              return '#a0c4ff';
+            case LogLevel.SYSTEM:
+              return '#66CCFF';
             case LogLevel.TRACE:
-              return '#9bf6ff';
+              return '#A9A9A9';
             case LogLevel.DEBUG:
-              return '#caffbf';
+              return '#DCDCDC';
             case LogLevel.INFO:
-              return '#fdffb6';
+              return '#66CC00';
             case LogLevel.WARNING:
-              return '#ffd6a5';
+              return '#FFCC00';
             case LogLevel.ERROR:
-              return '#ffadad';
+              return '#ff4d4d';
           }
         };
       },

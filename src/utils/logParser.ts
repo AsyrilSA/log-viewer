@@ -11,7 +11,7 @@ const RE_ENVOY = new RegExp(
 );
 
 enum LogLevel {
-  UNDEFINED = 'UNDEFINED',
+  SYSTEM = 'SYSTEM',
   TRACE = 'TRACE',
   DEBUG = 'DEBUG',
   INFO = 'INFO',
@@ -99,7 +99,7 @@ function parseLine(index: number, line: string): LogEntry {
   // The line probably belongs to the system. Use a special service to identify this
   return {
     id: index,
-    level: LogLevel.UNDEFINED,
+    level: LogLevel.SYSTEM,
     timestamp: null,
     service: 'system',
     logger: 'system',

@@ -40,9 +40,9 @@ const chartData = computed(() => {
     labels: services,
     datasets: [
       {
-        label: LogLevel.UNDEFINED,
-        backgroundColor: logColors(LogLevel.UNDEFINED),
-        data: getStatistics(statistics, services, LogLevel.UNDEFINED),
+        label: LogLevel.SYSTEM,
+        backgroundColor: logColors(LogLevel.SYSTEM),
+        data: getStatistics(statistics, services, LogLevel.SYSTEM),
       },
       {
         label: LogLevel.TRACE,

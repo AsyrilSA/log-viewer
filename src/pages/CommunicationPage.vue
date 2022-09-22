@@ -1,6 +1,5 @@
 <template>
-  <h4>Communication Logs</h4>
-  <LogTable :rows="rows"></LogTable>
+  <LogTable title="Communication Logs" :rows="rows"></LogTable>
 </template>
 <script lang="ts" setup>
 import { useLogStore } from 'stores/logStore';

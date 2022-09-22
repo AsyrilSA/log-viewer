@@ -8,19 +8,20 @@ Asyril Log Viewer
 - [x] the select page is not overlayed on the side menu
 - [ ] add loading element on loading of pages/table/charts
 - [x] replace "undefined" loglevel by "system" ?
-- [ ] improve colors of loglevels : grey and lightgrey for trace and debug in [colorMixin.ts](src/mixins/colorsMixin.ts)
-- [ ] add a button to return to the top of the logs
+- [x] improve colors of loglevels : grey and lightgrey for trace and debug in [colorMixin.ts](src/mixins/colorsMixin.ts)
+- [x] add a button to return to the top of the logs
 - [x] add a button to delete all filters
 - [x] improve logName display in the top bar
 - [ ] add a filter like "go to first error"
 - [x] implement the ci to deploy the logviewer on the asyril-registry server (port 8098)
 - [ ] implement a general filter like gitlab, github or wireshark
-- [ ] permits to select a cell and set it as filter (right click or keyboard shortcut)
+- [x] permits to select a cell and set it as filter (CTRL + click)
 - [x] display the metadata json
-- [ ] improve error management when something else than a eye+ log is imported
+- [x] improve error management when something else than a eye+ log is imported
 - [ ] tests (unit and e2e)
 - [ ] push the project on github open source asyril account
 - [ ] translation (i18n)
+- [ ] add support for multiline log entry (currently one line in the file = one log entry)
 
 ## Development
 

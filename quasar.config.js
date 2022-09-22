@@ -110,7 +110,7 @@ module.exports = configure(function (/* ctx */) {
       plugins: ['Loading'],
       config: {
         brand: {
-          primary: '#264653',
+          primary: '#444444',
           secondary: '#e86f50',
         },
         loading: {

@@ -25,7 +25,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above bordered class="bg-primary" :mini="miniState">
+    <q-drawer show-if-above bordered class="bg-primary" :width="250" :mini="miniState">
       <q-list>
         <q-item-label header class="menu-title"> Menu </q-item-label>
         <MenuLink
@@ -62,12 +62,6 @@ const menuLinks: MenuLinkProps[] = [
     link: '/#/base',
   },
   {
-    title: 'Raw',
-    caption: 'Raw logs',
-    icon: 'raw_on',
-    link: '/#/rawlogs',
-  },
-  {
     title: 'Application',
     caption: 'Application related logs',
     icon: 'apps',
@@ -78,6 +72,12 @@ const menuLinks: MenuLinkProps[] = [
     caption: 'TCP/IP protocol',
     icon: 'lan',
     link: '/#/communication',
+  },
+  {
+    title: 'Raw',
+    caption: 'Raw logs',
+    icon: 'raw_on',
+    link: '/#/rawlogs',
   },
   {
     title: 'Metadata',

@@ -69,6 +69,10 @@ export default defineComponent({
           stacked: true,
         },
         y: {
+          title: {
+            display: true,
+            text: 'Number of log entries',
+          },
           stacked: true,
         },
       },
