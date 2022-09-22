@@ -212,7 +212,7 @@ function getClass(level: LogLevel): string {
       return 'debug-row';
     case LogLevel.TRACE:
       return 'trace-row';
-    case LogLevel.UNDEFINED:
+    case LogLevel.SYSTEM:
       return 'undefined-row';
   }
 }
@@ -274,7 +274,7 @@ const goToTop = () => {
     background-color: v-bind('logLevelColors(LogLevel.TRACE)');
   }
   .undefined-row {
-    background-color: v-bind('logLevelColors(LogLevel.UNDEFINED)');
+    background-color: v-bind('logLevelColors(LogLevel.SYSTEM)');
   }
   .q-table__bottom {
     min-height: 300px;

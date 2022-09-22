@@ -6,7 +6,7 @@ export default {
       get logLevelColors() {
         return (level: LogLevel) => {
           switch (level) {
-            case LogLevel.UNDEFINED:
+            case LogLevel.SYSTEM:
               return '#a0c4ff';
             case LogLevel.TRACE:
               return '#9bf6ff';

@@ -85,8 +85,8 @@ function getChipClass(level: string): string {
       return 'debug-chip';
     case LogLevel.TRACE:
       return 'trace-chip';
-    case LogLevel.UNDEFINED:
-      return 'undefined-chip';
+    case LogLevel.SYSTEM:
+      return 'system-chip';
   }
 
   return '';
@@ -95,21 +95,21 @@ function getChipClass(level: string): string {
 
 <style lang="scss">
 .error-chip {
-  background-color: v-bind('logLevelColors.error');
+  background-color: v-bind('logLevelColors(LogLevel.ERROR)');
 }
 .warning-chip {
-  background-color: v-bind('logLevelColors.warning');
+  background-color: v-bind('logLevelColors(LogLevel.WARNING)');
 }
 .info-chip {
-  background-color: v-bind('logLevelColors.info');
+  background-color: v-bind('logLevelColors(LogLevel.INFO)');
 }
 .debug-chip {
-  background-color: v-bind('logLevelColors.debug');
+  background-color: v-bind('logLevelColors(LogLevel.DEBUG)');
 }
 .trace-chip {
-  background-color: v-bind('logLevelColors.trace');
+  background-color: v-bind('logLevelColors(LogLevel.TRACE)');
 }
-.undefined-chip {
-  background-color: v-bind('logLevelColors.undefined');
+.system-chip {
+  background-color: v-bind('logLevelColors(LogLevel.SYSTEM)');
 }
 </style>
