@@ -1,6 +1,5 @@
 <template>
-  <h4>Raw Logs</h4>
-  <LogTable :rows="rows"></LogTable>
+  <LogTable title="Raw Logs" :rows="rows"></LogTable>
 </template>
 
 <script lang="ts" setup>

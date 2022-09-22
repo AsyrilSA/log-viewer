@@ -15,7 +15,7 @@ Asyril Log Viewer
 - [ ] add a filter like "go to first error"
 - [ ] implement the ci to deploy the logviewer on the asyril-registry server (port to be defined)
 - [ ] implement a general filter like gitlab, github or wireshark
-- [ ] permits to select a cell and set it as filter (right click or keyboard shortcut)
+- [x] permits to select a cell and set it as filter (CTRL + click)
 - [x] display the metadata json
 - [x] improve error management when something else than a eye+ log is imported
 - [ ] tests (unit and e2e)

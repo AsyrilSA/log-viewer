@@ -1,5 +1,15 @@
 <template>
   <div class="row">
+    <h4>{{ title }}</h4>
+    <div>
+      <q-icon name="error" color="grey" size="24px" class="q-mt-md q-ml-md">
+        <q-tooltip class="log-table-tooltip">
+          Use CTRL+Click on <b>Level</b> and <b>Service</b> cells to filter
+        </q-tooltip></q-icon
+      >
+    </div>
+  </div>
+  <div class="row">
     <div class="col-4 q-pb-sm q-pl-sm">
       <LogLevelFilter v-model="logLevelFilter"></LogLevelFilter>
     </div>
@@ -35,6 +45,7 @@
         label="Reset all filters"
         @click="resetFilters"
       />
+      <q-spacer></q-spacer>
     </div>
   </div>
   <q-table
@@ -59,10 +70,18 @@
         <q-td key="timestamp" :props="props">
           {{ props.row.timestamp?.toLocaleString('fr-CH') || '' }}
         </q-td>
-        <q-td key="level" :props="props">
+        <q-td
+          key="level"
+          :props="props"
+          @click.ctrl="filterLogLevel(props.row.level)"
+        >
           {{ props.row.level }}
         </q-td>
-        <q-td key="service" :props="props">
+        <q-td
+          key="service"
+          :props="props"
+          @click.ctrl="filterService(props.row.service)"
+        >
           {{ props.row.service }}
         </q-td>
         <q-td key="logger" :props="props">
@@ -104,6 +123,10 @@ import { date } from 'quasar';
 const props = defineProps({
   rows: {
     type: Array<LogEntry>,
+    required: true,
+  },
+  title: {
+    type: String,
     required: true,
   },
 });
@@ -220,6 +243,13 @@ function getClass(level: LogLevel): string {
       return 'system-row';
   }
 }
+const filterLogLevel = (logLevel: LogLevel) => {
+  logLevelFilter.value = [logLevel];
+};
+
+const filterService = (service: string) => {
+  serviceFilter.value = [service];
+};
 
 const resetFilters = () => {
   logLevelFilter.value = [];
@@ -289,5 +319,9 @@ const goToTop = () => {
       color: var(--q-secondary);
     }
   }
+}
+
+.log-table-tooltip {
+  font-size:16px;
 }
 </style>

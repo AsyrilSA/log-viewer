@@ -1,6 +1,5 @@
 <template>
-  <h4>Application Logs</h4>
-  <LogTable :rows="rows"></LogTable>
+  <LogTable title="Application Logs" :rows="rows"></LogTable>
 </template>
 
 <script lang="ts" setup>
