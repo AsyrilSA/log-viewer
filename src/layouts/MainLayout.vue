@@ -25,7 +25,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above bordered class="bg-primary" :mini="miniState">
+    <q-drawer show-if-above bordered class="bg-primary" :width="250" :mini="miniState">
       <q-list>
         <q-item-label header class="menu-title"> Menu </q-item-label>
         <MenuLink

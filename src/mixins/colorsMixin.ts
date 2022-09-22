@@ -17,7 +17,7 @@ export default {
             case LogLevel.WARNING:
               return '#FFCC00';
             case LogLevel.ERROR:
-              return '#CC3300';
+              return '#FF7575';
           }
         };
       },
