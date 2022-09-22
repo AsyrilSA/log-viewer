@@ -1,4 +1,4 @@
-import { computed, defineComponent, h, PropType } from 'vue';
+import { defineComponent, h, PropType } from 'vue';
 
 import { Bar } from 'vue-chartjs';
 
@@ -14,8 +14,6 @@ import {
   Plugin,
   DefaultDataPoint,
 } from 'chart.js';
-import { LogLevel } from 'src/utils/logParser';
-import { mapActions } from 'pinia';
 
 ChartJS.register(
   Title,

@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { ChartData } from 'chart.js';
 import StackedBarChart from 'src/components/Charts/StackedBarChart';
-import type { LogInformation } from 'src/utils/logExtractor';
+import { LogInformation } from 'src/utils/logExtractor';
 import { LogLevel } from 'src/utils/logParser';
 import { computed, PropType, ref } from 'vue';
 import colorsMixin from 'src/mixins/colorsMixin';
@@ -21,13 +21,9 @@ const props = defineProps({
   },
 });
 
-const logStatistics = computed(() => {
-  return props.logInformation.logStatistics;
-});
-
 const map = computed(() => {
   const map = new Map();
-  for (const v of logStatistics.value.values()) {
+  for (const v of props.logInformation.logStatistics.values()) {
     for (const w of v.entries()) {
       if (!map.has(w[0])) map.set(w[0], []);
       map.get(w[0]).push(w[1]);
@@ -37,7 +33,7 @@ const map = computed(() => {
 });
 
 const chartData = ref<ChartData<'bar'>>({
-  labels: Array.from(logStatistics.value.keys()),
+  labels: Array.from(props.logInformation.logStatistics.keys()),
   datasets: [
     {
       label: 'Undefined',
