@@ -17,7 +17,7 @@ Asyril Log Viewer
 - [ ] implement a general filter like gitlab, github or wireshark
 - [ ] permits to select a cell and set it as filter (right click or keyboard shortcut)
 - [x] display the metadata json
-- [ ] improve error management when something else than a eye+ log is imported
+- [x] improve error management when something else than a eye+ log is imported
 - [ ] tests (unit and e2e)
 - [ ] push the project on github open source asyril account
 - [ ] translation (i18n)

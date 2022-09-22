@@ -11,7 +11,7 @@
       type="file"
       id="file"
       ref="inputFileRef"
-      accept=".logs"
+      :accept="'.' + acceptedFileType"
       style="display: none"
       @click="$event.target.value = ''"
     />
@@ -27,6 +27,8 @@ import { useLogStore } from 'stores/logStore';
 import { parseLogFile } from 'src/utils/logParser';
 import { useQuasar } from 'quasar';
 
+const acceptedFileType = 'logs';
+
 const router = useRouter();
 const route = useRoute();
 const inputFileRef = ref();
@@ -37,33 +39,65 @@ function importButtonClick() {
   inputFileRef.value.click();
 }
 
+const alertUnreadableLogFile = () => {
+  alert('The logs file you selected cannot be read.');
+  $q.loading.hide();
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const uploadFile = (event: any) => {
   const fileName = event.target.files[0].name;
   if (fileName) {
+    const fileType = fileName.split('.').pop();
+    if (fileType !== acceptedFileType) {
+      alert(
+        `File type not accepted. Please upload a .${acceptedFileType} file.`
+      );
+      return;
+    }
     $q.loading.show();
     logStore.setLogs([], '');
+    logStore.setMetaData({});
     let reader = new FileReader();
     reader.onload = () => {
       untar(reader.result)
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((extractedFiles: any[]) => {
+          if (extractedFiles.length === 0) {
+            alertUnreadableLogFile();
+            return;
+          }
           extractedFiles.forEach((log) => {
-            const logName = log.name.slice(0, -3);
-            if (logName === 'full.log') {
-              const unzippedLog = pako.inflate(log.buffer, { to: 'string' });
-              const parsedLog = parseLogFile(unzippedLog);
-              logStore.setLogs(parsedLog, fileName);
+            if (log.name === 'full.log.gz') {
+              try {
+                const unzippedLog = pako.inflate(log.buffer, { to: 'string' });
+                const parsedLog = parseLogFile(unzippedLog);
+                logStore.setLogs(parsedLog, fileName);
+              } catch {
+                alertUnreadableLogFile();
+                return;
+              }
             }
-            if (logName === 'metadata') {
-              const unzippedLog = pako.inflate(log.buffer, { to: 'string' });
-              logStore.setMetaData(JSON.parse(unzippedLog));
+            if (log.name === 'metadata.gz') {
+              try {
+                const unzippedLog = pako.inflate(log.buffer, { to: 'string' });
+                logStore.setMetaData(JSON.parse(unzippedLog));
+              } catch {
+                alertUnreadableLogFile();
+                return;
+              }
             }
           });
+          if (logStore.getRows.length === 0) {
+            alertUnreadableLogFile();
+            return;
+          }
           if (route.path === '/') router.push('/base');
           $q.loading.hide();
         })
-        .catch($q.loading.hide());
+        .catch(() => {
+          alertUnreadableLogFile();
+        });
     };
     reader.readAsArrayBuffer(event.target.files[0]);
   }
