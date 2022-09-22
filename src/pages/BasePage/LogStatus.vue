@@ -2,6 +2,7 @@
   <div>
     <stacked-bar-chart :chart-data="chartData" />
   </div>
+  <div>{{ map }}</div>
 </template>
 
 <script lang="ts" setup>
@@ -21,7 +22,8 @@ const props = defineProps({
   },
 });
 
-const map = computed(() => {
+let map = computed(() => {
+  console.log(props.logInformation);
   const map = new Map();
   for (const v of props.logInformation.logStatistics.values()) {
     for (const w of v.entries()) {
