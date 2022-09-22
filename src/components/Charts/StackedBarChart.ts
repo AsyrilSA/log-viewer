@@ -55,9 +55,7 @@ export default defineComponent({
       default: () => [],
     },
     chartData: {
-      type: Object as PropType<
-        ChartData<'bar', DefaultDataPoint<'bar'>, unknown>
-      >,
+      type: Object as PropType<ChartData<'bar', DefaultDataPoint<'bar'>>>,
       required: true,
     },
   },
