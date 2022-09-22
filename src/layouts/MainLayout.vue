@@ -62,12 +62,6 @@ const menuLinks: MenuLinkProps[] = [
     link: '/#/base',
   },
   {
-    title: 'Raw',
-    caption: 'Raw logs',
-    icon: 'raw_on',
-    link: '/#/rawlogs',
-  },
-  {
     title: 'Application',
     caption: 'Application related logs',
     icon: 'apps',
@@ -78,6 +72,12 @@ const menuLinks: MenuLinkProps[] = [
     caption: 'TCP/IP protocol',
     icon: 'lan',
     link: '/#/communication',
+  },
+  {
+    title: 'Raw',
+    caption: 'Raw logs',
+    icon: 'raw_on',
+    link: '/#/rawlogs',
   },
   {
     title: 'Metadata',
