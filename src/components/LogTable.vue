@@ -75,6 +75,8 @@ import MessageSearch from 'src/components/Filters/MessageSearch.vue';
 import ServiceFilter from 'src/components/Filters/ServiceFilter.vue';
 import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
 import { getLogInformation } from 'src/utils/logExtractor';
+import dateFormat from 'src/utils/dateUtils';
+import { date } from 'quasar';
 
 const props = defineProps({
   rows: {
@@ -96,10 +98,15 @@ const logInfo = computed(() => getLogInformation(props.rows));
 const startDate = ref(logInfo.value.firstDate);
 const endDate = ref(logInfo.value.lastDate);
 const startDateRule = [
-  (start: Date) => start <= endDate.value || 'From date must be before To date',
+  (start: string) => {
+    date.extractDate(start, dateFormat) <= endDate.value ||
+      'From date must be before To date';
+  },
 ];
 const endDateRule = [
-  (end: Date) => end >= startDate.value || 'To date must be after From date',
+  (end: string) =>
+    date.extractDate(end, dateFormat) >= startDate.value ||
+    'To date must be after From date',
 ];
 
 let filteredRows = computed(() => {

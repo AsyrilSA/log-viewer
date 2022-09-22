@@ -11,7 +11,7 @@
       <q-icon name="event" class="cursor-pointer">
         <q-popup-proxy cover transition-show="scale" transition-hide="scale">
           <q-date
-            :model-value="props.modelValue"
+            :model-value="dateString"
             @update:model-value="onUpdateValue"
             :mask="dateFormat"
             first-day-of-week="1"
@@ -47,8 +47,7 @@
 <script lang="ts" setup>
 import { date } from 'quasar';
 import { computed, PropType } from 'vue';
-
-const dateFormat = 'DD.MM.YYYY HH:mm:ss';
+import dateFormat from 'src/utils/dateUtils';
 
 const props = defineProps({
   modelValue: {
