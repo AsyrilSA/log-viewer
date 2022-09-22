@@ -52,7 +52,9 @@
               style="min-height: 100%"
             >
               <h5 class="q-my-none q-ml-md q-pt-sm">Log Repartition</h5>
-              <log-repartition></log-repartition>
+              <log-repartition
+                :logInformation="logInformation"
+              ></log-repartition>
             </q-card>
           </div>
         </div>
