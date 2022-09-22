@@ -6,6 +6,7 @@
     v-model="dateString"
     @update:model-value="onUpdateValue"
     :rules="props.rules"
+    hide-bottom-space
   >
     <template v-slot:prepend>
       <q-icon name="event" class="cursor-pointer">

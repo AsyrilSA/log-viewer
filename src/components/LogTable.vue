@@ -74,7 +74,11 @@
       </q-tr>
     </template>
   </q-table>
-  <q-page-sticky position="bottom-right" :offset="[20, 20]">
+  <q-page-sticky
+    v-if="rows.length > 0"
+    position="bottom-right"
+    :offset="[20, 20]"
+  >
     <q-btn
       round
       color="grey-6"
@@ -237,7 +241,7 @@ const goToTop = () => {
 <style lang="scss">
 .my-sticky-header-table {
   /* height or max-height is important */
-  max-height: calc(100vh - 200px - 18px);
+  max-height: calc(100vh - 200px);
 
   thead tr:first-child th {
     /* bg color is important for th; just specify one */
@@ -280,6 +284,10 @@ const goToTop = () => {
     min-height: 300px;
     display: flex;
     justify-content: center;
+    font-size: 18px;
+    .q-table__bottom-nodata-icon {
+      color: var(--q-secondary);
+    }
   }
 }
 </style>
