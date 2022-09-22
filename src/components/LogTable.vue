@@ -15,10 +15,18 @@
   </div>
   <div class="row">
     <div class="col-4 q-pb-sm q-pl-sm">
-      <TimestampFilter label="From" v-model="startDate"></TimestampFilter>
+      <TimestampFilter
+        label="From"
+        v-model="startDate"
+        :rules="startDateRule"
+      ></TimestampFilter>
     </div>
     <div class="col-4 q-pb-sm q-px-sm">
-      <TimestampFilter label="To" v-model="endDate"></TimestampFilter>
+      <TimestampFilter
+        label="To"
+        v-model="endDate"
+        :rules="endDateRule"
+      ></TimestampFilter>
     </div>
   </div>
   <q-table
@@ -85,8 +93,14 @@ const serviceFilter: Ref<string[]> = ref([]);
 const messageFilter = ref('');
 
 const logInfo = computed(() => getLogInformation(props.rows));
-const startDate = ref(logInfo.value.firstDate?.toLocaleString('fr-CH'));
-const endDate = ref(logInfo.value.lastDate?.toLocaleString('fr-CH'));
+const startDate = ref(logInfo.value.firstDate);
+const endDate = ref(logInfo.value.lastDate);
+const startDateRule = [
+  (start: Date) => start <= endDate.value || 'From date must be before To date',
+];
+const endDateRule = [
+  (end: Date) => end >= startDate.value || 'To date must be after From date',
+];
 
 let filteredRows = computed(() => {
   let remainingRows = props.rows;
@@ -107,11 +121,11 @@ let filteredRows = computed(() => {
   }
 
   remainingRows = remainingRows.filter((r) => {
-    return true;
-    // TODO (clp) compare date and strings
-    // r.timestamp
-    //   ? r.timestamp >= startDate.value && r.timestamp <= endDate.value
-    //   : true;
+    if (r.timestamp !== null && startDate.value && endDate.value) {
+      return r.timestamp >= startDate.value && r.timestamp <= endDate.value;
+    } else {
+      return true;
+    }
   });
 
   return remainingRows;

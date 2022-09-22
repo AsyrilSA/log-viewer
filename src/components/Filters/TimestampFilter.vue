@@ -3,8 +3,9 @@
     :label="props.label"
     dense
     filled
-    :model-value="props.modelValue"
+    v-model="dateString"
     @update:model-value="onUpdateValue"
+    :rules="props.rules"
   >
     <template v-slot:prepend>
       <q-icon name="event" class="cursor-pointer">
@@ -12,7 +13,7 @@
           <q-date
             :model-value="props.modelValue"
             @update:model-value="onUpdateValue"
-            mask="DD.MM.YYYY HH:mm:ss"
+            :mask="dateFormat"
             first-day-of-week="1"
           >
             <div class="row items-center justify-end">
@@ -27,9 +28,9 @@
       <q-icon name="access_time" class="cursor-pointer">
         <q-popup-proxy cover transition-show="scale" transition-hide="scale">
           <q-time
-            :model-value="props.modelValue"
+            v-model="dateString"
             @update:model-value="onUpdateValue"
-            mask="DD.MM.YYYY HH:mm:ss"
+            :mask="dateFormat"
             format24h
             with-seconds
           >
@@ -44,10 +45,14 @@
 </template>
 
 <script lang="ts" setup>
+import { date } from 'quasar';
+import { computed, PropType } from 'vue';
+
+const dateFormat = 'DD.MM.YYYY HH:mm:ss';
+
 const props = defineProps({
   modelValue: {
-    type: String,
-    default: '',
+    type: [Date, null] as PropType<Date | null>,
     required: true,
   },
   label: {
@@ -55,11 +60,25 @@ const props = defineProps({
     default: 'Date',
     required: true,
   },
+  rules: [],
 });
 
 let emit = defineEmits(['update:modelValue']);
 
+const dateString = computed(() => {
+  let dateString = '';
+  if (props.modelValue !== null) {
+    dateString = date.formatDate(props.modelValue, dateFormat);
+  }
+  return dateString;
+});
+
 function onUpdateValue(value: string | number | null) {
-  emit('update:modelValue', value);
+  let newDate = null;
+  if (typeof value === 'string') {
+    newDate = date.extractDate(value, dateFormat);
+  }
+
+  emit('update:modelValue', newDate);
 }
 </script>
