@@ -28,6 +28,14 @@
         :rules="endDateRule"
       ></TimestampFilter>
     </div>
+    <div class="col-4 q-pb-sm q-pr-sm">
+      <q-btn
+        color="primary"
+        icon="restart_alt"
+        label="Reset all filters"
+        @click="resetFilters"
+      />
+    </div>
   </div>
   <q-table
     class="my-sticky-header-table"
@@ -197,6 +205,14 @@ function getClass(level: LogLevel): string {
       return 'undefined-row';
   }
 }
+
+const resetFilters = () => {
+  logLevelFilter.value = [];
+  serviceFilter.value = [];
+  messageFilter.value = '';
+  startDate.value = logInfo.value.firstDate;
+  endDate.value = logInfo.value.lastDate;
+};
 </script>
 
 <style lang="scss">
