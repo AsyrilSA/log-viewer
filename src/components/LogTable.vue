@@ -217,7 +217,7 @@ function getClass(level: LogLevel): string {
     case LogLevel.TRACE:
       return 'trace-row';
     case LogLevel.SYSTEM:
-      return 'undefined-row';
+      return 'system-row';
   }
 }
 
@@ -277,7 +277,7 @@ const goToTop = () => {
   .trace-row {
     background-color: v-bind('logLevelColors(LogLevel.TRACE)');
   }
-  .undefined-row {
+  .system-row {
     background-color: v-bind('logLevelColors(LogLevel.SYSTEM)');
   }
   .q-table__bottom {
