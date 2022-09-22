@@ -8,4 +8,4 @@ services:
     container_name: log-viewer
     restart: unless-stopped
     ports:
-      - '8099:80'
+      - '8098:80'
