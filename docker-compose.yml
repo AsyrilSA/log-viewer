@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  log-viewer:
+    image: ${REGISTRY_HOST}/log-viewer:${CONTAINER_IMAGE}
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: log-viewer
+    restart: unless-stopped
+    ports:
+      - '8099:80'
