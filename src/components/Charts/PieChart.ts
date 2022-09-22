@@ -60,7 +60,7 @@ export default defineComponent({
       maintainAspectRatio: false,
       plugins:{
         legend:{
-          position:"right"
+          position:'right'
         },
       },
     }
