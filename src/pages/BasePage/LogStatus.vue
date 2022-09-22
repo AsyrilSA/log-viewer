@@ -20,52 +20,58 @@ const props = defineProps({
   },
 });
 
-const chartData = computed(() => {
-  const map = new Map();
-  for (const v of props.logInformation.logStatistics.values()) {
-    for (const w of v.entries()) {
-      if (!map.has(w[0])) map.set(w[0], []);
-      map.get(w[0]).push(w[1]);
-    }
+function getStatistics(
+  statistics: Map<string, Map<LogLevel, number>>,
+  services: string[],
+  level: LogLevel
+): number[] {
+  const data = [];
+  for (const service of services) {
+    data.push(statistics.get(service)?.get(level) || 0);
   }
+  return data;
+}
+
+const chartData = computed(() => {
+  const statistics = props.logInformation.logStatistics;
+  const services = Array.from(statistics.keys());
 
   return {
-  labels: Array.from(props.logInformation.logStatistics.keys()),
-  datasets: [
-    {
-      label: 'Undefined',
-      backgroundColor: logColors.undefined,
-      data: map.get(LogLevel.UNDEFINED),
-    },
-    {
-      label: 'Trace',
-      backgroundColor: logColors.trace,
-      data: map.get(LogLevel.TRACE),
-    },
-    {
-      label: 'Debug',
-      backgroundColor: logColors.debug,
-      data: map.get(LogLevel.DEBUG),
-    },
-    {
-      label: 'Info',
-      backgroundColor: logColors.info,
-      data: map.get(LogLevel.INFO),
-    },
-    {
-      label: 'Warning',
-      backgroundColor: logColors.warning,
-      data: map.get(LogLevel.WARNING),
-    },
-    {
-      label: 'Error',
-      backgroundColor: logColors.error,
-      data: map.get(LogLevel.ERROR),
-    },
-  ]}
-
+    labels: services,
+    datasets: [
+      {
+        label: 'Undefined',
+        backgroundColor: logColors.undefined,
+        data: getStatistics(statistics, services, LogLevel.UNDEFINED),
+      },
+      {
+        label: 'Trace',
+        backgroundColor: logColors.trace,
+        data: getStatistics(statistics, services, LogLevel.TRACE),
+      },
+      {
+        label: 'Debug',
+        backgroundColor: logColors.debug,
+        data: getStatistics(statistics, services, LogLevel.DEBUG),
+      },
+      {
+        label: 'Info',
+        backgroundColor: logColors.info,
+        data: getStatistics(statistics, services, LogLevel.INFO),
+      },
+      {
+        label: 'Warning',
+        backgroundColor: logColors.warning,
+        data: getStatistics(statistics, services, LogLevel.WARNING),
+      },
+      {
+        label: 'Error',
+        backgroundColor: logColors.error,
+        data: getStatistics(statistics, services, LogLevel.ERROR),
+      },
+    ],
+  };
 });
-
 </script>
 
 <style lang="scss"></style>
