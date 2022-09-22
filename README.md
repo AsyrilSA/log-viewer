@@ -8,10 +8,10 @@ Asyril Log Viewer
 - [ ] the select page is not overlayed on the side menu
 - [ ] add loading element on loading of pages/table/charts
 - [ ] replace "undefined" loglevel by "system" ?
-- [ ] improve colors of loglevels : grey and lightgrey for trace and bug in [colorMixin.ts](src/mixins/colorsMixin.ts)
+- [ ] improve colors of loglevels : grey and lightgrey for trace and debug in [colorMixin.ts](src/mixins/colorsMixin.ts)
 - [ ] add a button to return to the top of the logs
 - [ ] add a button to delete all filters
-- [ ] improve logName display in the top bar
+- [x] improve logName display in the top bar
 - [ ] add a filter like "go to first error"
 - [ ] implement the ci to deploy the logviewer on the asyril-registry server (port to be defined)
 - [ ] implement a general filter like gitlab, github or wireshark

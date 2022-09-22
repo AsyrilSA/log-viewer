@@ -17,14 +17,9 @@
           </a>
           <span class="main-title-version">{{ version }}</span>
         </q-toolbar-title>
-        <q-input
-          class="file-name-input"
-          bg-color="grey"
-          disabled
-          outlined
-          dense
-          :model-value="logStore.getName"
-        />
+        <div>
+          <b>Log name : </b>{{ logStore.getName ? logStore.getName : '-' }}
+        </div>
         <q-space />
         <ImportLogButton></ImportLogButton>
       </q-toolbar>
