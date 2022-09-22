@@ -79,12 +79,12 @@ const menuLinks: MenuLinkProps[] = [
     icon: 'lan',
     link: '/#/communication',
   },
-  // {
-  //   title: 'Performance',
-  //   caption: 'Performance related logs',
-  //   icon: 'speed',
-  //   link: '/#/performance',
-  // },
+  {
+    title: 'Metadata',
+    caption: 'Metadata and recipes',
+    icon: 'analytics',
+    link: '/#/metadata',
+  },
   // {
   //   title: 'Settings',
   //   caption: 'Application settings',

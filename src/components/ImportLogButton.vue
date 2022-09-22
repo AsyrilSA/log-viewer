@@ -49,14 +49,18 @@ const uploadFile = (event: any) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         .then((extractedFiles: any[]) => {
           extractedFiles.forEach((log) => {
-            const logName = log.name.slice(0, -7);
-            if (logName === 'full') {
+            const logName = log.name.slice(0, -3);
+            if (logName === 'full.log') {
               const unzippedLog = pako.inflate(log.buffer, { to: 'string' });
               const parsedLog = parseLogFile(unzippedLog);
               logStore.setLogs(parsedLog, fileName);
-              if (route.path === '/') router.push('/base');
+            }
+            if (logName === 'metadata') {
+              const unzippedLog = pako.inflate(log.buffer, { to: 'string' });
+              logStore.setMetaData(JSON.parse(unzippedLog));
             }
           });
+          if (route.path === '/') router.push('/base');
           $q.loading.hide();
         })
         .catch($q.loading.hide());
