@@ -27,7 +27,7 @@ Asyril Log Viewer
 - [x] Optimize the import by extracting data during import and not on each page (move the informations in the logStore)
 - [x] Extract information from metadata (version, serial number) and display them on the base page
 - [ ] Display recipes summary from metadata
-- [ ] create a filter store to have the filters saved between pages
+- [x] create a filter store to have the filters saved in pages
 - [x] Correct filter height when selecting a log loglevel
 - [x] Add an option to go to page with the filter when clicking on a chart
 - [ ] fix the column size of the q-table

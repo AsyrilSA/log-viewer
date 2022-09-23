@@ -1,50 +1,5 @@
 <template>
-  <div class="row"></div>
-  <div class="row q-mt-md">
-    <div class="col-4 q-pb-sm q-pl-sm">
-      <LogLevelFilter v-model="logLevelFilter"></LogLevelFilter>
-    </div>
-    <div class="col-4 q-pb-sm q-px-sm">
-      <ServiceFilter
-        v-model="serviceFilter"
-        :options="serviceList"
-      ></ServiceFilter>
-    </div>
-    <div class="col-4 q-pb-sm q-pr-sm">
-      <MessageSearch v-model="messageFilter"></MessageSearch>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-4 q-pb-sm q-pl-sm">
-      <TimestampFilter
-        label="From"
-        v-model="startDate"
-        :rules="startDateRule"
-      ></TimestampFilter>
-    </div>
-    <div class="col-4 q-pb-sm q-px-sm">
-      <TimestampFilter
-        label="To"
-        v-model="endDate"
-        :rules="endDateRule"
-      ></TimestampFilter>
-    </div>
-    <div class="col-3 q-pb-sm q-pr-sm">
-      <q-btn
-        color="primary"
-        icon="restart_alt"
-        label="Reset all filters"
-        @click="resetFilters"
-      />
-    </div>
-    <div class="col-1 q-pb-sm q-pr-sm">
-      <q-icon name="error" color="grey" size="24px" class="q-mt-sm q-ml-md">
-        <q-tooltip class="log-table-tooltip">
-          Use CTRL+Click on <b>Level</b> and <b>Service</b> cells to filter
-        </q-tooltip></q-icon
-      >
-    </div>
-  </div>
+  <LogFilter :service-list="serviceList" :store="props.filterStore"></LogFilter>
   <q-table
     class="my-sticky-header-table"
     ref="table"
@@ -106,20 +61,20 @@
 </template>
 
 <script lang="ts" setup>
-import { LogEntry, LogLevel } from 'src/utils/logParser';
-import { Ref, ref, onMounted } from 'vue';
-import { computed } from 'vue';
-import LogLevelFilter from 'src/components/Filters/LogLevelFilter.vue';
-import MessageSearch from 'src/components/Filters/MessageSearch.vue';
-import ServiceFilter from 'src/components/Filters/ServiceFilter.vue';
-import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
+import { Store } from 'pinia';
 import { getDateRange } from 'src/utils/logExtractor';
-import dateFormat from 'src/utils/dateUtils';
-import { date } from 'quasar';
+import { LogEntry, LogLevel } from 'src/utils/logParser';
+import { onMounted, PropType, ref } from 'vue';
+import { computed } from 'vue';
+import LogFilter from './Filters/LogFilter.vue';
 
 const props = defineProps({
   rows: {
     type: Array<LogEntry>,
+    required: true,
+  },
+  filterStore: {
+    type: Object as PropType<Store>,
     required: true,
   },
 });
@@ -129,55 +84,50 @@ const serviceList = computed(() => {
   return [...new Set(props.rows.map((r) => r.service))];
 });
 
-const logLevelFilter: Ref<string[]> = ref([]);
-const serviceFilter: Ref<string[]> = ref([]);
-const messageFilter = ref('');
-
 const logInfo = computed(() => getDateRange(props.rows));
-const startDate = ref(logInfo.value.first);
-const endDate = ref(logInfo.value.last);
+props.filterStore.setStartDate(logInfo.value.first);
+props.filterStore.setEndDate(logInfo.value.last);
+
 onMounted(() => {
   if ('clickedPie' in history.state) {
-    logLevelFilter.value = history.state.clickedPie;
+    props.filterStore.setLevels(history.state.clickedPie);
   }
   if ('clickedBar' in history.state) {
-    logLevelFilter.value = history.state.clickedBar.logLevel;
-    serviceFilter.value = history.state.clickedBar.service;
+    props.filterStore.setLevels(history.state.clickedBar.logLevel);
+    props.filterStore.setServices(history.state.clickedBar.service);
   }
 });
-const startDateRule = [
-  (start: string) => {
-    date.extractDate(start, dateFormat) <= endDate.value ||
-      'From date must be before To date';
-  },
-];
-const endDateRule = [
-  (end: string) =>
-    date.extractDate(end, dateFormat) >= startDate.value ||
-    'To date must be after From date',
-];
 
 let filteredRows = computed(() => {
   let remainingRows = props.rows;
-  if (logLevelFilter.value.length > 0) {
+  if (props.filterStore.getLevels.length > 0) {
     remainingRows = remainingRows.filter((r) =>
-      logLevelFilter.value.includes(r.level)
+      props.filterStore.getLevels.includes(r.level)
     );
   }
-  if (serviceFilter.value.length > 0) {
+  if (props.filterStore.getServices.length > 0) {
     remainingRows = remainingRows.filter((r) =>
-      serviceFilter.value.includes(r.service)
+      props.filterStore.getServices.includes(r.service)
     );
   }
-  if (messageFilter.value !== '') {
+  if (props.filterStore.getMessage !== '') {
     remainingRows = remainingRows.filter((r) =>
-      r.message.toLowerCase().includes(messageFilter.value.toLowerCase())
+      r.message
+        .toLowerCase()
+        .includes(props.filterStore.getMessage.toLowerCase())
     );
   }
 
   remainingRows = remainingRows.filter((r) => {
-    if (r.timestamp !== null && startDate.value && endDate.value) {
-      return r.timestamp >= startDate.value && r.timestamp <= endDate.value;
+    if (
+      r.timestamp !== null &&
+      props.filterStore.getStartDate &&
+      props.filterStore.getEndDate
+    ) {
+      return (
+        r.timestamp >= props.filterStore.getStartDate &&
+        r.timestamp <= props.filterStore.getEndDate
+      );
     } else {
       return true;
     }
@@ -246,19 +196,11 @@ function getClass(level: LogLevel): string {
   }
 }
 const filterLogLevel = (logLevel: LogLevel) => {
-  logLevelFilter.value = [logLevel];
+  props.filterStore.setLevel([logLevel]);
 };
 
 const filterService = (service: string) => {
-  serviceFilter.value = [service];
-};
-
-const resetFilters = () => {
-  logLevelFilter.value = [];
-  serviceFilter.value = [];
-  messageFilter.value = '';
-  startDate.value = logInfo.value.first;
-  endDate.value = logInfo.value.last;
+  props.filterStore.setService([service]);
 };
 
 const table = ref(null);
