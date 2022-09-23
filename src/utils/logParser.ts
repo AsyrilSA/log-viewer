@@ -1,9 +1,9 @@
 const RE_PYTHON = new RegExp(
-  /^(?<date>\d+-\d+-\d+) (?<time>\S+) (?<service>\S+)\s+\[(?<level>\w+)\s*\] (?<message>.*)/
+  /^(?<date>\d+-\d+-\d+) (?<time>\S+) (?<logger>\S+)\s+\[(?<level>\w+)\s*\] (?<message>.*)/
 );
 
 const RE_CPP = new RegExp(
-  /^\[(?<date>\d+-\d+-\d+) (?<time>\S+)\] \[(?<service>\S+)\] \[(?<level>\w+)\] (?<message>.*)/
+  /^\[(?<date>\d+-\d+-\d+) (?<time>\S+)\] \[(?<logger>\S+)\] \[(?<level>\w+)\] (?<message>.*)/
 );
 
 const RE_ENVOY = new RegExp(
@@ -43,9 +43,9 @@ function parseLine(index: number, line: string): LogEntry {
     let service = undefined;
 
     // We need some special handling for some of the log entries that do not start with "backend."
-    if (g?.service.startsWith('backend.')) {
-      service = g?.service.split('.')[1];
-    } else if (g?.service.startsWith('host_service.')) {
+    if (g?.logger.startsWith('backend.')) {
+      service = g?.logger.split('.')[1];
+    } else if (g?.logger.startsWith('host_service.')) {
       service = 'host_service';
     }
 
@@ -60,7 +60,7 @@ function parseLine(index: number, line: string): LogEntry {
         Date.parse(g?.date + ' ' + g?.time.replace(',', '.'))
       ), // Python use ',' to separate milliseconds
       service: service,
-      logger: g?.service || '',
+      logger: g?.logger || '',
       message: g?.message || '',
     };
   }
@@ -85,8 +85,8 @@ function parseLine(index: number, line: string): LogEntry {
       'production',
     ]);
 
-    if (g?.service) {
-      if (g.service.startsWith('fieldbus.') || fieldbusLogger.has(g.service)) {
+    if (g?.logger) {
+      if (g.logger.startsWith('fieldbus.') || fieldbusLogger.has(g.logger)) {
         service = 'fieldbus';
       }
     }
@@ -101,7 +101,7 @@ function parseLine(index: number, line: string): LogEntry {
       level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
       timestamp: fixedDate,
       service: service,
-      logger: g?.service || '',
+      logger: g?.logger || '',
       message: g?.message || '',
     };
   }
