@@ -10,7 +10,7 @@
             >
               <h5 class="q-my-none q-ml-md q-pt-sm">General Log Information</h5>
               <general-log-information
-                :logInformation="logInformation"
+                :logInformation="logStore.getLogInformation"
               ></general-log-information>
             </q-card>
           </div>
@@ -25,7 +25,7 @@
             >
               <h5 class="q-my-none q-ml-md q-pt-sm">Time Information</h5>
               <time-information
-                :logInformation="logInformation"
+                :logInformation="logStore.getLogInformation"
               ></time-information>
             </q-card>
           </div>
@@ -45,7 +45,7 @@
               </h5>
               <log-status
                 class="q-ma-md"
-                :logInformation="logInformation"
+                :logInformation="logStore.getLogInformation"
               ></log-status>
             </q-card>
           </div>
@@ -63,7 +63,7 @@
               </h5>
               <log-repartition
                 class="q-ma-md"
-                :logInformation="logInformation"
+                :logInformation="logStore.getLogInformation"
               ></log-repartition>
             </q-card>
           </div>
@@ -80,12 +80,8 @@ import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
 import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue';
 
 import { useLogStore } from 'stores/logStore';
-import { getLogInformation } from 'src/utils/logExtractor';
-import { computed } from 'vue';
 
 const logStore = useLogStore();
-
-const logInformation = computed(() => getLogInformation(logStore.getRows));
 </script>
 
 <style lang="scss">

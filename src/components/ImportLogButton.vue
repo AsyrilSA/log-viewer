@@ -26,6 +26,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { useLogStore } from 'stores/logStore';
 import { parseLogFile } from 'src/utils/logParser';
 import { useQuasar } from 'quasar';
+import { getLogInformation } from 'src/utils/logExtractor';
 
 const acceptedFileType = 'logs';
 
@@ -92,6 +93,10 @@ const uploadFile = (event: any) => {
             alertUnreadableLogFile();
             return;
           }
+
+          // Create logInformation
+          logStore.setLogInformation(getLogInformation(logStore.getRows));
+
           if (route.path === '/') router.push('/base');
           $q.loading.hide();
         })
