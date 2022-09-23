@@ -11,7 +11,7 @@
       <div class="col-xs-12 col-sm-6 log-value">{{ props.logInformation.lastDate?.toLocaleString('fr-CH') || '-' }}</div>
     </div>
     <div class="row row-size"> 
-      <div class="col">log total duration:</div>
+      <div class="col">Log total duration:</div>
       <div class="col-xs-12 col-sm-6 log-value">{{ computedDuration}}</div>
     </div>
   </div>
