@@ -25,7 +25,6 @@ build app:
     - $DOCKER_COMPOSE build
     - $DOCKER_COMPOSE push
 
-# WARNING: WIP, not tested yet
 deploy app:
   image: ${DOCKER_PROXY}/tmaier/docker-compose:20.10
   stage: deploy
