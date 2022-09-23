@@ -45,7 +45,7 @@
         label="Reset all filters"
         @click="resetFilters"
       />
-      <q-spacer></q-spacer>
+      <q-space></q-space>
     </div>
   </div>
   <q-table

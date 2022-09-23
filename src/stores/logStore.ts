@@ -17,6 +17,7 @@ export const useLogStore = defineStore('log', {
       this.rows = newRows;
       this.logFileName = fileName;
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setMetaData(metadata: any) {
       this.metadata = metadata;
     },
