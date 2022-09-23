@@ -33,6 +33,8 @@ interface FilterCallable {
 }
 
 function parseLine(index: number, line: string): LogEntry {
+  // TODO: refactor this as it is getting a bit too large
+
   // Try to parse the line as coming from a Python service
   let match = line.match(RE_PYTHON);
   if (match != null) {
@@ -72,11 +74,33 @@ function parseLine(index: number, line: string): LogEntry {
     // here for now but this is not 100% correct (e.g. in winter).
     // TODO: find a way to correct the time properly
     fixedDate.setHours(fixedDate.getHours() - 2);
+
+    let service = undefined;
+
+    // We need some special handling to differentiate vision from fieldbus logs
+    const fieldbusLogger = new Set([
+      'application',
+      'application.ecs',
+      'object_dictionary',
+      'production',
+    ]);
+
+    if (g?.service) {
+      if (g.service.startsWith('fieldbus.') || fieldbusLogger.has(g.service)) {
+        service = 'fieldbus';
+      }
+    }
+
+    // Anything C++ not fieldbus is considered to be from vision
+    if (service === undefined) {
+      service = 'vision';
+    }
+
     return {
       id: index,
       level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
       timestamp: fixedDate,
-      service: 'vision',
+      service: service,
       logger: g?.service || '',
       message: g?.message || '',
     };
