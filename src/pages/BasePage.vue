@@ -46,6 +46,7 @@
               <log-status
                 class="q-ma-md"
                 :logInformation="logStore.getLogInformation"
+                :isCtrlPressed="isCtrlPressed"
               ></log-status>
             </q-card>
           </div>
@@ -64,6 +65,7 @@
               <log-repartition
                 class="q-ma-md"
                 :logInformation="logStore.getLogInformation"
+                :isCtrlPressed="isCtrlPressed"
               ></log-repartition>
             </q-card>
           </div>
@@ -80,8 +82,31 @@ import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
 import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue';
 
 import { useLogStore } from 'stores/logStore';
+import { getLogInformation } from 'src/utils/logExtractor';
+import { onMounted,onUnmounted, computed, ref } from 'vue';
 
 const logStore = useLogStore();
+
+const logInformation = computed(() => getLogInformation(logStore.getRows));
+const isCtrlPressed = ref(false);
+function addControlKeyDown(event: any) {
+  if (event.key === 'Control') {
+      isCtrlPressed.value = true
+    }
+}
+function addControlKeyUp(event: any) {
+  if (event.key === 'Control') {
+      isCtrlPressed.value = true
+    }
+}
+onMounted(() => {
+  window.addEventListener('keydown', addControlKeyDown)
+  window.addEventListener('keyup', addControlKeyUp);
+})
+onUnmounted(() => {
+  window.removeEventListener('keydown',addControlKeyDown);
+  window.removeEventListener('keyup',addControlKeyUp);
+})
 </script>
 
 <style lang="scss">
