@@ -170,6 +170,7 @@ const columns = [
     align: 'left',
     field: 'id',
     sortable: true,
+    style: `width: 50px`,
   },
   {
     name: 'timestamp',
@@ -177,6 +178,7 @@ const columns = [
     label: 'Timestamp',
     field: 'timestamp',
     sortable: true,
+    style: `width: 150px`,
     format: (value: Date) => {
       if (value) return value.toLocaleString('fr-CH');
     },
@@ -187,6 +189,7 @@ const columns = [
     field: 'level',
     align: 'left',
     sortable: true,
+    style: `width: 60px`,
   },
   {
     name: 'service',
@@ -194,6 +197,7 @@ const columns = [
     field: 'service',
     align: 'left',
     sortable: true,
+    style: `width: 80px`,
   },
   {
     name: 'logger',
@@ -201,6 +205,7 @@ const columns = [
     field: 'logger',
     align: 'left',
     sortable: true,
+    style: `width: 200px`,
   },
   { name: 'message', label: 'Message', field: 'message', align: 'left' },
 ];
