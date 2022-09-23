@@ -22,7 +22,7 @@ Asyril Log Viewer
 - [ ] push the project on github open source asyril account
 - [ ] translation (i18n)
 - [ ] add support for multiline log entry (currently one line in the file = one log entry)
-- [ ] remove menu title and add top space when collapsed
+- [x] remove menu title and add top space when collapsed
 - [x] Remove title above log tables
 - [ ] Optimize the import by extracting data during import and not on each page (move the informations in the logStore)
 - [ ] Extract information from metadata and display them on the base page
