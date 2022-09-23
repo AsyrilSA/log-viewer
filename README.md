@@ -22,6 +22,13 @@ Asyril Log Viewer
 - [ ] push the project on github open source asyril account
 - [ ] translation (i18n)
 - [ ] add support for multiline log entry (currently one line in the file = one log entry)
+- [ ] remove menu title and add top space when collapsed
+- [ ] Remove title above log tables
+- [ ] Optimize the import by etracting data during import and not on each page (move the informations in the logStore)
+- [ ] Extract information from metadata and display them on the base page
+- [ ] create a filter store to have the filters saved between pages
+- [ ] Correct filter height when selecting a log loglevel
+- [ ] Add an option to go to page with the filter when clicking on a chart
 
 ## Development
 
