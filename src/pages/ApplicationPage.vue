@@ -1,5 +1,5 @@
 <template>
-  <LogTable title="Application Logs" :rows="rows"></LogTable>
+  <LogTable :rows="rows"></LogTable>
 </template>
 
 <script lang="ts" setup>

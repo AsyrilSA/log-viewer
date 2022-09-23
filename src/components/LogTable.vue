@@ -121,11 +121,7 @@ const props = defineProps({
   rows: {
     type: Array<LogEntry>,
     required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
+  }
 });
 
 const serviceList = computed(() => {
@@ -268,7 +264,7 @@ const goToTop = () => {
 <style lang="scss">
 .my-sticky-header-table {
   /* height or max-height is important */
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 164px);
 
   thead tr:first-child th {
     /* bg color is important for th; just specify one */
