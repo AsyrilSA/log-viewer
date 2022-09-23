@@ -29,11 +29,11 @@ function createFilterStore<Id extends string>(id: Id) {
         this.message = message;
       },
 
-      setStartDate(start: Date) {
+      setStartDate(start: Date | null) {
         this.startDate = start;
       },
 
-      setEndDate(end: Date) {
+      setEndDate(end: Date | null) {
         this.endDate = end;
       },
 
@@ -54,3 +54,5 @@ export const useCommunicationFilterStore = createFilterStore(
   'communicationFilter'
 );
 export const useRawFilterStore = createFilterStore('rawFilter');
+
+export type FilterStoreType = ReturnType<typeof createFilterStore>;

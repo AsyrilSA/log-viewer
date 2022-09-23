@@ -56,7 +56,6 @@
 </template>
 
 <script lang="ts" setup>
-import { Store } from 'pinia';
 import { date } from 'quasar';
 import dateFormat from 'src/utils/dateUtils';
 import { computed, PropType } from 'vue';
@@ -65,10 +64,11 @@ import LevelFilter from 'src/components/Filters/LevelFilter.vue';
 import ServiceFilter from 'src/components/Filters/ServiceFilter.vue';
 import MessageSearch from 'src/components/Filters/MessageSearch.vue';
 import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
+import { FilterStoreType } from 'src/stores/logTableFilters';
 
 const props = defineProps({
   store: {
-    type: Object as PropType<Store>,
+    type: {} as FilterStoreType,
     required: true,
   },
   serviceList: {

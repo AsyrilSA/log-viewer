@@ -61,10 +61,10 @@
 </template>
 
 <script lang="ts" setup>
-import { Store } from 'pinia';
+import { FilterStoreType } from 'src/stores/logTableFilters';
 import { getDateRange } from 'src/utils/logExtractor';
 import { LogEntry, LogLevel } from 'src/utils/logParser';
-import { onMounted, PropType, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { computed } from 'vue';
 import LogFilter from './Filters/LogFilter.vue';
 
@@ -74,7 +74,7 @@ const props = defineProps({
     required: true,
   },
   filterStore: {
-    type: Object as PropType<Store>,
+    type: {} as FilterStoreType,
     required: true,
   },
 });
