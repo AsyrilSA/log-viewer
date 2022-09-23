@@ -21,5 +21,5 @@ export const useLogStore = defineStore('log', {
     setMetaData(metadata: any) {
       this.metadata = metadata;
     },
-  },
+  }
 });

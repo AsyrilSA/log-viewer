@@ -1,15 +1,6 @@
 <template>
-  <div class="row">
-    <h4>{{ title }}</h4>
-    <div>
-      <q-icon name="error" color="grey" size="24px" class="q-mt-md q-ml-md">
-        <q-tooltip class="log-table-tooltip">
-          Use CTRL+Click on <b>Level</b> and <b>Service</b> cells to filter
-        </q-tooltip></q-icon
-      >
-    </div>
-  </div>
-  <div class="row">
+  <div class="row"></div>
+  <div class="row q-mt-md">
     <div class="col-4 q-pb-sm q-pl-sm">
       <LogLevelFilter v-model="logLevelFilter"></LogLevelFilter>
     </div>
@@ -38,14 +29,20 @@
         :rules="endDateRule"
       ></TimestampFilter>
     </div>
-    <div class="col-4 q-pb-sm q-pr-sm">
+    <div class="col-3 q-pb-sm q-pr-sm">
       <q-btn
         color="primary"
         icon="restart_alt"
         label="Reset all filters"
         @click="resetFilters"
       />
-      <q-space></q-space>
+    </div>
+    <div class="col-1 q-pb-sm q-pr-sm">
+      <q-icon name="error" color="grey" size="24px" class="q-mt-sm q-ml-md">
+        <q-tooltip class="log-table-tooltip">
+          Use CTRL+Click on <b>Level</b> and <b>Service</b> cells to filter
+        </q-tooltip></q-icon
+      >
     </div>
   </div>
   <q-table
@@ -322,6 +319,6 @@ const goToTop = () => {
 }
 
 .log-table-tooltip {
-  font-size:16px;
+  font-size: 16px;
 }
 </style>
