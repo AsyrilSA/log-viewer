@@ -1,5 +1,5 @@
 <template>
-  <LogTable title="Raw Logs" :rows="rows"></LogTable>
+  <LogTable :rows="rows" :filter-store="rawFilterStore"></LogTable>
 </template>
 
 <script lang="ts" setup>
@@ -7,8 +7,10 @@ import { useLogStore } from 'stores/logStore';
 import LogTable from 'src/components/LogTable.vue';
 import { filterLogs } from 'src/utils/logParser';
 import { computed } from 'vue';
+import { useRawFilterStore } from 'src/stores/logTableFilters';
 
 const logStore = useLogStore();
+const rawFilterStore = useRawFilterStore();
 
 const rows = computed(() =>
   // Consider everything

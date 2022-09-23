@@ -112,4 +112,8 @@ function getChipClass(level: string): string {
 .system-chip {
   background-color: v-bind('logLevelColors(LogLevel.SYSTEM)');
 }
+
+.q-chip--dense {
+  margin-bottom: 0px;
+}
 </style>

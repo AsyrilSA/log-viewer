@@ -1,53 +1,5 @@
 <template>
-  <div class="row">
-    <h4>{{ title }}</h4>
-    <div>
-      <q-icon name="error" color="grey" size="24px" class="q-mt-md q-ml-md">
-        <q-tooltip class="log-table-tooltip">
-          Use CTRL+Click on <b>Level</b> and <b>Service</b> cells to filter
-        </q-tooltip></q-icon
-      >
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-4 q-pb-sm q-pl-sm">
-      <LogLevelFilter v-model="logLevelFilter"></LogLevelFilter>
-    </div>
-    <div class="col-4 q-pb-sm q-px-sm">
-      <ServiceFilter
-        v-model="serviceFilter"
-        :options="serviceList"
-      ></ServiceFilter>
-    </div>
-    <div class="col-4 q-pb-sm q-pr-sm">
-      <MessageSearch v-model="messageFilter"></MessageSearch>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-4 q-pb-sm q-pl-sm">
-      <TimestampFilter
-        label="From"
-        v-model="startDate"
-        :rules="startDateRule"
-      ></TimestampFilter>
-    </div>
-    <div class="col-4 q-pb-sm q-px-sm">
-      <TimestampFilter
-        label="To"
-        v-model="endDate"
-        :rules="endDateRule"
-      ></TimestampFilter>
-    </div>
-    <div class="col-4 q-pb-sm q-pr-sm">
-      <q-btn
-        color="primary"
-        icon="restart_alt"
-        label="Reset all filters"
-        @click="resetFilters"
-      />
-      <q-spacer></q-spacer>
-    </div>
-  </div>
+  <LogFilter :service-list="serviceList" :store="props.filterStore"></LogFilter>
   <q-table
     class="my-sticky-header-table"
     ref="table"
@@ -96,39 +48,59 @@
   <q-page-sticky
     v-if="rows.length > 0"
     position="bottom-right"
-    :offset="[20, 20]"
+    :offset="[20, 70]"
   >
     <q-btn
       round
-      color="grey-6"
+      color="secondary"
       icon="arrow_back"
       class="rotate-90"
       @click="goToTop"
     ></q-btn>
   </q-page-sticky>
+  <q-page-sticky
+    v-if="rows.length > 0"
+    position="bottom-right"
+    :offset="[20, 20]"
+  >
+    <q-btn color="secondary" icon="skip_next error" @click="goToNextError">
+      <q-tooltip anchor="top left" class="button-tooltip">
+        Go to next error
+      </q-tooltip>
+    </q-btn>
+  </q-page-sticky>
+  <q-page-sticky
+    v-if="rows.length > 0"
+    position="bottom-right"
+    :offset="[90, 20]"
+  >
+    <q-btn
+      color="secondary"
+      icon="error skip_previous"
+      @click="goToPreviousError"
+    >
+      <q-tooltip anchor="top left" class="button-tooltip">
+        Go to previous error
+      </q-tooltip>
+    </q-btn>
+  </q-page-sticky>
 </template>
 
 <script lang="ts" setup>
+import { FilterStoreType } from 'src/stores/logTableFilters';
+import { getDateRange } from 'src/utils/logExtractor';
 import { LogEntry, LogLevel } from 'src/utils/logParser';
-import { Ref, ref, watch, onMounted } from 'vue';
+import { onMounted, PropType, ref, watch } from 'vue';
 import { computed } from 'vue';
-import LogLevelFilter from 'src/components/Filters/LogLevelFilter.vue';
-import MessageSearch from 'src/components/Filters/MessageSearch.vue';
-import ServiceFilter from 'src/components/Filters/ServiceFilter.vue';
-import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
-import { getLogInformation } from 'src/utils/logExtractor';
-import dateFormat from 'src/utils/dateUtils';
-import { date } from 'quasar';
-import { useLogStore } from 'stores/logStore';
-const logStore = useLogStore();
+import LogFilter from './Filters/LogFilter.vue';
 
 const props = defineProps({
   rows: {
     type: Array<LogEntry>,
     required: true,
   },
-  title: {
-    type: String,
+  filterStore: {
+    type: Object as PropType<FilterStoreType>,
     required: true,
   },
 });
@@ -138,46 +110,50 @@ const serviceList = computed(() => {
   return [...new Set(props.rows.map((r) => r.service))];
 });
 
-const logLevelFilter: Ref<string[]> = ref([]);
-const serviceFilter: Ref<string[]> = ref([]);
-const messageFilter = ref('');
+const logInfo = computed(() => getDateRange(props.rows));
+props.filterStore.setStartDate(logInfo.value.first);
+props.filterStore.setEndDate(logInfo.value.last);
 
-const logInfo = computed(() => getLogInformation(props.rows));
-const startDate = ref(logInfo.value.firstDate);
-const endDate = ref(logInfo.value.lastDate);
-const startDateRule = [
-  (start: string) => {
-    date.extractDate(start, dateFormat) <= endDate.value ||
-      'From date must be before To date';
-  },
-];
-const endDateRule = [
-  (end: string) =>
-    date.extractDate(end, dateFormat) >= startDate.value ||
-    'To date must be after From date',
-];
+onMounted(() => {
+  if ('clickedPie' in history.state) {
+    props.filterStore.setLevels(history.state.clickedPie);
+  }
+  if ('clickedBar' in history.state) {
+    props.filterStore.setLevels(history.state.clickedBar.logLevel);
+    props.filterStore.setServices(history.state.clickedBar.service);
+  }
+});
 
 let filteredRows = computed(() => {
   let remainingRows = props.rows;
-  if (logLevelFilter.value.length > 0) {
+  if (props.filterStore.getLevels.length > 0) {
     remainingRows = remainingRows.filter((r) =>
-      logLevelFilter.value.includes(r.level)
+      props.filterStore.getLevels.includes(r.level)
     );
   }
-  if (serviceFilter.value.length > 0) {
+  if (props.filterStore.getServices.length > 0) {
     remainingRows = remainingRows.filter((r) =>
-      serviceFilter.value.includes(r.service)
+      props.filterStore.getServices.includes(r.service)
     );
   }
-  if (messageFilter.value !== '') {
+  if (props.filterStore.getMessage !== '') {
     remainingRows = remainingRows.filter((r) =>
-      r.message.toLowerCase().includes(messageFilter.value.toLowerCase())
+      r.message
+        .toLowerCase()
+        .includes(props.filterStore.getMessage.toLowerCase())
     );
   }
 
   remainingRows = remainingRows.filter((r) => {
-    if (r.timestamp !== null && startDate.value && endDate.value) {
-      return r.timestamp >= startDate.value && r.timestamp <= endDate.value;
+    if (
+      r.timestamp !== null &&
+      props.filterStore.getStartDate &&
+      props.filterStore.getEndDate
+    ) {
+      return (
+        r.timestamp >= props.filterStore.getStartDate &&
+        r.timestamp <= props.filterStore.getEndDate
+      );
     } else {
       return true;
     }
@@ -246,26 +222,58 @@ function getClass(level: LogLevel): string {
   }
 }
 const filterLogLevel = (logLevel: LogLevel) => {
-  logLevelFilter.value = [logLevel];
+  props.filterStore.setLevels([logLevel]);
 };
 
 const filterService = (service: string) => {
-  serviceFilter.value = [service];
-};
-
-const resetFilters = () => {
-  logLevelFilter.value = [];
-  serviceFilter.value = [];
-  messageFilter.value = '';
-  startDate.value = logInfo.value.firstDate;
-  endDate.value = logInfo.value.lastDate;
+  props.filterStore.setServices([service]);
 };
 
 const table = ref(null);
 
+let currentErrorIndex = 0;
+watch(
+  () => props.rows,
+  () => {
+    currentErrorIndex = 0;
+  }
+);
+
 const goToTop = () => {
   if (table.value) {
     table.value.scrollTo(0);
+    currentErrorIndex = 0;
+  }
+};
+
+const goToNextError = () => {
+  const errorRowIndex = filteredRows.value.findIndex(
+    (row, rowIndex) =>
+      row.level === LogLevel.ERROR && rowIndex > currentErrorIndex
+  );
+  if (errorRowIndex >= 0 && table.value) {
+    table.value.scrollTo(errorRowIndex, 'start-force');
+    currentErrorIndex = errorRowIndex;
+  }
+};
+
+const goToPreviousError = () => {
+  let errorRowIndex = [...filteredRows.value]
+    .reverse()
+    .findIndex(
+      (row, rowIndex) =>
+        row.level === LogLevel.ERROR &&
+        rowIndex > filteredRows.value.length - currentErrorIndex
+    );
+
+  errorRowIndex =
+    errorRowIndex >= 0 ? filteredRows.value.length - 1 - errorRowIndex : -1;
+
+  if (errorRowIndex >= 0 && table.value) {
+    if (errorRowIndex && table.value) {
+      table.value.scrollTo(errorRowIndex, 'start-force');
+      currentErrorIndex = errorRowIndex;
+    }
   }
 };
 onMounted(() => {
@@ -276,21 +284,68 @@ onMounted(() => {
 <style lang="scss">
 .my-sticky-header-table {
   /* height or max-height is important */
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 164px);
 
-  thead tr:first-child th {
+  thead  th {
     /* bg color is important for th; just specify one */
     background-color: white;
   }
 
   thead tr th {
+    top: 0;
     position: sticky;
     z-index: 1;
   }
-  thead tr:first-child th {
-    top: 0;
+  thead tr th:nth-child(1){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
   }
-
+  tbody tr td:nth-child(1){
+    width:80px !important;
+    min-width:80px !important;
+    min-width:80px !important;
+  }
+  thead tr th:nth-child(2){
+    width:150px !important;
+    min-width:150px !important;
+    max-width:150px !important;
+  }
+  tbody tr td:nth-child(2){
+    width:150px !important;
+    min-width:150px !important;
+    max-width:150px !important;
+  }
+  thead tr th:nth-child(3){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
+  }
+  tbody tr td:nth-child(3){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
+  }
+  thead tr th:nth-child(4){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
+  }
+  tbody tr td:nth-child(4){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
+  }
+  thead tr th:nth-child(5){
+    width:140px !important;
+    min-width:140px !important;
+    max-width:140px !important;
+  }
+  tbody tr td:nth-child(5){
+    width:140px !important;
+    min-width:140px !important;
+    max-width:140px !important;
+  }
   /* this is when the loading indicator appears */
   .q-table--loading thead tr:last-child th {
     /* height of all previous header rows */
@@ -327,6 +382,10 @@ onMounted(() => {
 }
 
 .log-table-tooltip {
-  font-size:16px;
+  font-size: 16px;
+}
+
+.button-tooltip {
+  font-size: 13px;
 }
 </style>

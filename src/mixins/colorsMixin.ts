@@ -9,11 +9,11 @@ export default {
             case LogLevel.SYSTEM:
               return '#66CCFF';
             case LogLevel.TRACE:
-              return '#A9A9A9';
-            case LogLevel.DEBUG:
               return '#DCDCDC';
+            case LogLevel.DEBUG:
+              return '#A9A9A9';
             case LogLevel.INFO:
-              return '#66CC00';
+              return '#9be651';
             case LogLevel.WARNING:
               return '#FFCC00';
             case LogLevel.ERROR:

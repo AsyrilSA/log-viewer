@@ -1,5 +1,11 @@
 <template>
-  <q-item :clickable="!disabled" tag="a" :href="link" :class="getClass" @click="updateStore">
+  <q-item
+    :clickable="!disabled"
+    tag="a"
+    :href="link"
+    :class="getClass"
+    @click="updateStore"
+  >
     <q-item-section v-if="icon" avatar>
       <q-icon class="menu-item-icon" :name="icon" />
     </q-item-section>
@@ -12,12 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { useLogStore } from 'stores/logStore';
-const route = useRoute();
-const logStore = useLogStore();
-
 export interface MenuLinkProps {
   title: string;
   caption?: string;
@@ -25,6 +25,12 @@ export interface MenuLinkProps {
   icon?: string;
   disabled?: boolean;
 }
+
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { useLogStore } from 'stores/logStore';
+const route = useRoute();
+const logStore = useLogStore();
 const props = withDefaults(defineProps<MenuLinkProps>(), {
   caption: '',
   link: '#',

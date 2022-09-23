@@ -10,7 +10,7 @@
             >
               <h5 class="q-my-none q-ml-md q-pt-sm">General Log Information</h5>
               <general-log-information
-                :logInformation="logInformation"
+                :logInformation="logStore.getLogInformation"
               ></general-log-information>
             </q-card>
           </div>
@@ -25,7 +25,7 @@
             >
               <h5 class="q-my-none q-ml-md q-pt-sm">Time Information</h5>
               <time-information
-                :logInformation="logInformation"
+                :logInformation="logStore.getLogInformation"
               ></time-information>
             </q-card>
           </div>
@@ -45,7 +45,8 @@
               </h5>
               <log-status
                 class="q-ma-md"
-                :logInformation="logInformation"
+                :logInformation="logStore.getLogInformation"
+                :isCtrlPressed="isCtrlPressed"
               ></log-status>
             </q-card>
           </div>
@@ -63,7 +64,8 @@
               </h5>
               <log-repartition
                 class="q-ma-md"
-                :logInformation="logInformation"
+                :logInformation="logStore.getLogInformation"
+                :isCtrlPressed="isCtrlPressed"
               ></log-repartition>
             </q-card>
           </div>
@@ -82,7 +84,7 @@ import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue'
 
 import { useLogStore } from 'stores/logStore';
 import { getLogInformation } from 'src/utils/logExtractor';
-import { computed } from 'vue';
+import { onMounted,onUnmounted, computed, ref } from 'vue';
 
 const logStore = useLogStore();
 onMounted(() => {
@@ -90,6 +92,25 @@ logStore.setLogLoading(false);
 })
 
 const logInformation = computed(() => getLogInformation(logStore.getRows));
+const isCtrlPressed = ref(false);
+function addControlKeyDown(event: any) {
+  if (event.key === 'Control') {
+      isCtrlPressed.value = true
+    }
+}
+function addControlKeyUp(event: any) {
+  if (event.key === 'Control') {
+      isCtrlPressed.value = true
+    }
+}
+onMounted(() => {
+  window.addEventListener('keydown', addControlKeyDown)
+  window.addEventListener('keyup', addControlKeyUp);
+})
+onUnmounted(() => {
+  window.removeEventListener('keydown',addControlKeyDown);
+  window.removeEventListener('keyup',addControlKeyUp);
+})
 </script>
 
 <style lang="scss">

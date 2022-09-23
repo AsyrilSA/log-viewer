@@ -1,9 +1,9 @@
-const RE_PYTHON = new RegExp(
-  /^(?<date>\d+-\d+-\d+) (?<time>\S+) (?<service>\S+)\s+\[(?<level>\w+)\s*\] (?<message>.*)/
+const RE_GENERIC = new RegExp(
+  /^(?<date>\d+-\d+-\d+) (?<time>\S+) (?<logger>\S+)\s+\[(?<level>\w+)\s*\] (?<message>.*)/
 );
 
 const RE_CPP = new RegExp(
-  /^\[(?<date>\d+-\d+-\d+) (?<time>\S+)\] \[(?<service>\S+)\] \[(?<level>\w+)\] (?<message>.*)/
+  /^\[(?<date>\d+-\d+-\d+) (?<time>\S+)\] \[(?<logger>\S+)\] \[(?<level>\w+)\] (?<message>.*)/
 );
 
 const RE_ENVOY = new RegExp(
@@ -33,23 +33,44 @@ interface FilterCallable {
 }
 
 function parseLine(index: number, line: string): LogEntry {
-  // Try to parse the line as coming from a Python service
-  let match = line.match(RE_PYTHON);
+  // TODO: refactor this as it is getting a bit too large
+
+  // Try to parse the line as coming from generic service
+  let match = line.match(RE_GENERIC);
   if (match != null) {
     const g = match.groups;
 
     let service = undefined;
 
-    // We need some special handling for some of the log entries that do not start with "backend."
-    if (g?.service.startsWith('backend.')) {
-      service = g?.service.split('.')[1];
-    } else if (g?.service.startsWith('host_service.')) {
-      service = 'host_service';
-    }
+    const serviceMap = new Map([
+      [
+        'backend',
+        (entries: string[]) => {
+          return entries[1];
+        },
+      ],
+      [
+        'host_service',
+        (entries: string[]) => {
+          return entries[0];
+        },
+      ],
+      [
+        'vision',
+        (entries: string[]) => {
+          return entries[0];
+        },
+      ],
+      [
+        'fieldbus',
+        (entries: string[]) => {
+          return entries[0];
+        },
+      ],
+    ]);
 
-    if (service === undefined) {
-      service = 'system';
-    }
+    const entries = g?.logger.split('.');
+    service = serviceMap.get(entries[0])?.(entries) || 'system';
 
     return {
       id: index,
@@ -58,7 +79,7 @@ function parseLine(index: number, line: string): LogEntry {
         Date.parse(g?.date + ' ' + g?.time.replace(',', '.'))
       ), // Python use ',' to separate milliseconds
       service: service,
-      logger: g?.service || '',
+      logger: g?.logger || '',
       message: g?.message || '',
     };
   }
@@ -72,12 +93,34 @@ function parseLine(index: number, line: string): LogEntry {
     // here for now but this is not 100% correct (e.g. in winter).
     // TODO: find a way to correct the time properly
     fixedDate.setHours(fixedDate.getHours() - 2);
+
+    let service = undefined;
+
+    // We need some special handling to differentiate vision from fieldbus logs
+    const fieldbusLogger = new Set([
+      'application',
+      'application.ecs',
+      'object_dictionary',
+      'production',
+    ]);
+
+    if (g?.logger) {
+      if (g.logger.startsWith('fieldbus.') || fieldbusLogger.has(g.logger)) {
+        service = 'fieldbus';
+      }
+    }
+
+    // Anything C++ not fieldbus is considered to be from vision
+    if (service === undefined) {
+      service = 'vision';
+    }
+
     return {
       id: index,
       level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
       timestamp: fixedDate,
-      service: 'vision',
-      logger: g?.service || '',
+      service: service,
+      logger: g?.logger || '',
       message: g?.message || '',
     };
   }

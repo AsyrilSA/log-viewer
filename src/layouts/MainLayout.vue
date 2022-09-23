@@ -1,6 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-
+  <q-layout view="hHh Lpr lFf">
     <q-header elevated>
       <q-toolbar class="bg-primary">
         <q-btn
@@ -18,22 +17,22 @@
           </a>
           <span class="main-title-version">{{ version }}</span>
         </q-toolbar-title>
-        <q-input
-          class="file-name-input"
-          bg-color="grey"
-          disabled
-          outlined
-          dense
-          :model-value="logStore.getName"
-        />
+        <div>
+          <b>Log name : </b>{{ logStore.getName ? logStore.getName : '-' }}
+        </div>
         <q-space />
         <ImportLogButton></ImportLogButton>
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above bordered class="bg-primary" :width="250" :mini="miniState">
+    <q-drawer
+      show-if-above
+      bordered
+      class="bg-primary"
+      :width="250"
+      :mini="miniState"
+    >
       <q-list>
-        <q-item-label header class="menu-title"> Menu </q-item-label>
         <MenuLink
           :disabled="!logStore.getName"
           v-for="link in menuLinks"
@@ -140,9 +139,5 @@ watch(isLogLoading, ( ) => {
 
 .file-name-input {
   width: 50%;
-}
-
-.menu-title {
-  color: lightgrey;
 }
 </style>

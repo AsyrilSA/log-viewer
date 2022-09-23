@@ -28,7 +28,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/rawlogs',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/RawPage.vue') }],
+    children: [{ path: '', component: () => import('pages/RawPage.vue'), name: 'raw' }],
   },
   {
     path: '/metadata',

@@ -26,6 +26,7 @@ import { useRouter, useRoute } from 'vue-router';
 import { useLogStore } from 'stores/logStore';
 import { parseLogFile } from 'src/utils/logParser';
 import { useQuasar } from 'quasar';
+import { getLogInformation } from 'src/utils/logExtractor';
 
 const acceptedFileType = 'logs';
 
@@ -93,6 +94,24 @@ const uploadFile = (event: any) => {
             alertUnreadableLogFile();
             return;
           }
+
+          let logInformation = getLogInformation(logStore.getRows);
+
+          // Update some information using the more reliable metadata information
+          const metadata: any = logStore.metadata; // eslint-disable-line @typescript-eslint/no-explicit-any
+          if (metadata.releaseVersion && metadata.gitVersionHash) {
+            logInformation.softwareVersion = `${metadata.releaseVersion} (${metadata.gitVersionHash})`;
+          }
+          if (metadata.hwVersion) {
+            logInformation.hardwareVersion = `v${metadata.hwVersion}`;
+          }
+          if (metadata.som) {
+            logInformation.somSerialNumber = metadata.som;
+          }
+
+          // Create logInformation
+          logStore.setLogInformation(logInformation);
+
           if (route.path === '/') router.push('/base');
         })
         .catch(() => {

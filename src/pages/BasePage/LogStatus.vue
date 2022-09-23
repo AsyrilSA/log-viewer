@@ -1,6 +1,6 @@
 <template>
   <div>
-    <stacked-bar-chart :chart-data="chartData" />
+    <stacked-bar-chart :chart-data="chartData" :is-ctrl-pressed="isCtrlPressed" />
   </div>
 </template>
 
@@ -18,6 +18,7 @@ const props = defineProps({
     type: Object as PropType<LogInformation>,
     required: true,
   },
+  isCtrlPressed: Boolean
 });
 
 function getStatistics(
@@ -33,7 +34,7 @@ function getStatistics(
 }
 
 const chartData = computed(() => {
-  const statistics = props.logInformation.logStatistics;
+  const statistics = props.logInformation.statistics;
   const services = Array.from(statistics.keys());
 
   return {
