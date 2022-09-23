@@ -1,4 +1,4 @@
-const RE_PYTHON = new RegExp(
+const RE_GENERIC = new RegExp(
   /^(?<date>\d+-\d+-\d+) (?<time>\S+) (?<logger>\S+)\s+\[(?<level>\w+)\s*\] (?<message>.*)/
 );
 
@@ -35,23 +35,42 @@ interface FilterCallable {
 function parseLine(index: number, line: string): LogEntry {
   // TODO: refactor this as it is getting a bit too large
 
-  // Try to parse the line as coming from a Python service
-  let match = line.match(RE_PYTHON);
+  // Try to parse the line as coming from generic service
+  let match = line.match(RE_GENERIC);
   if (match != null) {
     const g = match.groups;
 
     let service = undefined;
 
-    // We need some special handling for some of the log entries that do not start with "backend."
-    if (g?.logger.startsWith('backend.')) {
-      service = g?.logger.split('.')[1];
-    } else if (g?.logger.startsWith('host_service.')) {
-      service = 'host_service';
-    }
+    const serviceMap = new Map([
+      [
+        'backend',
+        (entries: string[]) => {
+          return entries[1];
+        },
+      ],
+      [
+        'host_service',
+        (entries: string[]) => {
+          return entries[0];
+        },
+      ],
+      [
+        'vision',
+        (entries: string[]) => {
+          return entries[0];
+        },
+      ],
+      [
+        'fieldbus',
+        (entries: string[]) => {
+          return entries[0];
+        },
+      ],
+    ]);
 
-    if (service === undefined) {
-      service = 'system';
-    }
+    const entries = g?.logger.split('.');
+    service = serviceMap.get(entries[0])?.(entries) || 'system';
 
     return {
       id: index,
