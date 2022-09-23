@@ -56,10 +56,10 @@ import MenuLink, { MenuLinkProps } from 'components/MenuLink.vue';
 import ImportLogButton from '../components/ImportLogButton.vue';
 import { useLogStore } from 'stores/logStore';
 import { version } from '../../package.json';
-import { useQuasar } from 'quasar'
-import { storeToRefs } from 'pinia'
+import { useQuasar } from 'quasar';
+import { storeToRefs } from 'pinia';
 
-const $q = useQuasar()
+const $q = useQuasar();
 
 const menuLinks: MenuLinkProps[] = [
   {
@@ -105,16 +105,15 @@ function toggleLeftDrawer() {
   miniState.value = !miniState.value;
 }
 
-function handleLoadingDisplay(isLoading:boolean) {
-  isLoading ? $q.loading.show() : $q.loading.hide()
+function handleLoadingDisplay(isLoading: boolean) {
+  isLoading ? $q.loading.show() : $q.loading.hide();
 }
-const logStore = useLogStore()
-const { isLogLoading } = storeToRefs(logStore)
+const logStore = useLogStore();
+const { isLogLoading } = storeToRefs(logStore);
 
-watch(isLogLoading, ( ) => {
-  handleLoadingDisplay(isLogLoading.value)
-})
-
+watch(isLogLoading, () => {
+  handleLoadingDisplay(isLogLoading.value);
+});
 </script>
 
 <style lang="scss">
