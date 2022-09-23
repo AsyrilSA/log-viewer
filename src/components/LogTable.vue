@@ -97,7 +97,7 @@
   >
     <q-btn
       round
-      color="grey-6"
+      color="secondary"
       icon="arrow_back"
       class="rotate-90"
       @click="goToTop"
