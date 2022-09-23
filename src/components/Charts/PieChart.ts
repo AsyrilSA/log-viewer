@@ -1,6 +1,7 @@
 import { defineComponent, h, PropType } from 'vue';
 
 import { Pie } from 'vue-chartjs';
+import { HistoryState, useRouter } from 'vue-router';
 import {
   Chart as ChartJS,
   Title,
@@ -51,6 +52,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const router = useRouter();
     const chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -59,6 +61,14 @@ export default defineComponent({
           position: 'right',
         },
       },
+      'onClick': function (evt, item) {
+        const clickedElem = item.shift()
+        const index = clickedElem.index
+        if (props.chartData.labels != undefined) {
+          const clickedPie = [props.chartData.labels[index]]
+          router.push({ name: 'raw', state: { clickedPie } as HistoryState})
+        }
+      }
     };
 
     return () =>

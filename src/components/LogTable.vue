@@ -107,7 +107,7 @@
 
 <script lang="ts" setup>
 import { LogEntry, LogLevel } from 'src/utils/logParser';
-import { Ref, ref } from 'vue';
+import { Ref, ref, onMounted } from 'vue';
 import { computed } from 'vue';
 import LogLevelFilter from 'src/components/Filters/LogLevelFilter.vue';
 import MessageSearch from 'src/components/Filters/MessageSearch.vue';
@@ -136,6 +136,16 @@ const messageFilter = ref('');
 const logInfo = computed(() => getLogInformation(props.rows));
 const startDate = ref(logInfo.value.firstDate);
 const endDate = ref(logInfo.value.lastDate);
+onMounted(() => {
+  console.log('History.state after pushState: ', history.state);
+  if ('clickedPie'in history.state) {
+    logLevelFilter.value = history.state.clickedPie
+  }
+  if ('clickedBar' in history.state) {
+    logLevelFilter.value = history.state.clickedBar.logLevel
+    serviceFilter.value = history.state.clickedBar.service
+  }
+})
 const startDateRule = [
   (start: string) => {
     date.extractDate(start, dateFormat) <= endDate.value ||

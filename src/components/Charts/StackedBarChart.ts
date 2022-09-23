@@ -1,4 +1,5 @@
 import { defineComponent, h, PropType } from 'vue';
+import { HistoryState, useRouter } from 'vue-router';
 
 import { Bar } from 'vue-chartjs';
 
@@ -61,6 +62,7 @@ export default defineComponent({
   },
 
   setup(props) {
+    const router = useRouter();
     const chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -76,6 +78,16 @@ export default defineComponent({
           stacked: true,
         },
       },
+      'onClick': function (evt, array) {
+        const clickedElem = array.shift()
+        if (props.chartData.labels != undefined) {
+          const clickedBar = {
+            logLevel: [props.chartData.datasets[clickedElem.datasetIndex]?.label],
+            service: [props.chartData.labels[clickedElem.index]]
+          }
+          router.push({ name: 'raw', state: { clickedBar } as HistoryState})
+         }
+      }
     };
 
     return () =>

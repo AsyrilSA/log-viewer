@@ -28,7 +28,7 @@ Asyril Log Viewer
 - [ ] Extract information from metadata and display them on the base page
 - [ ] create a filter store to have the filters saved between pages
 - [x] Correct filter height when selecting a log loglevel
-- [ ] Add an option to go to page with the filter when clicking on a chart
+- [x] Add an option to go to page with the filter when clicking on a chart
 - [ ] fix the column size of the q-table
 
 ## Development

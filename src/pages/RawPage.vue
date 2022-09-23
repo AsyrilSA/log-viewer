@@ -10,6 +10,10 @@ import { computed } from 'vue';
 
 const logStore = useLogStore();
 
+const props = defineProps({
+  logLevel: String
+})
+
 const rows = computed(() =>
   // Consider everything
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
