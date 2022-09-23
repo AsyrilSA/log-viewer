@@ -170,7 +170,6 @@ const columns = [
     align: 'left',
     field: 'id',
     sortable: true,
-    style: `width: 50px`,
   },
   {
     name: 'timestamp',
@@ -178,7 +177,6 @@ const columns = [
     label: 'Timestamp',
     field: 'timestamp',
     sortable: true,
-    style: `width: 150px`,
     format: (value: Date) => {
       if (value) return value.toLocaleString('fr-CH');
     },
@@ -189,7 +187,6 @@ const columns = [
     field: 'level',
     align: 'left',
     sortable: true,
-    style: `width: 60px`,
   },
   {
     name: 'service',
@@ -197,7 +194,6 @@ const columns = [
     field: 'service',
     align: 'left',
     sortable: true,
-    style: `width: 80px`,
   },
   {
     name: 'logger',
@@ -205,7 +201,6 @@ const columns = [
     field: 'logger',
     align: 'left',
     sortable: true,
-    style: `width: 200px`,
   },
   { name: 'message', label: 'Message', field: 'message', align: 'left' },
 ];
@@ -288,19 +283,66 @@ const goToPreviousError = () => {
   /* height or max-height is important */
   max-height: calc(100vh - 164px);
 
-  thead tr:first-child th {
+  thead  th {
     /* bg color is important for th; just specify one */
     background-color: white;
   }
 
   thead tr th {
+    top: 0;
     position: sticky;
     z-index: 1;
   }
-  thead tr:first-child th {
-    top: 0;
+  thead tr th:nth-child(1){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
   }
-
+  tbody tr td:nth-child(1){
+    width:80px !important;
+    min-width:80px !important;
+    min-width:80px !important;
+  }
+  thead tr th:nth-child(2){
+    width:150px !important;
+    min-width:150px !important;
+    max-width:150px !important;
+  }
+  tbody tr td:nth-child(2){
+    width:150px !important;
+    min-width:150px !important;
+    max-width:150px !important;
+  }
+  thead tr th:nth-child(3){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
+  }
+  tbody tr td:nth-child(3){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
+  }
+  thead tr th:nth-child(4){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
+  }
+  tbody tr td:nth-child(4){
+    width:80px !important;
+    min-width:80px !important;
+    max-width:80px !important;
+  }
+  thead tr th:nth-child(5){
+    width:140px !important;
+    min-width:140px !important;
+    max-width:140px !important;
+  }
+  tbody tr td:nth-child(5){
+    width:140px !important;
+    min-width:140px !important;
+    max-width:140px !important;
+  }
   /* this is when the loading indicator appears */
   .q-table--loading thead tr:last-child th {
     /* height of all previous header rows */
