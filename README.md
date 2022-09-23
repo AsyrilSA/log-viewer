@@ -13,7 +13,7 @@ Asyril Log Viewer
 - [x] add a button to delete all filters
 - [x] improve logName display in the top bar
 - [ ] add a filter like "go to first error"
-- [ ] implement the ci to deploy the logviewer on the asyril-registry server (port to be defined)
+- [x] implement the ci to deploy the logviewer on the asyril-registry server (port 8098)
 - [ ] implement a general filter like gitlab, github or wireshark
 - [x] permits to select a cell and set it as filter (CTRL + click)
 - [x] display the metadata json
@@ -23,30 +23,34 @@ Asyril Log Viewer
 - [ ] translation (i18n)
 - [ ] add support for multiline log entry (currently one line in the file = one log entry)
 
-
-
 ## Development
+
 ### Install the dependencies
+
 ```bash
 npm install
 ```
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
+
 ```bash
 num start
 ```
 
 ### Lint the files
+
 ```bash
 npm run lint
 ```
 
 ### Format the files
+
 ```bash
 npm run format
 ```
 
 ### Build the app for production
+
 ```bash
 npm run build
 ```

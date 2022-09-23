@@ -1,0 +1,56 @@
+variables:
+  DOCKER_PROXY: $REGISTRY_NAME:5556
+  REGISTRY: $REGISTRY_NAME:$REGISTRY_PORT
+  DOCKER_COMPOSE: 'docker-compose -f docker-compose.yml'
+stages:
+  - build
+  - deploy
+
+build app:
+  image: ${DOCKER_PROXY}/tmaier/docker-compose:20.10
+  stage: build
+  services:
+    - name: ${DOCKER_PROXY}/docker:20.10-dind-asyril
+      alias: docker
+  before_script:
+    - docker version
+    - docker-compose version
+    # Login to our registry
+    - docker login -u $REGISTRY_USER -p $REGISTRY_PASSWORD $REGISTRY
+  variables:
+    CONTAINER_IMAGE: $CI_PIPELINE_ID
+
+  script:
+    # Build and push the images to the registry
+    - $DOCKER_COMPOSE build
+    - $DOCKER_COMPOSE push
+
+deploy app:
+  image: ${DOCKER_PROXY}/tmaier/docker-compose:20.10
+  stage: deploy
+  services:
+    - name: ${DOCKER_PROXY}/docker:20.10-dind-asyril
+      alias: docker
+  before_script:
+    - docker version
+    - docker-compose version
+    - apk add git openssh-client
+    # Adding SSH KEY for accessing host docker through ssh
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - eval $(ssh-agent -s)
+    - echo "$BUILDSERVER_SSH_KEY" | tr -d '\r' | ssh-add -
+    # Adding host key to avoid "Host key verification failed."
+    - ssh-keyscan $DEPLOY_HOST >> ~/.ssh/known_hosts
+  variables:
+    CONTAINER_IMAGE: $CI_PIPELINE_ID
+    DEPLOY_HOST: $BUILDSERVER_HOST
+  script:
+    - export DOCKER_HOST=ssh://gitlab@$DEPLOY_HOST
+    - $DOCKER_COMPOSE pull
+    - $DOCKER_COMPOSE down --remove-orphans
+    - $DOCKER_COMPOSE up -d --no-build
+  environment:
+    name: Registry
+  when: manual
+  needs: ['build app']

@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <h4 class="q-mt-lg">Please import a log file</h4>
-    <img class="arrow-image" alt="Up down arrow" src="src/assets/arrow.svg" />
+    <img class="arrow-image" alt="Up down arrow" src="~assets/arrow.svg" />
   </div>
 </template>
 
