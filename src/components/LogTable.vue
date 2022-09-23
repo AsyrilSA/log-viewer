@@ -113,7 +113,7 @@ import LogLevelFilter from 'src/components/Filters/LogLevelFilter.vue';
 import MessageSearch from 'src/components/Filters/MessageSearch.vue';
 import ServiceFilter from 'src/components/Filters/ServiceFilter.vue';
 import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
-import { getLogInformation } from 'src/utils/logExtractor';
+import { getDateRange } from 'src/utils/logExtractor';
 import dateFormat from 'src/utils/dateUtils';
 import { date } from 'quasar';
 
@@ -121,7 +121,7 @@ const props = defineProps({
   rows: {
     type: Array<LogEntry>,
     required: true,
-  }
+  },
 });
 
 const serviceList = computed(() => {
@@ -133,18 +133,18 @@ const logLevelFilter: Ref<string[]> = ref([]);
 const serviceFilter: Ref<string[]> = ref([]);
 const messageFilter = ref('');
 
-const logInfo = computed(() => getLogInformation(props.rows));
-const startDate = ref(logInfo.value.firstDate);
-const endDate = ref(logInfo.value.lastDate);
+const logInfo = computed(() => getDateRange(props.rows));
+const startDate = ref(logInfo.value.first);
+const endDate = ref(logInfo.value.last);
 onMounted(() => {
-  if ('clickedPie'in history.state) {
-    logLevelFilter.value = history.state.clickedPie
+  if ('clickedPie' in history.state) {
+    logLevelFilter.value = history.state.clickedPie;
   }
   if ('clickedBar' in history.state) {
-    logLevelFilter.value = history.state.clickedBar.logLevel
-    serviceFilter.value = history.state.clickedBar.service
+    logLevelFilter.value = history.state.clickedBar.logLevel;
+    serviceFilter.value = history.state.clickedBar.service;
   }
-})
+});
 const startDateRule = [
   (start: string) => {
     date.extractDate(start, dateFormat) <= endDate.value ||
@@ -257,8 +257,8 @@ const resetFilters = () => {
   logLevelFilter.value = [];
   serviceFilter.value = [];
   messageFilter.value = '';
-  startDate.value = logInfo.value.firstDate;
-  endDate.value = logInfo.value.lastDate;
+  startDate.value = logInfo.value.first;
+  endDate.value = logInfo.value.last;
 };
 
 const table = ref(null);

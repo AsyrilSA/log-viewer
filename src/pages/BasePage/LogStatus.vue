@@ -33,7 +33,7 @@ function getStatistics(
 }
 
 const chartData = computed(() => {
-  const statistics = props.logInformation.logStatistics;
+  const statistics = props.logInformation.statistics;
   const services = Array.from(statistics.keys());
 
   return {

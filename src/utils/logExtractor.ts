@@ -1,20 +1,45 @@
+import { date } from 'quasar';
 import { LogEntry, LogLevel } from './logParser';
 
 interface LogInformation {
   softwareVersion: string;
   hardwareVersion: string;
   somSerialNumber: string;
-  firstDate: Date | null;
-  lastDate: Date | null;
-  logStatistics: Map<string, Map<LogLevel, number>>;
+  dateRange: LogDateRange;
+  statistics: Map<string, Map<LogLevel, number>>;
+}
+
+interface LogDateRange {
+  first: Date;
+  last: Date;
+}
+
+function getDateRange(logObject: LogEntry[]): LogDateRange {
+  let firstDate: Date = date.buildDate({ year: 2042 });
+  let lastDate: Date = new Date(0);
+
+  logObject.forEach((value: LogEntry) => {
+    // Log timestamp
+    if (value.timestamp) {
+      if (value.timestamp < firstDate) {
+        firstDate = value.timestamp;
+      }
+      if (value.timestamp > lastDate) {
+        lastDate = value.timestamp;
+      }
+    }
+  });
+
+  return {
+    first: firstDate,
+    last: lastDate,
+  };
 }
 
 function getLogInformation(logObject: LogEntry[]): LogInformation {
   let softwareVersion = '-';
   let hardwareVersion = '-';
   let somSerialNumber = '-';
-  let firstDate: Date | null = null;
-  let lastDate: Date | null = null;
   const logStatistics: Map<string, Map<LogLevel, number>> = new Map();
 
   logObject.forEach((value: LogEntry) => {
@@ -24,14 +49,6 @@ function getLogInformation(logObject: LogEntry[]): LogInformation {
       hardwareVersion = value.message.split(':')?.pop() || '-';
     } else if (value.message.startsWith('SoM Serial number:')) {
       somSerialNumber = value.message.split(':')?.pop() || '-';
-    }
-
-    // Log timestamp
-    if (value.timestamp && value.timestamp < (firstDate || new Date())) {
-      firstDate = value.timestamp;
-    }
-    if (value.timestamp && value.timestamp > (lastDate || new Date(0))) {
-      lastDate = value.timestamp;
     }
 
     // Statistics
@@ -53,11 +70,10 @@ function getLogInformation(logObject: LogEntry[]): LogInformation {
     softwareVersion: softwareVersion,
     hardwareVersion: hardwareVersion,
     somSerialNumber: somSerialNumber,
-    firstDate: firstDate,
-    lastDate: lastDate,
-    logStatistics: logStatistics,
+    dateRange: getDateRange(logObject),
+    statistics: logStatistics,
   };
 }
 
-export { getLogInformation };
-export type { LogInformation };
+export { getLogInformation, getDateRange };
+export type { LogInformation, LogDateRange };
