@@ -68,7 +68,7 @@ import { FilterStoreType } from 'src/stores/logTableFilters';
 
 const props = defineProps({
   store: {
-    type: {} as FilterStoreType,
+    type: Object as PropType<FilterStoreType>,
     required: true,
   },
   serviceList: {

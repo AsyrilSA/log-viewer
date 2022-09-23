@@ -64,7 +64,7 @@
 import { FilterStoreType } from 'src/stores/logTableFilters';
 import { getDateRange } from 'src/utils/logExtractor';
 import { LogEntry, LogLevel } from 'src/utils/logParser';
-import { onMounted, ref } from 'vue';
+import { onMounted, PropType, ref } from 'vue';
 import { computed } from 'vue';
 import LogFilter from './Filters/LogFilter.vue';
 
@@ -74,7 +74,7 @@ const props = defineProps({
     required: true,
   },
   filterStore: {
-    type: {} as FilterStoreType,
+    type: Object as PropType<FilterStoreType>,
     required: true,
   },
 });
