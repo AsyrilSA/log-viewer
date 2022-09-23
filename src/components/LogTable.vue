@@ -137,7 +137,6 @@ const logInfo = computed(() => getLogInformation(props.rows));
 const startDate = ref(logInfo.value.firstDate);
 const endDate = ref(logInfo.value.lastDate);
 onMounted(() => {
-  console.log('History.state after pushState: ', history.state);
   if ('clickedPie'in history.state) {
     logLevelFilter.value = history.state.clickedPie
   }
