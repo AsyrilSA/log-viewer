@@ -24,8 +24,9 @@ Asyril Log Viewer
 - [ ] add support for multiline log entry (currently one line in the file = one log entry)
 - [x] remove menu title and add top space when collapsed
 - [x] Remove title above log tables
-- [ ] Optimize the import by extracting data during import and not on each page (move the informations in the logStore)
-- [ ] Extract information from metadata and display them on the base page
+- [x] Optimize the import by extracting data during import and not on each page (move the informations in the logStore)
+- [x] Extract information from metadata (version, serial number) and display them on the base page
+- [ ] Display recipes summary from metadata
 - [ ] create a filter store to have the filters saved between pages
 - [x] Correct filter height when selecting a log loglevel
 - [x] Add an option to go to page with the filter when clicking on a chart
