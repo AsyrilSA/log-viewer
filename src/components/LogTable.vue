@@ -48,7 +48,7 @@
   <q-page-sticky
     v-if="rows.length > 0"
     position="bottom-right"
-    :offset="[20, 20]"
+    :offset="[20, 70]"
   >
     <q-btn
       round
@@ -58,13 +58,39 @@
       @click="goToTop"
     ></q-btn>
   </q-page-sticky>
+  <q-page-sticky
+    v-if="rows.length > 0"
+    position="bottom-right"
+    :offset="[20, 20]"
+  >
+    <q-btn color="secondary" icon="skip_next error" @click="goToNextError">
+      <q-tooltip anchor="top left" class="button-tooltip">
+        Go to next error
+      </q-tooltip>
+    </q-btn>
+  </q-page-sticky>
+  <q-page-sticky
+    v-if="rows.length > 0"
+    position="bottom-right"
+    :offset="[90, 20]"
+  >
+    <q-btn
+      color="secondary"
+      icon="error skip_previous"
+      @click="goToPreviousError"
+    >
+      <q-tooltip anchor="top left" class="button-tooltip">
+        Go to previous error
+      </q-tooltip>
+    </q-btn>
+  </q-page-sticky>
 </template>
 
 <script lang="ts" setup>
 import { FilterStoreType } from 'src/stores/logTableFilters';
 import { getDateRange } from 'src/utils/logExtractor';
 import { LogEntry, LogLevel } from 'src/utils/logParser';
-import { onMounted, PropType, ref } from 'vue';
+import { onMounted, PropType, ref, watch } from 'vue';
 import { computed } from 'vue';
 import LogFilter from './Filters/LogFilter.vue';
 
@@ -196,18 +222,58 @@ function getClass(level: LogLevel): string {
   }
 }
 const filterLogLevel = (logLevel: LogLevel) => {
-  props.filterStore.setLevel([logLevel]);
+  props.filterStore.setLevels([logLevel]);
 };
 
 const filterService = (service: string) => {
-  props.filterStore.setService([service]);
+  props.filterStore.setServices([service]);
 };
 
 const table = ref(null);
 
+let currentErrorIndex = 0;
+watch(
+  () => props.rows,
+  () => {
+    currentErrorIndex = 0;
+  }
+);
+
 const goToTop = () => {
   if (table.value) {
     table.value.scrollTo(0);
+    currentErrorIndex = 0;
+  }
+};
+
+const goToNextError = () => {
+  const errorRowIndex = filteredRows.value.findIndex(
+    (row, rowIndex) =>
+      row.level === LogLevel.ERROR && rowIndex > currentErrorIndex
+  );
+  if (errorRowIndex >= 0 && table.value) {
+    table.value.scrollTo(errorRowIndex, 'start-force');
+    currentErrorIndex = errorRowIndex;
+  }
+};
+
+const goToPreviousError = () => {
+  let errorRowIndex = [...filteredRows.value]
+    .reverse()
+    .findIndex(
+      (row, rowIndex) =>
+        row.level === LogLevel.ERROR &&
+        rowIndex > filteredRows.value.length - currentErrorIndex
+    );
+
+  errorRowIndex =
+    errorRowIndex >= 0 ? filteredRows.value.length - 1 - errorRowIndex : -1;
+
+  if (errorRowIndex >= 0 && table.value) {
+    if (errorRowIndex && table.value) {
+      table.value.scrollTo(errorRowIndex, 'start-force');
+      currentErrorIndex = errorRowIndex;
+    }
   }
 };
 </script>
@@ -267,5 +333,9 @@ const goToTop = () => {
 
 .log-table-tooltip {
   font-size: 16px;
+}
+
+.button-tooltip {
+  font-size: 13px;
 }
 </style>
