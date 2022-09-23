@@ -26,7 +26,11 @@ import { useRouter, useRoute } from 'vue-router';
 import { useLogStore } from 'stores/logStore';
 import { parseLogFile } from 'src/utils/logParser';
 import { useQuasar } from 'quasar';
-import { getLogInformation } from 'src/utils/logExtractor';
+import {
+  getLogInformation,
+  getRecipeInformation,
+} from 'src/utils/logExtractor';
+import { isEmptyObject } from '@intlify/shared';
 
 const acceptedFileType = 'logs';
 
@@ -110,6 +114,11 @@ const uploadFile = (event: any) => {
 
           // Create logInformation
           logStore.setLogInformation(logInformation);
+
+          if (!isEmptyObject(metadata)) {
+            const recipeInformation = getRecipeInformation(metadata);
+            logStore.setRecipeInformation(recipeInformation);
+          }
 
           if (route.path === '/') router.push('/base');
           $q.loading.hide();

@@ -31,6 +31,21 @@
           </div>
         </div>
       </div>
+      <div class="col-xs-12 col-lg-4 q-pa-sm">
+        <div class="row" style="min-height: 100%">
+          <div class="col-12 q-pb-xs-md q-pb-md-none">
+            <q-card
+              class="col q-mr-md-sm q-mr-xs-none q-pb-xs-md q-mb-md-none"
+              style="min-height: 100%"
+            >
+              <h5 class="q-my-none q-ml-md q-pt-sm">Recipes</h5>
+              <recipe-information
+                :recipeInformation="logStore.getRecipeInformation"
+              ></recipe-information>
+            </q-card>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row q-pa-md">
       <div class="col-xs-12 col-lg-4 medium-heigh q-pa-sm">
@@ -80,6 +95,7 @@ import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
 import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue';
 
 import { useLogStore } from 'stores/logStore';
+import RecipeInformation from './BasePage/RecipeInformation.vue';
 
 const logStore = useLogStore();
 </script>
