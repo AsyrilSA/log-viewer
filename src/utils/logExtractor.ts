@@ -28,17 +28,22 @@ function getDateRange(logObject: LogEntry[]): LogDateRange {
   let firstDate: Date = date.buildDate({ year: 2042 });
   let lastDate: Date = new Date(0);
 
-  logObject.forEach((value: LogEntry) => {
-    // Log timestamp
-    if (value.timestamp) {
-      if (value.timestamp < firstDate) {
-        firstDate = value.timestamp;
+  if (logObject.length > 0) {
+    logObject.forEach((value: LogEntry) => {
+      // Log timestamp
+      if (value.timestamp) {
+        if (value.timestamp < firstDate) {
+          firstDate = value.timestamp;
+        }
+        if (value.timestamp > lastDate) {
+          lastDate = value.timestamp;
+        }
       }
-      if (value.timestamp > lastDate) {
-        lastDate = value.timestamp;
-      }
-    }
-  });
+    });
+  } else {
+    // Empty list, we use the same date for first and last
+    firstDate = lastDate;
+  }
 
   return {
     first: firstDate,
