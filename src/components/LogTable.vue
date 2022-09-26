@@ -132,10 +132,17 @@ onUnmounted(() => {
 });
 
 const $q = useQuasar();
+
+let goToLineOpened = false;
+
 const onKeyEvent = (e: KeyboardEvent) => {
   if (e.key === 'g' && (e.ctrlKey || e.metaKey)) {
     // Our application uses Ctrl+G, not the browser!
     e.preventDefault();
+
+    if (goToLineOpened) return;
+
+    goToLineOpened = true;
     $q.dialog({
       title: 'Go to line',
       prompt: {
@@ -144,11 +151,19 @@ const onKeyEvent = (e: KeyboardEvent) => {
       },
       cancel: true,
       persistent: true,
-    }).onOk((data: number) => {
-      if (data) {
-        goToLine(+data);
-      }
-    });
+    })
+      .onOk((data: number) => {
+        if (data) {
+          goToLine(+data);
+        }
+        goToLineOpened = false;
+      })
+      .onCancel(() => {
+        goToLineOpened = false;
+      })
+      .onDismiss(() => {
+        goToLineOpened = false;
+      });
   }
 };
 
