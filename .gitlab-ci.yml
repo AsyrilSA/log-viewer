@@ -4,6 +4,7 @@ variables:
   DOCKER_COMPOSE: 'docker-compose -f docker-compose.yml'
 stages:
   - build
+  - test
   - deploy
 
 build app:
@@ -24,6 +25,28 @@ build app:
     # Build and push the images to the registry
     - $DOCKER_COMPOSE build
     - $DOCKER_COMPOSE push
+
+unit test:
+  image: ${DOCKER_PROXY}/tmaier/docker-compose:20.10
+  stage: test
+  services:
+    - name: ${DOCKER_PROXY}/docker:20.10-dind-asyril
+      alias: docker
+  before_script:
+    - docker version
+    - docker-compose version
+  variables:
+    CONTAINER_IMAGE: $CI_PIPELINE_ID
+  script:
+    - $DOCKER_COMPOSE pull --quiet
+    - $DOCKER_COMPOSE run --rm --no-deps log-viewer -c "npm run test:unit:ci"
+  needs: ['build app']
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - frontend/tests/unit/report.xml
+  interruptible: true
 
 deploy app:
   image: ${DOCKER_PROXY}/tmaier/docker-compose:20.10
