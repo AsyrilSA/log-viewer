@@ -63,7 +63,12 @@
     position="bottom-right"
     :offset="[20, 20]"
   >
-    <q-btn color="secondary" icon="skip_next error" @click="goToNextError">
+    <q-btn
+      color="secondary"
+      icon="skip_next error"
+      class="button-prev-next"
+      @click="goToNextError"
+    >
       <q-tooltip anchor="top left" class="button-tooltip">
         Go to next error
       </q-tooltip>
@@ -72,11 +77,12 @@
   <q-page-sticky
     v-if="rows.length > 0"
     position="bottom-right"
-    :offset="[90, 20]"
+    :offset="[100, 20]"
   >
     <q-btn
       color="secondary"
       icon="error skip_previous"
+      class="button-prev-next"
       @click="goToPreviousError"
     >
       <q-tooltip anchor="top left" class="button-tooltip">
@@ -413,5 +419,9 @@ const goToLine = (line: number) => {
 
 .button-tooltip {
   font-size: 13px;
+}
+
+.button-prev-next {
+  width: 5em;
 }
 </style>
