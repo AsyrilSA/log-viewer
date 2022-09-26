@@ -30,7 +30,6 @@ import {
   getLogInformation,
   getRecipeInformation,
 } from 'src/utils/logExtractor';
-import { isEmptyObject } from '@intlify/shared';
 
 const acceptedFileType = 'logs';
 
@@ -116,7 +115,7 @@ const uploadFile = (event: any) => {
           // Create logInformation
           logStore.setLogInformation(logInformation);
 
-          if (!isEmptyObject(metadata)) {
+          if (Object.keys(metadata).length !== 0) {
             const recipeInformation = getRecipeInformation(metadata);
             logStore.setRecipeInformation(recipeInformation);
           }
