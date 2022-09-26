@@ -63,6 +63,7 @@ const uploadFile = (event: any) => {
     $q.loading.show();
     logStore.setLogs([], '');
     logStore.setMetaData({});
+    logStore.setRecipeInformation({});
     let reader = new FileReader();
     reader.onload = () => {
       untar(reader.result)
