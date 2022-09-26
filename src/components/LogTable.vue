@@ -128,10 +128,12 @@ onMounted(() => {
   refreshFilter(props.rows);
 
   window.addEventListener('keydown', onKeyEvent);
+  window.addEventListener('keydown', onKeyUpEvent);
 });
 
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeyEvent);
+  window.addEventListener('keydown', onKeyUpEvent);
 });
 
 watch(
@@ -181,6 +183,14 @@ const onKeyEvent = (e: KeyboardEvent) => {
       .onDismiss(() => {
         goToLineOpened = false;
       });
+  }
+};
+
+const onKeyUpEvent = (e: KeyboardEvent) => {
+  if (e.key === 'b') {
+    goToPreviousError();
+  } else if (e.key === 'n') {
+    goToNextError();
   }
 };
 
