@@ -111,10 +111,6 @@ const serviceList = computed(() => {
   return [...new Set(props.rows.map((r) => r.service))];
 });
 
-const logInfo = computed(() => getDateRange(props.rows));
-props.filterStore.setStartDate(logInfo.value.first);
-props.filterStore.setEndDate(logInfo.value.last);
-
 onMounted(() => {
   if ('clickedPie' in history.state) {
     props.filterStore.setLevels(history.state.clickedPie);
@@ -123,6 +119,7 @@ onMounted(() => {
     props.filterStore.setLevels(history.state.clickedBar.logLevel);
     props.filterStore.setServices(history.state.clickedBar.service);
   }
+  refreshFilter(props.rows);
 
   window.addEventListener('keydown', onKeyEvent);
 });
@@ -130,6 +127,20 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeyEvent);
 });
+
+watch(
+  () => props.rows,
+  (rows) => {
+    refreshFilter(rows);
+  }
+);
+
+const refreshFilter = (rows: LogEntry[]) => {
+  currentErrorIndex = 0;
+  const logInfo = getDateRange(rows);
+  props.filterStore.setStartDate(logInfo.first);
+  props.filterStore.setEndDate(logInfo.last);
+};
 
 const $q = useQuasar();
 
@@ -273,14 +284,7 @@ const filterService = (service: string) => {
 };
 
 const table = ref(null);
-
 let currentErrorIndex = 0;
-watch(
-  () => props.rows,
-  () => {
-    currentErrorIndex = 0;
-  }
-);
 
 const goToTop = () => {
   if (table.value) {
