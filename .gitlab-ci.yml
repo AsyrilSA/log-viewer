@@ -2,6 +2,7 @@ variables:
   DOCKER_PROXY: $REGISTRY_NAME:5556
   REGISTRY: $REGISTRY_NAME:$REGISTRY_PORT
   DOCKER_COMPOSE: 'docker-compose -f docker-compose.yml'
+  DOCKER_COMPOSE_TEST: 'docker-compose -f docker-compose.test.yml'
 stages:
   - build
   - test
@@ -38,14 +39,7 @@ unit test:
   variables:
     CONTAINER_IMAGE: $CI_PIPELINE_ID
   script:
-    - $DOCKER_COMPOSE pull --quiet
-    - $DOCKER_COMPOSE run --rm --no-deps log-viewer -c "npm run test:unit:ci"
-  needs: ['build app']
-  artifacts:
-    when: always
-    reports:
-      junit:
-        - frontend/tests/unit/report.xml
+    - $DOCKER_COMPOSE_TEST up
   interruptible: true
 
 deploy app:

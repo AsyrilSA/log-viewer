@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  log-viewer-test:
+    image: ${REGISTRY_HOST}/log-viewer-test:${CONTAINER_IMAGE}
+    build:
+      context: .
+      dockerfile: ./test.Dockerfile
