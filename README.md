@@ -35,7 +35,7 @@ Asyril Log Viewer
 - [ ] if scrolled manually go to next error instead of first
 - [ ] go to next/previous error wrap search
 - [ ] go to next error block instead of line
-- [ ] add keyboard shortcut for go to next error (N) and go to previous error (B)
+- [x] add keyboard shortcut for go to next error (N) and go to previous error (B)
 
 ## Development
 
