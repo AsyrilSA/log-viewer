@@ -6,16 +6,15 @@
         {{ props.recipeInformation.recipes.size }}
       </div>
     </div>
-    <div class="row row-size">
-      <div class="col">Name:</div>
+    <div
+      class="row row-size"
+      v-for="[recipeName, recipeCreationDate] in props.recipeInformation
+        .recipes"
+      :key="recipeName"
+    >
+      <div class="col">{{ recipeName }}</div>
       <div class="col-xs-12 col-sm-6 log-value">
-        {{ firstKey(props.recipeInformation.recipes) }}
-      </div>
-    </div>
-    <div class="row row-size">
-      <div class="col">Creation date:</div>
-      <div class="col-xs-12 col-sm-6 log-value">
-        {{ firstValue(props.recipeInformation.recipes) }}
+        {{ recipeCreationDate.toLocaleString('fr-CH') }}
       </div>
     </div>
   </div>
@@ -31,16 +30,6 @@ const props = defineProps({
     required: true,
   },
 });
-
-function firstKey(map: Map<string, Date>): string {
-  const [firstKey] = map.keys();
-  return firstKey;
-}
-
-function firstValue(map: Map<string, Date>): Date {
-  const [firstValue] = map.values();
-  return firstValue;
-}
 </script>
 
 <style lang="scss"></style>

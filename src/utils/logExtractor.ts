@@ -88,7 +88,7 @@ function getRecipeInformation(metadata: any): RecipeInformation {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadataRecipes.forEach((value: any) => {
     const info = value.info;
-    const date = info.creationDate;
+    const date = new Date(Date.parse(info.creationDate));
     const name = info.identifier.name;
     recipes.set(name, date);
   });
