@@ -87,10 +87,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useQuasar } from 'quasar';
 import { FilterStoreType } from 'src/stores/logTableFilters';
 import { getDateRange } from 'src/utils/logExtractor';
 import { LogEntry, LogLevel } from 'src/utils/logParser';
-import { onMounted, PropType, ref, watch } from 'vue';
+import { onMounted, onUnmounted, PropType, ref, watch } from 'vue';
 import { computed } from 'vue';
 import LogFilter from './Filters/LogFilter.vue';
 
@@ -122,7 +123,34 @@ onMounted(() => {
     props.filterStore.setLevels(history.state.clickedBar.logLevel);
     props.filterStore.setServices(history.state.clickedBar.service);
   }
+
+  window.addEventListener('keydown', onKeyEvent);
 });
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKeyEvent);
+});
+
+const $q = useQuasar();
+const onKeyEvent = (e: KeyboardEvent) => {
+  if (e.key === 'g' && (e.ctrlKey || e.metaKey)) {
+    // Our application uses Ctrl+G, not the browser!
+    e.preventDefault();
+    $q.dialog({
+      title: 'Go to line',
+      prompt: {
+        model: '',
+        type: 'number',
+      },
+      cancel: true,
+      persistent: true,
+    }).onOk((data: number) => {
+      if (data) {
+        goToLine(+data);
+      }
+    });
+  }
+};
 
 let filteredRows = computed(() => {
   let remainingRows = props.rows;
@@ -276,6 +304,17 @@ const goToPreviousError = () => {
     }
   }
 };
+
+const goToLine = (line: number) => {
+  const index = filteredRows.value.findIndex((row) => row.id === line);
+  table.value?.scrollTo(index, 'start-force');
+  if (index < 0) {
+    $q.notify({
+      message: 'Line ' + line + ' does not exist.',
+      type: 'warning',
+    });
+  }
+};
 </script>
 
 <style lang="scss">
@@ -283,7 +322,7 @@ const goToPreviousError = () => {
   /* height or max-height is important */
   max-height: calc(100vh - 164px);
 
-  thead  th {
+  thead th {
     /* bg color is important for th; just specify one */
     background-color: white;
   }
@@ -293,30 +332,30 @@ const goToPreviousError = () => {
     position: sticky;
     z-index: 1;
   }
-  tbody tr td:nth-child(1){
-    width:80px !important;
-    min-width:80px !important;
-    min-width:80px !important;
+  tbody tr td:nth-child(1) {
+    width: 80px !important;
+    min-width: 80px !important;
+    min-width: 80px !important;
   }
-  tbody tr td:nth-child(2){
-    width:150px !important;
-    min-width:150px !important;
-    max-width:150px !important;
+  tbody tr td:nth-child(2) {
+    width: 150px !important;
+    min-width: 150px !important;
+    max-width: 150px !important;
   }
-  tbody tr td:nth-child(3){
-    width:80px !important;
-    min-width:80px !important;
-    max-width:80px !important;
+  tbody tr td:nth-child(3) {
+    width: 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
   }
-  tbody tr td:nth-child(4){
-    width:80px !important;
-    min-width:80px !important;
-    max-width:80px !important;
+  tbody tr td:nth-child(4) {
+    width: 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
   }
-  tbody tr td:nth-child(5){
-    width:140px !important;
-    min-width:140px !important;
-    max-width:140px !important;
+  tbody tr td:nth-child(5) {
+    width: 140px !important;
+    min-width: 140px !important;
+    max-width: 140px !important;
   }
   /* this is when the loading indicator appears */
   .q-table--loading thead tr:last-child th {
@@ -351,10 +390,6 @@ const goToPreviousError = () => {
       color: var(--q-secondary);
     }
   }
-}
-
-.log-table-tooltip {
-  font-size: 16px;
 }
 
 .button-tooltip {
