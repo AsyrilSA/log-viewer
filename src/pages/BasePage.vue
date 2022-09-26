@@ -86,8 +86,8 @@ import { onMounted, onUnmounted, ref } from 'vue';
 
 const logStore = useLogStore();
 onMounted(() => {
-logStore.setLogLoading(false);
-})
+  logStore.setLogLoading(false);
+});
 
 const isCtrlPressed = ref(false);
 function addControlKeyDown(event: KeyboardEvent) {
