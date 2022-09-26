@@ -48,8 +48,9 @@
     <div class="col-1 q-pb-sm q-pr-sm">
       <q-icon name="info" color="grey" size="24px" class="q-mt-sm q-ml-md">
         <q-tooltip class="log-table-tooltip">
-          Use CTRL+Click on <b>Level</b> and <b>Service</b> cells to filter
-        </q-tooltip></q-icon
+          Use CTRL+Click on <b>Level</b> and <b>Service</b> cells to filter.<br />
+          Use CTRL+G to go to line.</q-tooltip
+        ></q-icon
       >
     </div>
   </div>
@@ -125,3 +126,8 @@ const updateEndDate = (end: Date | null) => {
   props.store.setEndDate(end);
 };
 </script>
+<style>
+.log-table-tooltip {
+  font-size: 12px;
+}
+</style>

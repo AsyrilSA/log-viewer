@@ -107,7 +107,7 @@ module.exports = configure(function (/* ctx */) {
 
       // Quasar plugins
 
-      plugins: ['Loading'],
+      plugins: ['Dialog', 'Loading', 'Notify'],
       config: {
         brand: {
           primary: '#444444',
