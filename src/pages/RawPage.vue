@@ -12,10 +12,6 @@ import { useRawFilterStore } from 'src/stores/logTableFilters';
 const logStore = useLogStore();
 const rawFilterStore = useRawFilterStore();
 
-const props = defineProps({
-  logLevel: String
-})
-
 const rows = computed(() =>
   // Consider everything
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

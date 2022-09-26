@@ -59,6 +59,10 @@ export default defineComponent({
       type: Object as PropType<ChartData<'bar', DefaultDataPoint<'bar'>>>,
       required: true,
     },
+    isCtrlPressed: {
+      type: Boolean,
+      required: true,
+    },
   },
 
   setup(props) {
@@ -79,14 +83,16 @@ export default defineComponent({
         },
       },
       'onClick': function (evt, array) {
-        const clickedElem = array.shift()
-        if (props.chartData.labels != undefined) {
-          const clickedBar = {
-            logLevel: [props.chartData.datasets[clickedElem.datasetIndex]?.label],
-            service: [props.chartData.labels[clickedElem.index]]
+        if (props.isCtrlPressed) {
+          const clickedElem = array.shift()
+          if (props.chartData.labels != undefined) {
+            const clickedBar = {
+              logLevel: [props.chartData.datasets[clickedElem.datasetIndex]?.label],
+              service: [props.chartData.labels[clickedElem.index]]
+            }
+            router.push({ name: 'raw', state: { clickedBar } as HistoryState })
           }
-          router.push({ name: 'raw', state: { clickedBar } as HistoryState})
-         }
+        }
       }
     };
 

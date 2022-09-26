@@ -1,6 +1,6 @@
 <template>
   <div>
-    <pie-chart :chart-data="chartData" />
+    <pie-chart :chart-data="chartData" :is-ctrl-pressed="isCtrlPressed"/>
   </div>
 </template>
 
@@ -19,6 +19,7 @@ const props = defineProps({
     type: Object as PropType<LogInformation>,
     required: true,
   },
+  isCtrlPressed: Boolean
 });
 
 function getStatistics(

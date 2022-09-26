@@ -50,6 +50,10 @@ export default defineComponent({
       type: Object as PropType<ChartData<'pie', DefaultDataPoint<'pie'>>>,
       required: true,
     },
+    isCtrlPressed: {
+      type: Boolean,
+      required: true,
+    },
   },
   setup(props) {
     const router = useRouter();
@@ -62,11 +66,13 @@ export default defineComponent({
         },
       },
       'onClick': function (evt, item) {
-        const clickedElem = item.shift()
-        const index = clickedElem.index
-        if (props.chartData.labels != undefined) {
-          const clickedPie = [props.chartData.labels[index]]
-          router.push({ name: 'raw', state: { clickedPie } as HistoryState})
+        if (props.isCtrlPressed) {
+          const clickedElem = item.shift()
+          const index = clickedElem.index
+          if (props.chartData.labels != undefined) {
+            const clickedPie = [props.chartData.labels[index]]
+            router.push({ name: 'raw', state: { clickedPie } as HistoryState })
+          }
         }
       }
     };
