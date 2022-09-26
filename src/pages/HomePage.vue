@@ -13,7 +13,7 @@
   .arrow-image {
     position: absolute;
     top: 80px;
-    right: 10px;
+    right: 0px;
     width: 200px;
     height: 200px;
     animation-name: arrow;
