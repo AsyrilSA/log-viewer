@@ -7,7 +7,6 @@
     :model-value="props.modelValue"
     @update:model-value="
       (value) => {
-        debugger;
         emit('update:modelValue', value);
       }
     "
@@ -28,17 +27,10 @@ import { watch, PropType } from 'vue';
 import { Direction } from 'src/utils/logParser';
 import { QSelect } from 'quasar';
 
-watch(
-  () => props.modelValue,
-  (rows) => {
-    debugger;
-  }
-);
-
 const props = defineProps({
   modelValue: {
-    type: String,
-    default: '',
+    type: Object as PropType<string>,
+    default: null,
     required: true,
   },
 });

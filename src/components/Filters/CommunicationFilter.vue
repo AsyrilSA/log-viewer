@@ -94,7 +94,6 @@ const resetFilters = () => {
 };
 
 const updateDirection = (direction: any) => {
-  debugger;
   props.store.setDirection(direction);
 };
 

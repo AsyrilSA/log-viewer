@@ -147,7 +147,7 @@ let filteredRows = computed(() => {
   let remainingRows = props.rows;
   if (props.filterStore.getDirection !== null) {
     remainingRows = remainingRows.filter((r) => {
-      r.direction === props.filterStore.getDirection;
+      return r.direction === props.filterStore.getDirection;
     });
   }
 
