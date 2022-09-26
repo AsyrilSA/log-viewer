@@ -10,6 +10,10 @@ const RE_ENVOY = new RegExp(
   /^(?<date>\d+\/\d+\/\d+) (?<time>\S+) \[(?<level>\S+)\] (?<message>.*)/
 );
 
+const RE_ENVOY_NEW = new RegExp(
+  /^\[(?<date>\d+\-\d+\-\d+) (?<time>\S+)\]\[\d+\]\[(?<level>\S+)\]\[(?<logger>\S+)\] \[\S+\] (?<message>.*)/
+);
+
 enum LogLevel {
   SYSTEM = 'SYSTEM',
   TRACE = 'TRACE',
@@ -156,6 +160,20 @@ function parseLine(index: number, line: string): LogEntry {
     };
   }
 
+  // Try to parse the line as coming from a different Envoy log format
+  match = line.match(RE_ENVOY_NEW);
+  if (match != null) {
+    const g = match.groups;
+    return {
+      id: index,
+      level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
+      timestamp: new Date(Date.parse(g?.date + ' ' + g?.time)),
+      service: 'envoy',
+      logger: g?.logger || 'envoy',
+      message: g?.message || '',
+    };
+  }
+
   // The line probably belongs to the system. Use a special service to identify this
   return {
     id: index,
@@ -174,7 +192,10 @@ function parseLogFile(logLines: string): LogEntry[] {
   // By lines
   const lines = logLines.split('\n');
   for (let line = 0; line < lines.length; line++) {
-    entries.push(parseLine(line, lines[line]));
+    const message = lines[line].trim();
+    if (message) {
+      entries.push(parseLine(line, message));
+    }
   }
 
   return entries;
