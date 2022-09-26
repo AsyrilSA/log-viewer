@@ -1,20 +1,19 @@
 <template>
   <div class="column q-pa-md">
-    <div class="row row-size">
-      <div class="col">Number of recipes:</div>
-      <div class="col-xs-12 col-sm-6 log-value">
-        {{ props.recipeInformation.recipes.size }}
-      </div>
+    <div class="row row-header">
+      <div class="col-2">Id</div>
+      <div class="col-4">Name</div>
+      <div class="col-6">Date saved</div>
     </div>
     <div
       class="row row-size"
-      v-for="[recipeName, recipeCreationDate] in props.recipeInformation
-        .recipes"
-      :key="recipeName"
+      v-for="[recipeId, recipe] in props.recipeInformation.recipes"
+      :key="recipeId"
     >
-      <div class="col">{{ recipeName }}</div>
-      <div class="col-xs-12 col-sm-6 log-value">
-        {{ recipeCreationDate.toLocaleString('fr-CH') }}
+      <div class="col-2">{{ recipeId }}</div>
+      <div class="col-4">{{ recipe.name }}</div>
+      <div class="col-6">
+        {{ recipe.creationDate.toLocaleString('fr-CH') }}
       </div>
     </div>
   </div>
@@ -32,4 +31,18 @@ const props = defineProps({
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.row-size {
+  height: 42px;
+}
+.row-header {
+  height: 42px;
+  font-weight: bold;
+}
+@media screen and (max-width: 600px) {
+  .log-value {
+    padding-left: 70px;
+    color: grey;
+  }
+}
+</style>
