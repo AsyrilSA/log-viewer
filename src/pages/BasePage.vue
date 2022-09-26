@@ -82,19 +82,17 @@ import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
 import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue';
 
 import { useLogStore } from 'stores/logStore';
-import { getLogInformation } from 'src/utils/logExtractor';
-import { onMounted,onUnmounted, computed, ref } from 'vue';
+import { onMounted,onUnmounted, ref } from 'vue';
 
 const logStore = useLogStore();
 
-const logInformation = computed(() => getLogInformation(logStore.getRows));
 const isCtrlPressed = ref(false);
-function addControlKeyDown(event: any) {
+function addControlKeyDown(event: KeyboardEvent) {
   if (event.key === 'Control') {
       isCtrlPressed.value = true
     }
 }
-function addControlKeyUp(event: any) {
+function addControlKeyUp(event: KeyboardEvent) {
   if (event.key === 'Control') {
       isCtrlPressed.value = true
     }
