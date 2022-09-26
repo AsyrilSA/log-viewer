@@ -1,0 +1,63 @@
+<template>
+  <q-select
+    color="secondary"
+    filled
+    emit-value
+    map-options
+    :model-value="props.modelValue"
+    @update:model-value="
+      (value) => {
+        debugger;
+        emit('update:modelValue', value);
+      }
+    "
+    :options="directions"
+    hide-dropdown-icon
+    input-debounce="0"
+    use-chips
+    stack-label
+    options-dense
+    dense
+    label="Direction"
+  >
+  </q-select>
+</template>
+
+<script lang="ts" setup>
+import { watch, PropType } from 'vue';
+import { Direction } from 'src/utils/logParser';
+import { QSelect } from 'quasar';
+
+watch(
+  () => props.modelValue,
+  (rows) => {
+    debugger;
+  }
+);
+
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: '',
+    required: true,
+  },
+});
+let emit = defineEmits(['update:modelValue']);
+
+const directions = [
+  {
+    label: 'Computer to EYE+',
+    value: Direction.COMPUTER_TO_EYEPLUS,
+  },
+  {
+    label: 'EYE+ to Computer',
+    value: Direction.EYEPLUS_TO_COMPUTER,
+  },
+];
+</script>
+
+<style lang="scss">
+.q-chip--dense {
+  margin-bottom: 0px;
+}
+</style>

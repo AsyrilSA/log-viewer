@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 
+import { Direction } from 'src/utils/logParser';
+
 function createFilterStore<Id extends string>(id: Id) {
   return defineStore(id, {
     state: () => ({
@@ -8,6 +10,7 @@ function createFilterStore<Id extends string>(id: Id) {
       message: '',
       startDate: null as Date | null,
       endDate: null as Date | null,
+      direction: null as Direction | null,
     }),
     getters: {
       getLevels: (state) => state.logLevels,
@@ -15,6 +18,7 @@ function createFilterStore<Id extends string>(id: Id) {
       getMessage: (state) => state.message,
       getStartDate: (state) => state.startDate,
       getEndDate: (state) => state.endDate,
+      getDirection: (state) => state.direction,
     },
     actions: {
       setLevels(levels: string[]) {
@@ -37,12 +41,17 @@ function createFilterStore<Id extends string>(id: Id) {
         this.endDate = end;
       },
 
+      setDirection(direction: Direction) {
+        this.direction = direction;
+      },
+
       resetAllFilters() {
         this.logLevels = [];
         this.services = [];
         this.message = '';
         this.startDate = null;
         this.endDate = null;
+        this.direction = null;
       },
     },
     persist: { enabled: true },

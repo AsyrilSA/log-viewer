@@ -1,5 +1,8 @@
 <template>
-  <LogTable :rows="rows" :filter-store="communicationFilterStore"></LogTable>
+  <CommunicationLogTable
+    :rows="rows"
+    :filter-store="communicationFilterStore"
+  ></CommunicationLogTable>
 </template>
 <script lang="ts" setup>
 import { useLogStore } from 'stores/logStore';
@@ -7,6 +10,7 @@ import LogTable from 'src/components/LogTable.vue';
 import { filterLogs } from 'src/utils/logParser';
 import { computed } from 'vue';
 import { useCommunicationFilterStore } from 'src/stores/logTableFilters';
+import CommunicationLogTable from 'src/components/CommunicationLogTable.vue';
 
 const logStore = useLogStore();
 const communicationFilterStore = useCommunicationFilterStore();

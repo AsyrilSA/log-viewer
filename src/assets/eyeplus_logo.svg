@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Layer_1"
+   data-name="Layer 1"
+   viewBox="0 0 209.30999 125.14065"
+   version="1.1"
+   sodipodi:docname="eyeplus_logo.svg"
+   width="209.31"
+   height="125.14065"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview33"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="2.4424081"
+     inkscape:cx="-64.894971"
+     inkscape:cy="-30.093252"
+     inkscape:window-width="3766"
+     inkscape:window-height="2096"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1{fill:#ef4135;}</style>
+  </defs>
+  <path
+     d="m 101.41,28.89 h 12.74 L 96.03,76.12 C 87.4,98.85 81.5,110.47 73.29,117.73 a 35.72,35.72 0 0 1 -13.59,7.41 c -0.44,0.1 -0.06,-11.47 -0.06,-11.47 a 48.73,48.73 0 0 0 6.39,-4.29 38,38 0 0 0 10.14,-13.41 c 0.54,-1.24 25.2,-67.08 25.2,-67.08"
+     id="path22" />
+  <polygon
+     points="412.87,215.02 421.78,244.92 414.81,263.34 398.89,215.02 "
+     id="polygon24"
+     transform="translate(-338.51,-185.58)" />
+  <path
+     d="m 53.03,68.12 c 0,14.68 -5.8,19.12 -24.79,19.12 C 5.18,87.24 0,81.81 0,57.39 0,44.81 1.36,38.65 5.06,34.45 c 4.07,-4.44 10.48,-6.29 22.07,-6.29 15.05,0 21.46,3.34 24.42,12.46 1.23,4.07 1.48,6.91 1.48,19.61 h -39 v 2.22 c 0,11.71 2.47,14.43 13.07,14.43 10.11,0 12,-1.36 12.09,-8.76 z M 39.34,49.38 c -0.25,-9.13 -2.1,-10.86 -12.45,-10.86 -7.53,0 -10.24,1 -11.72,4.57 -0.74,1.85 -0.86,3.45 -1,8.51 h 25.16 z"
+     id="path26" />
+  <path
+     d="m 173.03,68.12 c 0,14.68 -5.8,19.12 -24.79,19.12 -23.06,0 -28.24,-5.43 -28.24,-29.85 0,-12.58 1.36,-18.74 5.06,-22.94 4.07,-4.44 10.48,-6.29 22.07,-6.29 15.05,0 21.46,3.34 24.42,12.46 1.23,4.07 1.48,6.91 1.48,19.61 h -39 v 2.22 c 0,11.71 2.47,14.43 13.07,14.43 10.11,0 12,-1.36 12.09,-8.76 z M 159.34,49.38 c -0.25,-9.13 -2.1,-10.86 -12.45,-10.86 -7.53,0 -10.24,1 -11.72,4.57 -0.74,1.85 -0.86,3.45 -1,8.51 h 25.16 z"
+     id="path28" />
+  <path
+     d="m 187.38,21.54 h -13.73 v -7.48 h 13.73 V 0 h 8.2 v 14.09 h 13.73 v 7.45 h -13.73 v 14.09 h -8.2 z"
+     id="path30" />
+</svg>
