@@ -48,7 +48,7 @@
 <script lang="ts" setup>
 import { date } from 'quasar';
 import { computed, PropType } from 'vue';
-import dateFormat from 'src/utils/dateUtils';
+import { dateFormat } from 'src/utils/dateUtils';
 
 const props = defineProps({
   modelValue: {

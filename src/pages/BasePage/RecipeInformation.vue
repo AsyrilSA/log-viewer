@@ -13,7 +13,7 @@
       <div class="col-2">{{ recipeId }}</div>
       <div class="col-4">{{ recipe.name }}</div>
       <div class="col-6">
-        {{ recipe.creationDate.toLocaleString('fr-CH') }}
+        {{ recipe.creationDate.toLocaleString(dateLocale) }}
       </div>
     </div>
   </div>
@@ -22,6 +22,7 @@
 <script lang="ts" setup>
 import { PropType } from 'vue';
 import type { RecipeInformation } from 'src/utils/logExtractor';
+import { dateLocale } from 'src/utils/dateUtils';
 
 const props = defineProps({
   recipeInformation: {
