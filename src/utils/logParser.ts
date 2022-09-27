@@ -23,6 +23,8 @@ enum Direction {
   UNKNOWN = 'UNKNOWN',
   COMPUTER_TO_EYEPLUS = 'Received',
   EYEPLUS_TO_COMPUTER = 'Returned',
+  CONNECTION_CLOSED = 'Connection closed',
+  NEW_CONNECTION = 'Serving client',
 }
 
 interface LogEntry {
@@ -79,11 +81,9 @@ function parseLine(index: number, line: string): LogEntry {
     const entries = g?.logger.split('.');
     service = serviceMap.get(entries[0])?.(entries) || 'system';
 
-    const direction = g?.message.startsWith(Direction.COMPUTER_TO_EYEPLUS)
-      ? Direction.COMPUTER_TO_EYEPLUS
-      : g?.message.startsWith(Direction.EYEPLUS_TO_COMPUTER)
-      ? Direction.EYEPLUS_TO_COMPUTER
-      : Direction.UNKNOWN;
+    const direction = Object.values(Direction).find((key) =>
+      g?.message.startsWith(key)
+    ) as Direction | Direction.UNKNOWN;
 
     return {
       id: index,

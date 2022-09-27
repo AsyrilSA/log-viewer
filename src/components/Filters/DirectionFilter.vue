@@ -29,7 +29,7 @@ import { QSelect } from 'quasar';
 
 const props = defineProps({
   modelValue: {
-    type: Object as PropType<string>,
+    type: [String, null] as PropType<string | null>,
     default: null,
     required: true,
   },
@@ -44,6 +44,14 @@ const directions = [
   {
     label: 'EYE+ to Computer',
     value: Direction.EYEPLUS_TO_COMPUTER,
+  },
+  {
+    label: 'Client disconnected',
+    value: Direction.CONNECTION_CLOSED,
+  },
+  {
+    label: 'New client connected',
+    value: Direction.NEW_CONNECTION,
   },
 ];
 </script>

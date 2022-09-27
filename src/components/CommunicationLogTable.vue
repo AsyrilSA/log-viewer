@@ -23,7 +23,7 @@
           {{ props.row.timestamp?.toLocaleString('fr-CH') || '' }}
         </q-td>
         <q-td key="direction" :props="props">
-          <div class="direction-image-cell">
+          <div v-if="props.row.direction" class="direction-image-cell">
             <q-icon name="computer" size="sm" class="direction-grey-icon" />
             <q-icon
               :name="getDirectionArrow(props.row.direction)"
@@ -225,11 +225,23 @@ const goToLine = (line: number) => {
 };
 
 const getDirectionArrow = (direction: Direction) => {
-  return direction === Direction.COMPUTER_TO_EYEPLUS
-    ? 'east'
-    : direction === Direction.EYEPLUS_TO_COMPUTER
-    ? 'west'
-    : 'report';
+  switch (direction) {
+    case Direction.COMPUTER_TO_EYEPLUS: {
+      return 'east';
+    }
+    case Direction.EYEPLUS_TO_COMPUTER: {
+      return 'west';
+    }
+    case Direction.CONNECTION_CLOSED: {
+      return 'close';
+    }
+    case Direction.NEW_CONNECTION: {
+      return 'settings_ethernet';
+    }
+    default: {
+      return 'report';
+    }
+  }
 };
 </script>
 
