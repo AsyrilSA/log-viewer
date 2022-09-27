@@ -7,13 +7,19 @@
       <div class="col-5">Date saved</div>
     </div>
     <div
-      class="row row-content"
+      class="row row-content items-center"
       v-for="[recipeId, recipe] in props.recipeInformation.recipes"
       :key="recipeId"
     >
       <div class="col-2">{{ recipeId }}</div>
       <div class="col-3">{{ recipe.name }}</div>
-      <div class="col-2">{{ recipe.dualFeeding ? 'X' : '' }}</div>
+      <div class="col-2">
+        <q-btn
+          class="flex-center"
+          flat
+          :icon="recipe.dualFeeding ? 'check_circle' : 'radio_button_unchecked'"
+        />
+      </div>
       <div class="col-5">
         {{ recipe.creationDate.toLocaleString(dateLocale) }}
       </div>
