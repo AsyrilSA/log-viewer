@@ -3,7 +3,7 @@
     :label="props.label"
     dense
     filled
-    v-model="dateString"
+    :model-value="dateString"
     @update:model-value="onUpdateValue"
     :rules="props.rules"
     hide-bottom-space
@@ -12,7 +12,7 @@
       <q-icon name="event" class="cursor-pointer">
         <q-popup-proxy cover transition-show="scale" transition-hide="scale">
           <q-date
-            :model-value="dateString"
+            :model-value="props.modelValue"
             @update:model-value="onUpdateValue"
             :mask="dateFormat"
             first-day-of-week="1"
@@ -29,7 +29,7 @@
       <q-icon name="access_time" class="cursor-pointer">
         <q-popup-proxy cover transition-show="scale" transition-hide="scale">
           <q-time
-            v-model="dateString"
+            :model-value="dateString"
             @update:model-value="onUpdateValue"
             :mask="dateFormat"
             format24h
@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
 import { date } from 'quasar';
-import { computed, PropType } from 'vue';
+import { computed, PropType} from 'vue';
 import dateFormat from 'src/utils/dateUtils';
 
 const props = defineProps({
