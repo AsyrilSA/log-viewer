@@ -41,9 +41,7 @@
     </div>
     <div class="col-1 q-pb-sm q-pr-sm">
       <q-icon name="info" color="grey" size="24px" class="q-mt-sm q-ml-md">
-        <q-tooltip class="log-table-tooltip">
-          Use CTRL+Click on <b>Level</b> and <b>Service</b> cells to filter.<br />
-          Use CTRL+G to go to line.</q-tooltip
+        <q-tooltip class="log-table-tooltip">Use CTRL+G to go to line.</q-tooltip
         ></q-icon
       >
     </div>
@@ -58,8 +56,8 @@ import { PropType } from 'vue';
 import MessageSearch from 'src/components/Filters/MessageSearch.vue';
 import TimestampFilter from 'src/components/Filters/TimestampFilter.vue';
 import DirectionFilter from 'src/components/Filters/DirectionFilter.vue';
-import { Direction } from 'src/utils/logParser';
 import { FilterStoreType } from 'src/stores/logTableFilters';
+import { Direction } from 'src/utils/logParser';
 
 const props = defineProps({
   store: {
@@ -93,7 +91,7 @@ const resetFilters = () => {
   props.store.resetAllFilters();
 };
 
-const updateDirection = (direction: any) => {
+const updateDirection = (direction: Direction) => {
   props.store.setDirection(direction);
 };
 

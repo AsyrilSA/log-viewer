@@ -45,7 +45,7 @@
   <q-page-sticky
     v-if="rows.length > 0"
     position="bottom-right"
-    :offset="[20, 70]"
+    :offset="[20, 20]"
   >
     <q-btn
       round
@@ -288,13 +288,5 @@ const getDirectionArrow = (direction: Direction) => {
   .direction-grey-icon {
     filter: invert(42%) brightness(119%);
   }
-}
-
-.button-tooltip {
-  font-size: 13px;
-}
-
-.button-prev-next {
-  width: 5em;
 }
 </style>

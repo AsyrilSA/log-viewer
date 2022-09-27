@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, PropType } from 'vue';
+import { PropType } from 'vue';
 import { Direction } from 'src/utils/logParser';
 import { QSelect } from 'quasar';
 
