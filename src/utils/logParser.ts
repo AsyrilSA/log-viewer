@@ -19,6 +19,14 @@ enum LogLevel {
   ERROR = 'ERROR',
 }
 
+enum Direction {
+  UNKNOWN = 'UNKNOWN',
+  COMPUTER_TO_EYEPLUS = 'Received',
+  EYEPLUS_TO_COMPUTER = 'Returned',
+  CONNECTION_CLOSED = 'Connection closed',
+  NEW_CONNECTION = 'Serving client',
+}
+
 interface LogEntry {
   id: number;
   level: LogLevel;
@@ -26,6 +34,7 @@ interface LogEntry {
   service: string;
   logger: string;
   message: string;
+  direction: Direction;
 }
 
 interface FilterCallable {
@@ -72,6 +81,10 @@ function parseLine(index: number, line: string): LogEntry {
     const entries = g?.logger.split('.');
     service = serviceMap.get(entries[0])?.(entries) || 'system';
 
+    const direction = Object.values(Direction).find((key) =>
+      g?.message.startsWith(key)
+    ) as Direction | Direction.UNKNOWN;
+
     return {
       id: index,
       level: LogLevel[g?.level.toUpperCase() as keyof typeof LogLevel],
@@ -81,6 +94,7 @@ function parseLine(index: number, line: string): LogEntry {
       service: service,
       logger: g?.logger || '',
       message: g?.message || '',
+      direction: direction as Direction,
     };
   }
 
@@ -88,6 +102,7 @@ function parseLine(index: number, line: string): LogEntry {
   match = line.match(RE_CPP);
   if (match != null) {
     const g = match.groups;
+
     const fixedDate = new Date(Date.parse(g?.date + ' ' + g?.time));
     // Time from the C++ service is not in the same timezone as the Python service. We do a fixed -2 hours
     // here for now but this is not 100% correct (e.g. in winter).
@@ -122,6 +137,7 @@ function parseLine(index: number, line: string): LogEntry {
       service: service,
       logger: g?.logger || '',
       message: g?.message || '',
+      direction: Direction.UNKNOWN,
     };
   }
 
@@ -136,6 +152,7 @@ function parseLine(index: number, line: string): LogEntry {
       service: 'envoy',
       logger: 'envoy',
       message: g?.message || '',
+      direction: Direction.UNKNOWN,
     };
   }
 
@@ -147,6 +164,7 @@ function parseLine(index: number, line: string): LogEntry {
     service: 'system',
     logger: 'system',
     message: line,
+    direction: Direction.UNKNOWN,
   };
 }
 
@@ -191,5 +209,5 @@ function filterLogs(
     );
 }
 
-export { parseLogFile, filterLogs, LogLevel };
+export { parseLogFile, filterLogs, LogLevel, Direction };
 export type { LogEntry };
