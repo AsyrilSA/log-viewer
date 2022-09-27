@@ -40,6 +40,11 @@ unit test:
     CONTAINER_IMAGE: $CI_PIPELINE_ID
   script:
     - $DOCKER_COMPOSE_TEST up
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - test/jest/junit.xml
   interruptible: true
 
 deploy app:
