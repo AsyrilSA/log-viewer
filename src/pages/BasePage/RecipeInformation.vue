@@ -6,7 +6,7 @@
       <div class="col-6">Date saved</div>
     </div>
     <div
-      class="row row-size"
+      class="row row-content"
       v-for="[recipeId, recipe] in props.recipeInformation.recipes"
       :key="recipeId"
     >
@@ -33,8 +33,11 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
-.row-size {
+.row-content {
   height: 42px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .row-header {
   height: 42px;
