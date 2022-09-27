@@ -31,7 +31,7 @@ Asyril Log Viewer
 - [x] Correct filter height when selecting a log loglevel
 - [x] Add an option to go to page with the filter when clicking on a chart
 - [x] fix the column size of the q-table
-- [ ] Add an arrow (or anything else) to differentiate between request and response in communication page
+- [x] Add an arrow (or anything else) to differentiate between request and response in communication page
 - [ ] if scrolled manually go to next error instead of first
 - [ ] go to next/previous error wrap search
 - [ ] go to next error block instead of line
