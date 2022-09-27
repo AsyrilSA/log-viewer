@@ -17,6 +17,7 @@ interface LogDateRange {
 interface Recipe {
   name: string;
   creationDate: Date;
+  dualFeeding: boolean;
 }
 
 interface RecipeInformation {
@@ -96,7 +97,14 @@ function getRecipeInformation(metadata: any): RecipeInformation {
     const date = new Date(Date.parse(info.savedDate));
     const id = info.identifier.id.value;
     const name = info.identifier.name;
-    recipes.set(id, { name: name, creationDate: date });
+    const partRecipes = value.partRecipes;
+    console.log(partRecipes);
+    const dualFeeding = partRecipes.length > 1 ? true : false;
+    recipes.set(id, {
+      name: name,
+      creationDate: date,
+      dualFeeding: dualFeeding,
+    });
   });
 
   return {
