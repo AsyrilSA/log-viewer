@@ -17,7 +17,7 @@
     stack-label
     options-dense
     dense
-    label="Direction"
+    label="Event"
   >
   </q-select>
 </template>

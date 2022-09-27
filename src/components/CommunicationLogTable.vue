@@ -198,7 +198,7 @@ const columns = [
   },
   {
     name: 'direction',
-    label: 'Direction',
+    label: 'Event',
     field: 'direction',
     align: 'center',
   },
