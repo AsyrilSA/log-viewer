@@ -5,7 +5,7 @@
   ></CommunicationLogTable>
 </template>
 <script lang="ts" setup>
-import { useLogStore } from 'stores/logStore';
+import { useLogStore } from 'src/stores/logStore';
 import { filterLogs } from 'src/utils/logParser';
 import { computed } from 'vue';
 import { useCommunicationFilterStore } from 'src/stores/logTableFilters';

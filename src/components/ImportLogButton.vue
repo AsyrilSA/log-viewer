@@ -22,13 +22,14 @@
 import { ref } from 'vue';
 import untar from 'js-untar';
 import pako from 'pako';
-import { useRouter, useRoute } from 'vue-router';
-import { useLogStore } from 'stores/logStore';
-import { parseLogFile } from 'src/utils/logParser';
 import { useQuasar } from 'quasar';
+import { useRouter, useRoute } from 'vue-router';
+import { useLogStore } from 'src/stores/logStore';
+import { parseLogFile } from 'src/utils/logParser';
 import {
   getLogInformation,
   getRecipeInformation,
+RecipeInformation,
 } from 'src/utils/logExtractor';
 
 const acceptedFileType = 'logs';
@@ -62,7 +63,8 @@ const uploadFile = (event: any) => {
     $q.loading.show();
     logStore.setLogs([], '');
     logStore.setMetaData({});
-    logStore.setRecipeInformation({});
+    logStore.setRecipeInformation({} as RecipeInformation);
+    logStore.setLogLoading(true);
     let reader = new FileReader();
     reader.onload = () => {
       untar(reader.result)
@@ -121,7 +123,6 @@ const uploadFile = (event: any) => {
           }
 
           if (route.path === '/') router.push('/base');
-          $q.loading.hide();
         })
         .catch(() => {
           alertUnreadableLogFile();
