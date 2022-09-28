@@ -55,7 +55,9 @@ function createFilterStore<Id extends string>(id: Id) {
       },
 
       setEndDate(end: Date | null) {
-        this.endDate = end;
+        if (end instanceof Date) {
+          this.endDate = end;
+        }
       },
 
       setDirection(direction: Direction) {

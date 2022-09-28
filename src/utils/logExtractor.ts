@@ -25,8 +25,8 @@ interface RecipeInformation {
 }
 
 function getDateRange(logObject: LogEntry[]): LogDateRange {
-  let firstDate: Date = new Date(0) ;
-  let lastDate: Date = date.buildDate({ year: 2042 });
+  let firstDate: Date = date.buildDate({ year: 2042 });
+  let lastDate: Date = new Date(0);
 
   logObject.forEach((value: LogEntry) => {
     // Log timestamp
