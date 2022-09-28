@@ -4,14 +4,16 @@
       <div class="col">Time of first log:</div>
       <div class="col-xs-12 col-sm-6 log-value">
         {{
-          props.logInformation.dateRange.first.toLocaleString('fr-CH') || '-'
+          props.logInformation.dateRange.first.toLocaleString(dateLocale) || '-'
         }}
       </div>
     </div>
     <div class="row row-size">
       <div class="col">Time of last log:</div>
       <div class="col-xs-12 col-sm-6 log-value">
-        {{ props.logInformation.dateRange.last.toLocaleString('fr-CH') || '-' }}
+        {{
+          props.logInformation.dateRange.last.toLocaleString(dateLocale) || '-'
+        }}
       </div>
     </div>
     <div class="row row-size">
@@ -24,6 +26,7 @@
 <script lang="ts" setup>
 import { date } from 'quasar';
 import type { LogInformation } from 'src/utils/logExtractor';
+import { dateLocale } from 'src/utils/dateUtils';
 import { computed, PropType } from 'vue';
 import * as dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';

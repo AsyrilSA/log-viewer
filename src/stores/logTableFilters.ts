@@ -1,8 +1,5 @@
 import { defineStore } from 'pinia';
-import { date } from 'quasar';
-
 import { Direction } from 'src/utils/logParser';
-import dateFormat from 'src/utils/dateUtils';
 
 function createFilterStore<Id extends string>(id: Id) {
   return defineStore(id, {

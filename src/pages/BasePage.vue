@@ -82,29 +82,29 @@ import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
 import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue';
 
 import { useLogStore } from 'stores/logStore';
-import { onMounted,onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const logStore = useLogStore();
 
 const isCtrlPressed = ref(false);
 function addControlKeyDown(event: KeyboardEvent) {
   if (event.key === 'Control') {
-      isCtrlPressed.value = true
-    }
+    isCtrlPressed.value = true;
+  }
 }
 function addControlKeyUp(event: KeyboardEvent) {
   if (event.key === 'Control') {
-      isCtrlPressed.value = true
-    }
+    isCtrlPressed.value = true;
+  }
 }
 onMounted(() => {
-  window.addEventListener('keydown', addControlKeyDown)
+  window.addEventListener('keydown', addControlKeyDown);
   window.addEventListener('keyup', addControlKeyUp);
-})
+});
 onUnmounted(() => {
-  window.removeEventListener('keydown',addControlKeyDown);
-  window.removeEventListener('keyup',addControlKeyUp);
-})
+  window.removeEventListener('keydown', addControlKeyDown);
+  window.removeEventListener('keyup', addControlKeyUp);
+});
 </script>
 
 <style lang="scss">

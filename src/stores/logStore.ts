@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { LogInformation } from 'src/utils/logExtractor';
+import { LogInformation, RecipeInformation } from 'src/utils/logExtractor';
 import type { LogEntry } from 'src/utils/logParser';
 
 export const useLogStore = defineStore('log', {
@@ -8,12 +8,14 @@ export const useLogStore = defineStore('log', {
     logInformation: {} as LogInformation,
     logFileName: '',
     metadata: {},
+    recipeInformation: {} as RecipeInformation,
   }),
   getters: {
     getRows: (state) => state.rows,
     getLogInformation: (state) => state.logInformation,
     getName: (state) => state.logFileName,
     getMetadata: (state) => state.metadata,
+    getRecipeInformation: (state) => state.recipeInformation,
   },
   actions: {
     setLogs(newRows: LogEntry[], fileName: string) {
@@ -26,6 +28,9 @@ export const useLogStore = defineStore('log', {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     setMetaData(metadata: any) {
       this.metadata = metadata;
+    },
+    setRecipeInformation(recipeInformation: RecipeInformation) {
+      this.recipeInformation = recipeInformation;
     },
   },
 });

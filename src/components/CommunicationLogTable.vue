@@ -20,7 +20,7 @@
           {{ props.row.id }}
         </q-td>
         <q-td key="timestamp" :props="props">
-          {{ props.row.timestamp?.toLocaleString('fr-CH') || '' }}
+          {{ props.row.timestamp?.toLocaleString(dateLocale) || '' }}
         </q-td>
         <q-td key="direction" :props="props">
           <div v-if="props.row.direction" class="direction-image-cell">
@@ -65,6 +65,7 @@ import { LogEntry, Direction } from 'src/utils/logParser';
 import { onMounted, onUnmounted, PropType, ref, watch } from 'vue';
 import { computed } from 'vue';
 import CommunicationFilter from 'src/components/Filters/CommunicationFilter.vue';
+import { dateLocale } from 'src/utils/dateUtils';
 
 const props = defineProps({
   rows: {
@@ -193,7 +194,7 @@ const columns = [
     field: 'timestamp',
     sortable: true,
     format: (value: Date) => {
-      if (value) return value.toLocaleString('fr-CH');
+      if (value) return value.toLocaleString(dateLocale);
     },
   },
   {

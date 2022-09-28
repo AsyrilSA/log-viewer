@@ -58,7 +58,7 @@
 
 <script lang="ts" setup>
 import { date } from 'quasar';
-import dateFormat from 'src/utils/dateUtils';
+import { dateFormat } from 'src/utils/dateUtils';
 import { computed, PropType } from 'vue';
 
 import LevelFilter from 'src/components/Filters/LevelFilter.vue';

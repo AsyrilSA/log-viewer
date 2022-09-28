@@ -14,6 +14,16 @@ interface LogDateRange {
   last: Date;
 }
 
+interface Recipe {
+  name: string;
+  creationDate: Date;
+  dualFeeding: boolean;
+}
+
+interface RecipeInformation {
+  recipes: Map<number, Recipe>;
+}
+
 function getDateRange(logObject: LogEntry[]): LogDateRange {
   let firstDate: Date = new Date(0) ;
   let lastDate: Date = date.buildDate({ year: 2042 });
@@ -75,5 +85,31 @@ function getLogInformation(logObject: LogEntry[]): LogInformation {
   };
 }
 
-export { getLogInformation, getDateRange };
-export type { LogInformation, LogDateRange };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getRecipeInformation(metadata: any): RecipeInformation {
+  const recipes: Map<number, Recipe> = new Map();
+
+  const metadataRecipes = metadata.recipes;
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  metadataRecipes.forEach((value: any) => {
+    const info = value.info;
+    const date = new Date(Date.parse(info.savedDate));
+    const id = info.identifier.id.value;
+    const name = info.identifier.name;
+    const partRecipes = value.partRecipes;
+    const dualFeeding = partRecipes.length > 1 ? true : false;
+    recipes.set(id, {
+      name: name,
+      creationDate: date,
+      dualFeeding: dualFeeding,
+    });
+  });
+
+  return {
+    recipes: recipes,
+  };
+}
+
+export { getLogInformation, getDateRange, getRecipeInformation };
+export type { LogInformation, LogDateRange, RecipeInformation };
