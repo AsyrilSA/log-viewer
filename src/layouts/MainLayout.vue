@@ -85,8 +85,8 @@ const menuLinks: MenuLinkProps[] = [
     link: '/#/rawlogs',
   },
   {
-    title: 'Metadata',
-    caption: 'Metadata and recipes',
+    title: 'Recipes',
+    caption: 'Recipes and metadata',
     icon: 'analytics',
     link: '/#/metadata',
   },

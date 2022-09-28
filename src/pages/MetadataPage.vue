@@ -1,5 +1,20 @@
 <template>
-  <h4>Metadata and recipes</h4>
+  <div class="col-xs-12 col-lg-4 q-pa-sm">
+    <div class="row" style="min-height: 100%">
+      <div class="col-12 q-pb-xs-md q-pb-md-none">
+        <q-card
+          class="col q-mr-md-sm q-mr-xs-none q-pb-xs-md q-mb-md-none"
+          style="min-height: 100%"
+        >
+          <h5 class="q-my-none q-ml-md q-pt-sm">Recipes</h5>
+          <RecipeInformation
+            :recipeInformation="logStore.getRecipeInformation"
+          ></RecipeInformation>
+        </q-card>
+      </div>
+    </div>
+  </div>
+  <h4>Metadata</h4>
   <json-viewer
     :value="logStore.getMetadata"
     copyable
@@ -12,6 +27,7 @@
 <script setup lang="ts">
 import JsonViewer from 'vue-json-viewer';
 import { useLogStore } from 'stores/logStore';
+import RecipeInformation from 'src/pages/MetadataPage/RecipeInformation.vue';
 const logStore = useLogStore();
 </script>
 

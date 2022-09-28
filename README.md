@@ -36,6 +36,7 @@ Asyril Log Viewer
 - [ ] go to next/previous error wrap search
 - [ ] go to next error block instead of line
 - [x] add keyboard shortcut for go to next error (N) and go to previous error (B)
+- [ ] refactor recipes to use a q-table, to be able to sort columns
 
 ## Development
 
