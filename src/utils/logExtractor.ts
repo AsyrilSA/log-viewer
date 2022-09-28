@@ -98,7 +98,6 @@ function getRecipeInformation(metadata: any): RecipeInformation {
     const id = info.identifier.id.value;
     const name = info.identifier.name;
     const partRecipes = value.partRecipes;
-    console.log(partRecipes);
     const dualFeeding = partRecipes.length > 1 ? true : false;
     recipes.set(id, {
       name: name,

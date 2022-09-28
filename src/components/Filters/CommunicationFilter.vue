@@ -50,7 +50,7 @@
 
 <script lang="ts" setup>
 import { date } from 'quasar';
-import dateFormat from 'src/utils/dateUtils';
+import { dateFormat } from 'src/utils/dateUtils';
 import { PropType } from 'vue';
 
 import MessageSearch from 'src/components/Filters/MessageSearch.vue';

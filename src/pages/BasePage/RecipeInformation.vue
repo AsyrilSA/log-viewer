@@ -2,9 +2,9 @@
   <div class="column q-pa-md">
     <div class="row row-header">
       <div class="col-2">Id</div>
-      <div class="col-3">Name</div>
+      <div class="col-4">Name</div>
       <div class="col-2">Dual-feeding</div>
-      <div class="col-5">Date saved</div>
+      <div class="col-4">Date saved</div>
     </div>
     <div
       class="row row-content items-center"
@@ -12,7 +12,7 @@
       :key="recipeId"
     >
       <div class="col-2">{{ recipeId }}</div>
-      <div class="col-3">{{ recipe.name }}</div>
+      <div class="col-4 recipe-name-col">{{ recipe.name }}</div>
       <div class="col-2">
         <q-btn
           class="flex-center"
@@ -20,7 +20,7 @@
           :icon="recipe.dualFeeding ? 'check_circle' : 'radio_button_unchecked'"
         />
       </div>
-      <div class="col-5">
+      <div class="col-4">
         {{ recipe.creationDate.toLocaleString(dateLocale) }}
       </div>
     </div>
@@ -51,6 +51,13 @@ const props = defineProps({
   height: 42px;
   font-weight: bold;
 }
+
+.recipe-name-col {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media screen and (max-width: 600px) {
   .log-value {
     padding-left: 70px;
