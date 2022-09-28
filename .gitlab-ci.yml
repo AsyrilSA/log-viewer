@@ -39,7 +39,7 @@ unit test:
     CONTAINER_IMAGE: $CI_PIPELINE_ID
   script:
     - $DOCKER_COMPOSE pull --quiet log-viewer-test
-    - $DOCKER_COMPOSE run --rm --no-deps log-viewer-test -c "npm run test:unit:ci"
+    - $DOCKER_COMPOSE run --rm --no-deps log-viewer-test
   artifacts:
     when: always
     reports:
