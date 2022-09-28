@@ -19,12 +19,23 @@ function createFilterStore<Id extends string>(id: Id) {
       getServices: (state) => state.services,
       getMessage: (state) => state.message,
       getStartDate: (state) => {
-        if (state.startDate instanceof String) {
-          return date.extractDate(state.startDate, dateFormat);
+        if (
+          typeof state.startDate === 'string' ||
+          state.startDate instanceof String
+        ) {
+          return new Date(state.startDate);
         }
         return state.startDate;
       },
-      getEndDate: (state) => state.endDate,
+      getEndDate: (state) => {
+        if (
+          typeof state.endDate === 'string' ||
+          state.endDate instanceof String
+        ) {
+          return new Date(state.endDate);
+        }
+        return state.endDate;
+      },
       getDirection: (state) => state.direction,
     },
     actions: {
