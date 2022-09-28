@@ -1,9 +1,10 @@
 variables:
   DOCKER_PROXY: $REGISTRY_NAME:5556
   REGISTRY: $REGISTRY_NAME:$REGISTRY_PORT
-  DOCKER_COMPOSE: 'docker-compose -f docker-compose.yml'
+  DOCKER_COMPOSE: 'docker-compose -f docker-compose.yml -f docker-compose.test.yml'
 stages:
   - build
+  - test
   - deploy
 
 build app:
@@ -24,6 +25,27 @@ build app:
     # Build and push the images to the registry
     - $DOCKER_COMPOSE build
     - $DOCKER_COMPOSE push
+
+unit test:
+  image: ${DOCKER_PROXY}/tmaier/docker-compose:20.10
+  stage: test
+  services:
+    - name: ${DOCKER_PROXY}/docker:20.10-dind-asyril
+      alias: docker
+  before_script:
+    - docker version
+    - docker-compose version
+  variables:
+    CONTAINER_IMAGE: $CI_PIPELINE_ID
+  script:
+    - $DOCKER_COMPOSE pull --quiet log-viewer-test
+    - $DOCKER_COMPOSE run --rm --no-deps log-viewer-test
+  artifacts:
+    when: always
+    reports:
+      junit:
+        - test/report/junit.xml
+  interruptible: true
 
 deploy app:
   image: ${DOCKER_PROXY}/tmaier/docker-compose:20.10

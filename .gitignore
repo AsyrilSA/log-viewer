@@ -33,3 +33,4 @@ yarn-error.log*
 *.sln
 
 .devcontainer/docker-compose.yml
+test/jest/junit.xml
