@@ -94,7 +94,7 @@ function addControlKeyDown(event: KeyboardEvent) {
 }
 function addControlKeyUp(event: KeyboardEvent) {
   if (event.key === 'Control') {
-    isCtrlPressed.value = true;
+    isCtrlPressed.value = false;
   }
 }
 onMounted(() => {
