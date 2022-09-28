@@ -51,13 +51,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import MenuLink, { MenuLinkProps } from 'components/MenuLink.vue';
-import ImportLogButton from '../components/ImportLogButton.vue';
-import { useLogStore } from 'stores/logStore';
+import { ref, watch } from 'vue';
+import MenuLink, { MenuLinkProps } from 'src/components/MenuLink.vue';
+import ImportLogButton from 'src/components/ImportLogButton.vue';
+import { useLogStore } from 'src/stores/logStore';
 import { version } from '../../package.json';
+import { useQuasar } from 'quasar'
+import { storeToRefs } from 'pinia'
 
-const logStore = useLogStore();
+const $q = useQuasar()
 
 const menuLinks: MenuLinkProps[] = [
   {
@@ -102,6 +104,17 @@ const miniState = ref(false);
 function toggleLeftDrawer() {
   miniState.value = !miniState.value;
 }
+
+function handleLoadingDisplay(isLoading:boolean) {
+  isLoading ? $q.loading.show() : $q.loading.hide()
+}
+const logStore = useLogStore()
+const { isLogLoading } = storeToRefs(logStore)
+
+watch(isLogLoading, ( ) => {
+  handleLoadingDisplay(isLogLoading.value)
+})
+
 </script>
 
 <style lang="scss">

@@ -81,10 +81,13 @@ import LogStatus from 'src/pages/BasePage/LogStatus.vue';
 import TimeInformation from 'src/pages/BasePage/TimeInformation.vue';
 import GeneralLogInformation from 'src/pages/BasePage/GeneralLogInformation.vue';
 
-import { useLogStore } from 'stores/logStore';
+import { useLogStore } from 'src/stores/logStore';
 import { onMounted, onUnmounted, ref } from 'vue';
 
 const logStore = useLogStore();
+onMounted(() => {
+logStore.setLogLoading(false);
+})
 
 const isCtrlPressed = ref(false);
 function addControlKeyDown(event: KeyboardEvent) {

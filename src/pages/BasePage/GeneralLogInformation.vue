@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useLogStore } from 'stores/logStore';
+import { useLogStore } from 'src/stores/logStore';
 import type { LogInformation } from 'src/utils/logExtractor';
 import { PropType } from 'vue';
 

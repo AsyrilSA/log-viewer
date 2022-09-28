@@ -66,6 +66,7 @@ import { onMounted, onUnmounted, PropType, ref, watch } from 'vue';
 import { computed } from 'vue';
 import CommunicationFilter from 'src/components/Filters/CommunicationFilter.vue';
 import { dateLocale } from 'src/utils/dateUtils';
+import { useLogStore } from 'src/stores/logStore';
 
 const props = defineProps({
   rows: {
@@ -78,6 +79,7 @@ const props = defineProps({
   },
 });
 
+const logStore = useLogStore();
 onMounted(() => {
   if ('clickedPie' in history.state) {
     props.filterStore.setLevels(history.state.clickedPie);
@@ -89,6 +91,7 @@ onMounted(() => {
   refreshFilter(props.rows);
 
   window.addEventListener('keydown', onKeyEvent);
+  logStore.setLogLoading(false);
 });
 
 onUnmounted(() => {

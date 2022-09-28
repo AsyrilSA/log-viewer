@@ -100,7 +100,8 @@ import { dateLocale } from 'src/utils/dateUtils';
 import { LogEntry, LogLevel } from 'src/utils/logParser';
 import { onMounted, onUnmounted, PropType, ref, watch } from 'vue';
 import { computed } from 'vue';
-import LogFilter from './Filters/LogFilter.vue';
+import LogFilter from 'src/components/Filters/LogFilter.vue';
+import { useLogStore } from 'src/stores/logStore';
 
 const props = defineProps({
   rows: {
@@ -351,6 +352,10 @@ const goToLine = (line: number) => {
     });
   }
 };
+const logStore = useLogStore();
+onMounted(() => {
+  logStore.setLogLoading(false);
+});
 </script>
 
 <style lang="scss">

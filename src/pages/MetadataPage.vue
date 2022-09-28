@@ -26,9 +26,14 @@
 
 <script setup lang="ts">
 import JsonViewer from 'vue-json-viewer';
-import { useLogStore } from 'stores/logStore';
+import { useLogStore } from 'src/stores/logStore';
 import RecipeInformation from 'src/pages/MetadataPage/RecipeInformation.vue';
+import { onMounted } from 'vue';
+
 const logStore = useLogStore();
+onMounted(() => {
+  logStore.setLogLoading(false);
+});
 </script>
 
 <style lang="scss">

@@ -9,6 +9,7 @@ export const useLogStore = defineStore('log', {
     logFileName: '',
     metadata: {},
     recipeInformation: {} as RecipeInformation,
+    isLogLoading:false,
   }),
   getters: {
     getRows: (state) => state.rows,
@@ -16,11 +17,13 @@ export const useLogStore = defineStore('log', {
     getName: (state) => state.logFileName,
     getMetadata: (state) => state.metadata,
     getRecipeInformation: (state) => state.recipeInformation,
+    getLogLoading: (state) => state.isLogLoading,
   },
   actions: {
     setLogs(newRows: LogEntry[], fileName: string) {
       this.rows = newRows;
       this.logFileName = fileName;
+      this.setLogLoading(false)
     },
     setLogInformation(logInformation: LogInformation) {
       this.logInformation = logInformation;
@@ -31,6 +34,9 @@ export const useLogStore = defineStore('log', {
     },
     setRecipeInformation(recipeInformation: RecipeInformation) {
       this.recipeInformation = recipeInformation;
+    },
+   setLogLoading(isLogLoading: boolean) {
+      this.isLogLoading = isLogLoading;
     },
   },
 });

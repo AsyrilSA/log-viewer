@@ -114,7 +114,7 @@ module.exports = configure(function (/* ctx */) {
           secondary: '#e86f50',
         },
         loading: {
-          delay: 100,
+          delay: 0,
           message: 'Loading, please wait ...',
           backgroundColor: 'primary',
         },
