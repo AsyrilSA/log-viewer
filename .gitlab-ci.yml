@@ -44,7 +44,7 @@ unit test:
     when: always
     reports:
       junit:
-        - test/jest/junit.xml
+        - test/report/junit.xml
   interruptible: true
 
 deploy app:
