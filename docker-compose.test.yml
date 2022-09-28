@@ -5,3 +5,5 @@ services:
     build:
       context: .
       dockerfile: ./test.Dockerfile
+    volumes:
+      - ./test/report:/app/test/report
