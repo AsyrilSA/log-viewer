@@ -46,7 +46,10 @@ const getClass = computed(() => {
 });
 
 function updateStore() {
-  logStore.setLogLoading(true);
+  // Do not display the loader if we are already on the target page
+  if (!props.link.endsWith(route.path)) {
+    logStore.setLogLoading(true);
+  }
 }
 </script>
 
