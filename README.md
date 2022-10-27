@@ -29,10 +29,13 @@ Asyril Log Viewer
 - [x] add keyboard shortcut for go to next error (N) and go to previous error (B)
 
 ## Improve for future
+- [ ] display all lines even if not recognized within a service (maybe in the raw view we should display every lines)
+- [ ] add support for multiline log entry (currently one line in the file = one log entry)
+- [ ] display the time with milliseconds
+- [ ] permits to enter regex in the message filter
 - [ ] tests (unit and e2e)
 - [ ] translation (i18n)
 - [ ] implement a general filter like gitlab, github or wireshark
-- [ ] add support for multiline log entry (currently one line in the file = one log entry)
 - [ ] if scrolled manually go to next error instead of first
 - [ ] go to next/previous error wrap search
 - [ ] go to next error block instead of line
