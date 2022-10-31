@@ -1,4 +1,4 @@
-FROM asyril-registry:5556/ubuntu:22.04
+FROM registry.company.asyril.com:5556/ubuntu:22.04
 ENV REFRESHED_AT 2022-09-09
 
 # Prevent tzdata requesting timezone
@@ -28,7 +28,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
 
 # Update NPM
-RUN npm config set registry http://asyril-registry:8787/repository/npm/ && \
+RUN npm config set registry http://registry.company.asyril.com:8787/repository/npm/ && \
     npm install -g npm@latest
 
 # Install and setup sudo
