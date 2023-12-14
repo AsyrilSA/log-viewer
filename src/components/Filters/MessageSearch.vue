@@ -5,6 +5,12 @@
     :model-value="props.modelValue"
     @update:model-value="
       (value) => {
+        try {
+          new RegExp(value);
+          regexError.value = '';
+        } catch (error) {
+          regexError.value = error.message;
+        }
         emit('update:modelValue', value);
       }
     "
@@ -21,6 +27,7 @@
       <q-icon name="search" />
     </template>
   </q-input>
+    <q-alert v-if="regexError.value !== ''" :type="'negative'">{{ regexError.value }}</q-alert>
 </template>
 
 <script lang="ts" setup>
@@ -37,4 +44,5 @@ const props = defineProps({
 let emit = defineEmits(['update:modelValue']);
 
 const text = ref('');
+const regexError = ref('');
 </script>
