@@ -62,7 +62,7 @@ import { useQuasar } from 'quasar';
 import { FilterStoreType } from 'src/stores/logTableFilters';
 import { getDateRange } from 'src/utils/logExtractor';
 import { LogEntry, Direction } from 'src/utils/logParser';
-import { onMounted, onUnmounted, PropType, ref, watch } from 'vue';
+import { onMounted, onUnmounted, PropType, ref, watch, Ref } from 'vue';
 import { computed } from 'vue';
 import CommunicationFilter from 'src/components/Filters/CommunicationFilter.vue';
 import { dateLocale } from 'src/utils/dateUtils';
@@ -102,6 +102,17 @@ watch(
   () => props.rows,
   (rows) => {
     refreshFilter(rows);
+  }
+);
+
+watch(
+  () => props.filterStore.getMessage,
+  (newMessage) => {
+    try {
+      regex.value = new RegExp(newMessage);
+    } catch (error) {
+      regex.value = new RegExp('');
+    }
   }
 );
 
@@ -156,11 +167,7 @@ let filteredRows = computed(() => {
   }
 
   if (props.filterStore.getMessage !== '') {
-    remainingRows = remainingRows.filter((r) =>
-      r.message
-        .toLowerCase()
-        .includes(props.filterStore.getMessage.toLowerCase())
-    );
+    remainingRows = remainingRows.filter((r) => regex.value.test(r.message));
   }
 
   remainingRows = remainingRows.filter((r) => {
@@ -210,6 +217,8 @@ const columns = [
 ];
 
 const table = ref(null);
+
+const regex = ref(new RegExp(''));
 
 const goToTop = () => {
   if (table.value) {
