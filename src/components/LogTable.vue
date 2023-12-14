@@ -20,7 +20,7 @@
           {{ props.row.id }}
         </q-td>
         <q-td key="timestamp" :props="props">
-          {{ props.row.timestamp?.toLocaleString(dateLocale) || '' }}
+          {{ new Date(props.row.timestamp).toISOString() || '' }}
         </q-td>
         <q-td
           key="level"
@@ -250,7 +250,7 @@ const columns = [
     field: 'timestamp',
     sortable: true,
     format: (value: Date) => {
-      if (value) return value.toLocaleString(dateLocale);
+      if (value) return new Date(value).toISOString();
     },
   },
   {
