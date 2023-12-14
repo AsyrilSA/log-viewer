@@ -20,7 +20,7 @@
           {{ props.row.id }}
         </q-td>
         <q-td key="timestamp" :props="props">
-          {{ new Date(props.row.timestamp).toISOString() || '' }}
+          {{ new Date(props.row.timestamp).toLocaleString() + '.' + new Date(props.row.timestamp).getMilliseconds() || '' }}
         </q-td>
         <q-td key="direction" :props="props">
           <div v-if="props.row.direction" class="direction-image-cell">
