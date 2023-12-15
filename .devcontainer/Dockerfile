@@ -24,7 +24,7 @@ RUN apt-get update -y -qq && \
     apt-get install -y curl wget unzip git-lfs vim
 
 # Install node
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - && \
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs
 
 # Update NPM
