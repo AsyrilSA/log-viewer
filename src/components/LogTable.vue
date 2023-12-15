@@ -250,7 +250,7 @@ const columns = [
     label: 'Timestamp',
     field: 'timestamp',
     sortable: true,
-    format: (value: Date) => formatTimestamp(value),
+    format: (value: any) => formatTimestamp(value),
   },
   {
     name: 'level',
