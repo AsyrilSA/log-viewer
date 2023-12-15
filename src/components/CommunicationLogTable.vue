@@ -105,13 +105,19 @@ watch(
   }
 );
 
+import { useRegex } from 'src/components/Filters/MessageSearch.vue';
+
 watch(
   () => props.filterStore.getMessage,
   (newMessage) => {
-    try {
-      regex.value = new RegExp(newMessage);
-    } catch (error) {
-      regex.value = new RegExp('');
+    if(useRegex.value) {
+      try {
+        regex.value = new RegExp(newMessage);
+      } catch (error) {
+        regex.value = new RegExp('');
+      }
+    } else {
+      regex.value = new RegExp('^' + newMessage.replace(/[.*+?^${}()|[\]\/\\]/g, '\\$&') + '$');
     }
   }
 );
@@ -166,8 +172,15 @@ let filteredRows = computed(() => {
     });
   }
 
-  if (props.filterStore.getMessage !== '') {
-    remainingRows = remainingRows.filter((r) => regex.value.test(r.message));
+  import { useRegex } from 'src/components/Filters/MessageSearch.vue';
+
+if (props.filterStore.getMessage !== '') {
+    if(useRegex.value) {
+      remainingRows = remainingRows.filter((r) => regex.value.test(r.message));
+    } else {
+      const searchString = props.filterStore.getMessage.toLowerCase();
+      remainingRows = remainingRows.filter((r) => r.message.toLowerCase().includes(searchString));
+    }
   }
 
   remainingRows = remainingRows.filter((r) => {
