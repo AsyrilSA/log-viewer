@@ -20,7 +20,7 @@
           {{ props.row.id }}
         </q-td>
         <q-td key="timestamp" :props="props">
-          {{ props.row.timestamp?.toLocaleString(dateLocale) || '' }}
+          {{ formatTimestamp(props.row.timestamp) || '' }}
         </q-td>
         <q-td
           key="level"
@@ -96,12 +96,12 @@
 import { useQuasar } from 'quasar';
 import { FilterStoreType } from 'src/stores/logTableFilters';
 import { getDateRange } from 'src/utils/logExtractor';
-import { dateLocale } from 'src/utils/dateUtils';
 import { LogEntry, LogLevel } from 'src/utils/logParser';
 import { onMounted, onUnmounted, PropType, ref, watch } from 'vue';
 import { computed } from 'vue';
 import LogFilter from 'src/components/Filters/LogFilter.vue';
 import { useLogStore } from 'src/stores/logStore';
+import { formatTimestamp } from 'src/utils/dateUtils';
 
 const props = defineProps({
   rows: {
@@ -249,9 +249,7 @@ const columns = [
     label: 'Timestamp',
     field: 'timestamp',
     sortable: true,
-    format: (value: Date) => {
-      if (value) return value.toLocaleString(dateLocale);
-    },
+    format: (value: any) => formatTimestamp(value),
   },
   {
     name: 'level',
