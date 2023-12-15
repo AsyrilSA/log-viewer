@@ -62,7 +62,7 @@ import { useQuasar } from 'quasar';
 import { FilterStoreType } from 'src/stores/logTableFilters';
 import { getDateRange } from 'src/utils/logExtractor';
 import { LogEntry, Direction } from 'src/utils/logParser';
-import { onMounted, onUnmounted, PropType, ref, watch } from 'vue';
+import { onMounted, onUnmounted, PropType, ref, watch, Ref } from 'vue';
 import { computed } from 'vue';
 import CommunicationFilter from 'src/components/Filters/CommunicationFilter.vue';
 import { useLogStore } from 'src/stores/logStore';
@@ -102,6 +102,23 @@ watch(
   () => props.rows,
   (rows) => {
     refreshFilter(rows);
+  }
+);
+
+import { useRegex } from 'src/components/Filters/MessageSearch.vue';
+
+watch(
+  () => props.filterStore.getMessage,
+  (newMessage) => {
+    if(useRegex.value) {
+      try {
+        regex.value = new RegExp(newMessage);
+      } catch (error) {
+        regex.value = new RegExp('');
+      }
+    } else {
+      regex.value = new RegExp('^' + newMessage.replace(/[.*+?^${}()|[\]\/\\]/g, '\\$&') + '$');
+    }
   }
 );
 
@@ -155,12 +172,15 @@ let filteredRows = computed(() => {
     });
   }
 
-  if (props.filterStore.getMessage !== '') {
-    remainingRows = remainingRows.filter((r) =>
-      r.message
-        .toLowerCase()
-        .includes(props.filterStore.getMessage.toLowerCase())
-    );
+  import { useRegex } from 'src/components/Filters/MessageSearch.vue';
+
+if (props.filterStore.getMessage !== '') {
+    if(useRegex.value) {
+      remainingRows = remainingRows.filter((r) => regex.value.test(r.message));
+    } else {
+      const searchString = props.filterStore.getMessage.toLowerCase();
+      remainingRows = remainingRows.filter((r) => r.message.toLowerCase().includes(searchString));
+    }
   }
 
   remainingRows = remainingRows.filter((r) => {
@@ -208,6 +228,8 @@ const columns = [
 ];
 
 const table = ref(null);
+
+const regex = ref(new RegExp(''));
 
 const goToTop = () => {
   if (table.value) {
