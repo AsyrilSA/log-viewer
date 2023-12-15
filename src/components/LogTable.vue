@@ -20,7 +20,7 @@
           {{ props.row.id }}
         </q-td>
         <q-td key="timestamp" :props="props">
-          {{ new Date(props.row.timestamp).toLocaleString() + '.' + new Date(props.row.timestamp).getMilliseconds() || '' }}
+          {{ formatTimestamp(props.row.timestamp) || '' }}
         </q-td>
         <q-td
           key="level"
@@ -93,6 +93,7 @@
 </template>
 
 <script lang="ts" setup>
+import { formatTimestamp } from 'src/utils/timeUtils';
 import { useQuasar } from 'quasar';
 import { FilterStoreType } from 'src/stores/logTableFilters';
 import { getDateRange } from 'src/utils/logExtractor';
@@ -249,9 +250,7 @@ const columns = [
     label: 'Timestamp',
     field: 'timestamp',
     sortable: true,
-    format: (value: Date) => {
-      if (value) return new Date(value).toLocaleString() + '.' + new Date(value).getMilliseconds();
-    },
+    format: (value: Date) => formatTimestamp(value),
   },
   {
     name: 'level',
