@@ -197,9 +197,7 @@ const columns = [
     label: 'Timestamp',
     field: 'timestamp',
     sortable: true,
-    format: (value: Date) => {
-      if (value) return formatTimestamp(value);
-    },
+    format: (value: Date) => formatTimestamp(value),
   },
   {
     name: 'direction',
