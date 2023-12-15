@@ -1,17 +1,21 @@
 <template>
-  <q-input
+  <q-checkbox v-model="useRegex" label="Use Regex"/>
+<q-input
     color="secondary"
     filled
     :model-value="props.modelValue"
     @update:model-value="
       (value) => {
+        if(useRegex.value) {
         try {
           new RegExp(value);
           regexError.value = '';
         } catch (error) {
           regexError.value = error.message;
         }
-        emit('update:modelValue', value);
+        } else {
+            emit('update:modelValue', value);
+          }
       }
     "
     label="Message"
@@ -45,4 +49,5 @@ let emit = defineEmits(['update:modelValue']);
 
 const text = ref('');
 const regexError = ref('');
+const useRegex = ref(false);
 </script>
