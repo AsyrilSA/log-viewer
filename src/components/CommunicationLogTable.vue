@@ -58,7 +58,6 @@
 </template>
 
 <script lang="ts" setup>
-import { formatTimestamp } from 'src/utils/timeUtils';
 import { useQuasar } from 'quasar';
 import { FilterStoreType } from 'src/stores/logTableFilters';
 import { getDateRange } from 'src/utils/logExtractor';
@@ -66,8 +65,8 @@ import { LogEntry, Direction } from 'src/utils/logParser';
 import { onMounted, onUnmounted, PropType, ref, watch } from 'vue';
 import { computed } from 'vue';
 import CommunicationFilter from 'src/components/Filters/CommunicationFilter.vue';
-import { dateLocale } from 'src/utils/dateUtils';
 import { useLogStore } from 'src/stores/logStore';
+import { formatTimestamp } from 'src/utils/dateUtils';
 
 const props = defineProps({
   rows: {
